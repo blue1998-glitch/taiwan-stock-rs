@@ -92,7 +92,7 @@ def download_batch_prices(chunk):
         return pd.DataFrame()
 
 def calculate_real_market_rs():
-    print("⚡ 啟動全市場真實動能計算與修剪題材注入...")
+    print("⚡ 啟動全市場真實動能計算與精確題材注入...")
 
     if not os.path.exists("data/theme_mapping.json"):
         import sys
@@ -126,7 +126,7 @@ def calculate_real_market_rs():
             except Exception as exc:
                 print(f"  ⚠ 批次 {idx+1} 略過: {exc}")
 
-    print("📊 股價數據彙整完畢，計算真實動能得分...")
+    print("📊 股價數據彙整完畢，計算真實動能得分 (5日 20%、20日 50%、60日 30%)...")
 
     valid_results = []
     for _, row in stock_df.iterrows():
@@ -182,6 +182,7 @@ def calculate_real_market_rs():
         print("❌ 計算結果為空")
         return
 
+    # 全市場精確百分位 PR 排名 (1~99)
     df_rank["rs_rating"] = pd.qcut(
         df_rank["score"].rank(method="first"),
         q=99,
@@ -194,7 +195,7 @@ def calculate_real_market_rs():
     with open("market_rankings.json", "w", encoding="utf-8") as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
 
-    print(f"🎉 全市場修剪版 RS 計算完成！共評比 {len(output_data)} 檔標的。")
+    print(f"🎉 全市場精確版 RS 計算完成！共評比 {len(output_data)} 檔標的。")
 
 if __name__ == "__main__":
     calculate_real_market_rs()
