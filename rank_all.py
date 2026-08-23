@@ -5,6 +5,7 @@ import requests
 import pandas as pd
 import numpy as np
 import yfinance as yf
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # 官方產業代碼對照中文表
 TWSE_INDUSTRY_MAP = {
@@ -27,10 +28,9 @@ def clean_industry_name(raw_ind):
     return TWSE_INDUSTRY_MAP.get(raw_str, raw_str if raw_str else "綜合產業")
 
 def get_stock_list():
-    """抓取全市場上市與上櫃股票清單"""
     stocks = []
     try:
-        r_twse = requests.get("https://openapi.twse.com.tw/v1/opendata/t187ap03_L", timeout=12).json()
+        r_twse = requests.get("https://openapi.twse.com.tw/v1/opendata/t187ap03_L", timeout=10).json()
         for item in r_twse:
             sym = str(item.get("公司代號", "")).strip()
             if len(sym) == 4 and sym.isdigit():
@@ -42,10 +42,10 @@ def get_stock_list():
                     "industry": clean_industry_name(item.get("產業別", ""))
                 })
     except Exception as e:
-        print(f"TWSE API 讀取: {e}")
+        print(f"TWSE API: {e}")
 
     try:
-        r_tpex = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=12).json()
+        r_tpex = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=10).json()
         for item in r_tpex:
             sym = str(item.get("SecuritiesCompanyCode", "")).strip()
             if len(sym) == 4 and sym.isdigit():
@@ -57,14 +57,36 @@ def get_stock_list():
                     "industry": clean_industry_name(item.get("Industry", ""))
                 })
     except Exception as e:
-        print(f"TPEx API 讀取: {e}")
+        print(f"TPEx API: {e}")
 
     return pd.DataFrame(stocks)
 
-def calculate_real_market_rs():
-    print("🚀 開始執行全市場真實 RS Rating 動能評分計算...")
+def download_batch_prices(chunk):
+    """單批下載函數 (限制 3 個月日 K，快速返回)"""
+    try:
+        data = yf.download(
+            chunk,
+            period="3mo",
+            interval="1d",
+            progress=False,
+            auto_adjust=True,
+            threads=True,
+            timeout=8
+        )
+        if isinstance(data.columns, pd.MultiIndex):
+            if "Close" in data.columns.levels[0]:
+                return data["Close"]
+            else:
+                return data.xs("Close", level=0, axis=1)
+        elif "Close" in data:
+            return data["Close"]
+        return data
+    except Exception as e:
+        return pd.DataFrame()
 
-    # 確保題材對照檔存在
+def calculate_real_market_rs():
+    print("⚡ 啟動全市場高速平行下載計算引擎...")
+
     if not os.path.exists("data/theme_mapping.json"):
         import sys
         sys.path.append(".")
@@ -76,35 +98,31 @@ def calculate_real_market_rs():
 
     stock_df = get_stock_list()
     if stock_df.empty:
-        print("❌ 無法取得股票清單！")
+        print("❌ 無法取得股票清單")
         return
 
-    print(f"📋 共取得全市場 {len(stock_df)} 檔上市櫃個股，開始批次下載真實歷史股價...")
+    print(f"📋 共取得全市場 {len(stock_df)} 檔上市櫃個股，啟動多線程下載...")
 
-    # 批次透過 yfinance 下載（每批 120 檔，避免超時與被擋）
     tickers = stock_df["ticker"].tolist()
-    chunk_size = 120
+    chunk_size = 60  # 縮小每批檔數，防止 Yahoo 伺服器超時
+    chunks = [tickers[i:i + chunk_size] for i in range(0, len(tickers), chunk_size)]
+
     all_close_data = pd.DataFrame()
 
-    for i in range(0, len(tickers), chunk_size):
-        chunk = tickers[i:i + chunk_size]
-        try:
-            # 下載近 6 個月日 K 線
-            df_chunk = yf.download(chunk, period="6mo", interval="1d", progress=False, auto_adjust=True)
-            if isinstance(df_chunk.columns, pd.MultiIndex):
-                if "Close" in df_chunk.columns.levels[0]:
-                    close_chunk = df_chunk["Close"]
-                else:
-                    close_chunk = df_chunk.xs("Close", level=0, axis=1)
-            else:
-                close_chunk = df_chunk["Close"] if "Close" in df_chunk else df_chunk
-            
-            all_close_data = pd.concat([all_close_data, close_chunk], axis=1)
-        except Exception as e:
-            print(f"批次下載異常 ({i}~{i+chunk_size}): {e}")
-        time.sleep(0.5)
+    # 採用 6 個工作線程平行抓取
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        future_to_chunk = {executor.submit(download_batch_prices, chunk): i for i, chunk in enumerate(chunks)}
+        for future in as_completed(future_to_chunk):
+            idx = future_to_chunk[future]
+            try:
+                chunk_res = future.result()
+                if not chunk_res.empty:
+                    all_close_data = pd.concat([all_close_data, chunk_res], axis=1)
+                print(f"  ✔ 批次 {idx+1}/{len(chunks)} 下載完成")
+            except Exception as exc:
+                print(f"  ⚠ 批次 {idx+1} 略過: {exc}")
 
-    print("📊 股價下載完畢，開始計算動能評分 (5日 20%、20日 50%、60日 30%)...")
+    print("📊 股價數據彙整完畢，計算近 5 日、1 個月、1 季動能...")
 
     valid_results = []
     for _, row in stock_df.iterrows():
@@ -114,7 +132,6 @@ def calculate_real_market_rs():
         ticker = row["ticker"]
         ind = row["industry"]
 
-        # 讀取題材標籤
         tag_info = theme_map.get(sym, {
             "main_industry": ind,
             "sub_industry": f"{ind}-一般應用",
@@ -127,7 +144,6 @@ def calculate_real_market_rs():
         prices = all_close_data[ticker].dropna()
         n = len(prices)
 
-        # 至少需要 5 個交易日才有基本動能
         if n < 5:
             continue
 
@@ -135,22 +151,10 @@ def calculate_real_market_rs():
         if cur_p <= 0 or np.isnan(cur_p):
             continue
 
-        # 計算 5 日報酬率
         r_5 = float((cur_p - prices.iloc[-5]) / prices.iloc[-5] * 100)
+        r_20 = float((cur_p - prices.iloc[-20]) / prices.iloc[-20] * 100) if n >= 20 else r_5
+        r_60 = float((cur_p - prices.iloc[-60]) / prices.iloc[-60] * 100) if n >= 60 else r_20
 
-        # 計算 20 日 (近1個月) 報酬率
-        if n >= 20:
-            r_20 = float((cur_p - prices.iloc[-20]) / prices.iloc[-20] * 100)
-        else:
-            r_20 = r_5
-
-        # 計算 60 日 (近1季) 報酬率
-        if n >= 60:
-            r_60 = float((cur_p - prices.iloc[-60]) / prices.iloc[-60] * 100)
-        else:
-            r_60 = r_20
-
-        # 動能加權綜合得分
         composite_score = (r_5 * 0.20) + (r_20 * 0.50) + (r_60 * 0.30)
 
         valid_results.append({
@@ -168,28 +172,24 @@ def calculate_real_market_rs():
         })
 
     df_rank = pd.DataFrame(valid_results)
-
     if df_rank.empty:
-        print("❌ 無有效計算結果！")
+        print("❌ 計算結果為空")
         return
 
-    # 全市場精確百分位 PR 排名 (1~99，99 為市場最強前 1%)
+    # 全市場精確百分位 PR 排名 (1~99)
     df_rank["rs_rating"] = pd.qcut(
         df_rank["score"].rank(method="first"),
         q=99,
         labels=range(1, 100)
     ).astype(int)
 
-    # 依照 RS 評分與綜合動能由大到小排序
     df_rank = df_rank.sort_values(by=["rs_rating", "score"], ascending=[False, False])
 
     output_data = df_rank.to_dict(orient="records")
     with open("market_rankings.json", "w", encoding="utf-8") as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
 
-    print(f"🎉 全市場真實 RS 計算完畢！共評比 {len(output_data)} 檔個股，榜首 RS 99 股票範例：")
-    for top in output_data[:5]:
-        print(f"  [{top['symbol']} {top['name']}] RS: {top['rs_rating']} (5日:{top['r_5d']}%, 20日:{top['r_20d']}%, 60日:{top['r_60d']}%, 得分:{top['score']})")
+    print(f"🎉 全市場 RS 評分計算完成！共評比 {len(output_data)} 檔標的。")
 
 if __name__ == "__main__":
     calculate_real_market_rs()
