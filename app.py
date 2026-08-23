@@ -6,7 +6,7 @@ import requests
 
 st.set_page_config(page_title="台股動能 RS 產業與自適應雙軌題材系統", layout="wide")
 
-# ----------------- 1. 手機極簡緊湊膠囊與字數自適應 CSS -----------------
+# ----------------- 1. 手機極簡緊湊膠囊與滿版 CSS -----------------
 st.markdown("""
 <style>
 div.stButton > button {
@@ -40,7 +40,6 @@ div.stButton > button:hover {
     padding-right: 0.8rem !important;
 }
 
-/* 確保表格容器緊貼內容，且在手機端可平滑橫向滑動瀏覽 */
 [data-testid="stDataFrame"] {
     width: 100% !important;
     overflow-x: auto !important;
@@ -189,15 +188,15 @@ if "selected_theme" not in st.session_state:
 if "selected_industry" not in st.session_state:
     st.session_state.selected_industry = df_industry_ranked["industry"].iloc[0] if not df_industry_ranked.empty else "航太與國防"
 
-# ----------------- 4. 依資料長度自動貼合配置 (Auto-Fit) -----------------
-CONTENT_AUTOFIT_CONFIG = {
-    "代號": st.column_config.TextColumn("代號"),
-    "名稱": st.column_config.TextColumn("名稱"),
-    "收盤價": st.column_config.NumberColumn("收盤價", format="%.2f"),
-    "綜合動能": st.column_config.NumberColumn("綜合動能", format="%.2f"),
-    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99),
-    "共振": st.column_config.TextColumn("共振"),
-    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵")
+# ----------------- 4. 精確版面配置：前6欄緊湊無空白，末欄最大化展開 -----------------
+OPTIMAL_COLUMN_CONFIG = {
+    "代號": st.column_config.TextColumn("代號", width="small"),
+    "名稱": st.column_config.TextColumn("名稱", width="small"),
+    "收盤價": st.column_config.NumberColumn("收盤價", width="small", format="%.2f"),
+    "綜合動能": st.column_config.NumberColumn("綜合動能", width="small", format="%.2f"),
+    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", width="small", format="%d", min_value=1, max_value=99),
+    "共振": st.column_config.TextColumn("共振", width="small"),
+    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵", width="large")
 }
 
 # ----------------- 5. 頂部狀態列與萬用搜尋 -----------------
@@ -301,9 +300,9 @@ with tab1:
 
     st.dataframe(
         display_t_df,
-        use_container_width=False,
+        use_container_width=True,
         hide_index=True,
-        column_config=CONTENT_AUTOFIT_CONFIG
+        column_config=OPTIMAL_COLUMN_CONFIG
     )
 
     st.markdown("---")
@@ -372,9 +371,9 @@ with tab2:
 
     st.dataframe(
         display_ind_df,
-        use_container_width=False,
+        use_container_width=True,
         hide_index=True,
-        column_config=CONTENT_AUTOFIT_CONFIG
+        column_config=OPTIMAL_COLUMN_CONFIG
     )
 
     st.markdown("---")
@@ -429,9 +428,9 @@ with tab3:
 
     st.dataframe(
         display_lead_df,
-        use_container_width=False,
+        use_container_width=True,
         hide_index=True,
-        column_config=CONTENT_AUTOFIT_CONFIG
+        column_config=OPTIMAL_COLUMN_CONFIG
     )
 
 # =========================================================
@@ -480,7 +479,7 @@ with tab4:
 
     st.dataframe(
         view_all_df,
-        use_container_width=False,
+        use_container_width=True,
         hide_index=True,
-        column_config=CONTENT_AUTOFIT_CONFIG
+        column_config=OPTIMAL_COLUMN_CONFIG
     )
