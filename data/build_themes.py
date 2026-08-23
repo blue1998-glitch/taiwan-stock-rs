@@ -3,7 +3,7 @@ import os
 import requests
 import pandas as pd
 
-# 官方產業代碼轉正體中文標準字典
+# 官方產業代碼轉正體中文完整字典 (包含 80管理股票 與 91存託憑證)
 TWSE_INDUSTRY_MAP = {
     "01": "水泥工業", "1": "水泥工業",
     "02": "食品工業", "2": "食品工業",
@@ -42,18 +42,27 @@ TWSE_INDUSTRY_MAP = {
     "35": "綠能環保",
     "36": "數位雲端",
     "37": "運動休閒",
-    "38": "居家生活"
+    "38": "居家生活",
+    "80": "管理股票",
+    "91": "存託憑證(TDR)"
 }
 
-def clean_industry_name(raw_ind):
+def clean_industry_name(raw_ind, sym="", name=""):
     raw_str = str(raw_ind).strip()
-    return TWSE_INDUSTRY_MAP.get(raw_str, raw_str if raw_str else "綜合產業")
+    # 自動識別 TDR 存託憑證
+    if sym.startswith("91") or "-DR" in name or "DR" in name or raw_str == "91":
+        return "存託憑證(TDR)"
+    if raw_str in TWSE_INDUSTRY_MAP:
+        return TWSE_INDUSTRY_MAP[raw_str]
+    # 防呆機制：如果是未知純數字，強制轉為綜合產業，不讓數字外洩
+    if raw_str.isdigit():
+        return "綜合產業"
+    return raw_str if raw_str else "綜合產業"
 
 def generate_theme_database():
     os.makedirs("data", exist_ok=True)
     mapping_file = "data/theme_mapping.json"
     
-    # 1. 深度專家題材庫 (含精確次產業與市場主流概念標籤)
     expert_db = {
         # 航太、國防與無人機族群
         "2645": {"main_industry": "航太與國防", "sub_industry": "飛機維修/發動機零件製造", "themes": ["GE航空供應鏈", "無人機", "波音供應鏈", "軍工國防", "長榮集團"]},
@@ -98,7 +107,7 @@ def generate_theme_database():
         "1514": {"main_industry": "電機機械", "sub_industry": "變壓器/配電盤", "themes": ["重電設備", "台電強韌電網"]}
     }
 
-    print("📡 正在抓取 TWSE / TPEx 全市場清單並轉換標準中文產業別...")
+    print("📡 正在抓取全市場股票並完整轉譯產業別...")
     all_stocks = {}
 
     try:
@@ -107,11 +116,11 @@ def generate_theme_database():
             sym = str(row.get("公司代號", "")).strip()
             name = str(row.get("公司名稱", "")).strip()
             raw_ind = row.get("產業別", "")
-            ind_name = clean_industry_name(raw_ind)
+            ind_name = clean_industry_name(raw_ind, sym, name)
             if sym and len(sym) == 4:
                 all_stocks[sym] = {"name": name, "main_industry": ind_name, "market": "上市"}
     except Exception as e:
-        print(f"TWSE OpenAPI 讀取: {e}")
+        print(f"TWSE API 讀取: {e}")
 
     try:
         tpex_res = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=12).json()
@@ -119,13 +128,12 @@ def generate_theme_database():
             sym = str(row.get("SecuritiesCompanyCode", "")).strip()
             name = str(row.get("CompanyName", "")).strip()
             raw_ind = row.get("Industry", "")
-            ind_name = clean_industry_name(raw_ind)
+            ind_name = clean_industry_name(raw_ind, sym, name)
             if sym and len(sym) == 4:
                 all_stocks[sym] = {"name": name, "main_industry": ind_name, "market": "上櫃"}
     except Exception as e:
-        print(f"TPEx OpenAPI 讀取: {e}")
+        print(f"TPEx API 讀取: {e}")
 
-    # 2. 自動推導全市場個股的細產業與語意標籤（不含任何數字代碼）
     final_mapping = {}
     for sym, base in all_stocks.items():
         if sym in expert_db:
@@ -134,11 +142,15 @@ def generate_theme_database():
             main_ind = base["main_industry"]
             name = base["name"]
             
-            # 依據產業大類與名稱進行語意歸類
             sub_ind = f"{main_ind}-一般應用"
             derived_themes = []
 
-            if "半導體" in main_ind:
+            # 針對 TDR 與各大產業提供語意分類
+            if "存託憑證" in main_ind or sym.startswith("91") or "-DR" in name:
+                main_ind = "存託憑證(TDR)"
+                sub_ind = "海外第二上市/存託憑證"
+                derived_themes = ["TDR存託憑證", "海外企業概念"]
+            elif "半導體" in main_ind:
                 sub_ind = "IC設計與半導體製造"
                 derived_themes = ["半導體供應鏈", "晶片概念"]
             elif "電子零組件" in main_ind:
@@ -181,7 +193,7 @@ def generate_theme_database():
     with open(mapping_file, "w", encoding="utf-8") as f:
         json.dump(final_mapping, f, ensure_ascii=False, indent=2)
         
-    print(f"✅ 題材與細產業資料庫重構完成！共納入 {len(final_mapping)} 檔個股，全部採用標準正體中文。")
+    print(f"✅ 題材資料庫修復完成！共納入 {len(final_mapping)} 檔個股，已完全修正 91 存託憑證。")
 
 if __name__ == "__main__":
     generate_theme_database()
