@@ -28,16 +28,11 @@ def clean_industry_name(raw_ind, sym="", name=""):
         return "存託憑證(TDR)"
     if raw_str in TWSE_INDUSTRY_MAP:
         return TWSE_INDUSTRY_MAP[raw_str]
-    if raw_str.isdigit():
-        return "其他"
-    return raw_str if raw_str else "其他"
+    return "其他" if raw_str.isdigit() or not raw_str else raw_str
 
 def get_tw_market_tickers():
-    """抓取全台股代號、中文簡稱與上市櫃類別 (整合官方 OpenAPI)"""
     target_list = []
     headers = {"User-Agent": "Mozilla/5.0"}
-    
-    # 1. 上市 (TWSE)
     try:
         url_twse = "https://openapi.twse.com.tw/v1/opendata/t187ap03_L"
         res = requests.get(url_twse, headers=headers, timeout=12)
@@ -48,16 +43,12 @@ def get_tw_market_tickers():
                 raw_ind = row.get('產業別', '')
                 if len(c) == 4 and c.isdigit():
                     target_list.append({
-                        "symbol": c,
-                        "name": n,
-                        "market": "上市",
-                        "ticker": f"{c}.TW",
-                        "industry": clean_industry_name(raw_ind, c, n)
+                        "symbol": c, "name": n, "market": "上市",
+                        "ticker": f"{c}.TW", "industry": clean_industry_name(raw_ind, c, n)
                     })
     except Exception as e:
         print(f"TWSE API 連線異常: {e}")
 
-    # 2. 上櫃 (TPEx)
     try:
         url_tpex = "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O"
         res = requests.get(url_tpex, headers=headers, timeout=12)
@@ -68,11 +59,8 @@ def get_tw_market_tickers():
                 raw_ind = row.get('Industry', '')
                 if len(c) == 4 and c.isdigit():
                     target_list.append({
-                        "symbol": c,
-                        "name": n,
-                        "market": "上櫃",
-                        "ticker": f"{c}.TWO",
-                        "industry": clean_industry_name(raw_ind, c, n)
+                        "symbol": c, "name": n, "market": "上櫃",
+                        "ticker": f"{c}.TWO", "industry": clean_industry_name(raw_ind, c, n)
                     })
     except Exception as e:
         print(f"TPEx API 連線異常: {e}")
@@ -85,7 +73,6 @@ def get_tw_market_tickers():
     return list(unique_map.values())
 
 def main():
-    # 確保題材對照檔存在
     if not os.path.exists("data/theme_mapping.json"):
         import sys
         sys.path.append(".")
@@ -96,10 +83,10 @@ def main():
         theme_map = json.load(f)
 
     stock_info_list = get_tw_market_tickers()
-    print(f"成功取得台股全市場 {len(stock_info_list)} 檔標的資料，開始批次下載動能...")
+    print(f"取得台股全市場 {len(stock_info_list)} 檔標的，開始批次下載真實股價...")
 
     if len(stock_info_list) < 500:
-        print("❌ 取得代號數量不足，取消覆蓋檔案。")
+        print("❌ 代號數量不足，取消執行。")
         sys.exit(1)
 
     all_tickers = [item["ticker"] for item in stock_info_list]
@@ -148,7 +135,7 @@ def main():
                         r_1m = round(((p_now - p_1m) / p_1m) * 100, 2)
                         r_1q = round(((p_now - p_1q) / p_1q) * 100, 2)
 
-                        # 完全採用您的加權公式
+                        # 動能加權公式：5日 20% + 1月 50% + 1季 30%
                         score = round((r_5d * 0.2) + (r_1m * 0.5) + (r_1q * 0.3), 2)
                         info = ticker_to_info[ticker]
                         sym = info["symbol"]
@@ -156,7 +143,7 @@ def main():
                         tag_info = theme_map.get(sym, {
                             "main_industry": info["industry"],
                             "sub_industry": f"{info['industry']}應用",
-                            "macro_themes": [],
+                            "themes": [],
                             "micro_themes": []
                         })
                         
@@ -171,7 +158,7 @@ def main():
                             "score": score,
                             "main_industry": tag_info["main_industry"],
                             "sub_industry": tag_info["sub_industry"],
-                            "macro_themes": tag_info["macro_themes"],
+                            "themes": tag_info["themes"],
                             "micro_themes": tag_info["micro_themes"]
                         })
                     except Exception:
@@ -181,13 +168,11 @@ def main():
 
         time.sleep(0.3)
 
-    # 排序並計算全市場 PR 百分位 (1 ~ 99)
     market_data.sort(key=lambda x: x['score'], reverse=True)
     total_count = len(market_data)
-    print(f"成功收錄 {total_count} 檔有效股票，開始計算全市場 PR 百分位...")
 
     if total_count < 1000:
-        print(f"❌ 警告：成功計算筆數 ({total_count}) 低於 1000，取消覆蓋檔案。")
+        print(f"❌ 警告：成功筆數 ({total_count}) 低於 1000，取消寫入。")
         sys.exit(1)
 
     for idx, item in enumerate(market_data):
