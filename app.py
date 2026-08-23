@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 import json
 import os
+import requests
 
-st.set_page_config(page_title="台股動能 RS 產業與精準題材系統", layout="wide")
+st.set_page_config(page_title="台股動能 RS 產業與精準題材雙核心系統", layout="wide")
 
 # ----------------- 1. 手機極簡緊湊膠囊 CSS -----------------
 st.markdown("""
 <style>
-/* 緊湊微型膠囊按鈕：高度僅 34px，字體 12px，橫向緊湊排列 */
 div.stButton > button {
     width: 100% !important;
     min-height: 34px !important;
@@ -40,13 +40,31 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-# ----------------- 2. 載入資料庫 -----------------
+# ----------------- 2. 載入資料庫 (支援本機與 GitHub Raw 同步) -----------------
 @st.cache_data(ttl=60)
-def load_market_rankings():
+def load_market_data():
+    # 1. 優先從伺服器本機讀取
     if os.path.exists("market_rankings.json"):
-        with open("market_rankings.json", "r", encoding="utf-8") as f:
-            return pd.DataFrame(json.load(f))
-    # 預備範例
+        try:
+            with open("market_rankings.json", "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list) and len(data) > 0:
+                    return pd.DataFrame(data), "本機檔案載入成功"
+        except Exception:
+            pass
+
+    # 2. 自動連線 GitHub Raw 備援
+    try:
+        url = "https://raw.githubusercontent.com/blue1998-glitch/-/main/market_rankings.json"
+        res = requests.get(url, timeout=8)
+        if res.status_code == 200:
+            data = res.json()
+            if isinstance(data, list) and len(data) > 0:
+                return pd.DataFrame(data), "GitHub 線上同步成功"
+    except Exception as e:
+        pass
+
+    # 3. 預設備援範例
     return pd.DataFrame([
         {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "航太維修與發動機製造", "macro_themes": ["軍工無人機與國防標案", "航太發動機與民航機體(GE/波音)"], "micro_themes": ["軍用無人機原型", "GE航太發動機", "波音客改貨(P2F)"]},
         {"symbol": "2634", "name": "漢翔", "market": "上市", "close_price": 53.2, "r_5d": 2.1, "r_20d": 8.5, "r_60d": 18.0, "score": 10.07, "rs_rating": 85, "main_industry": "航太與國防", "sub_industry": "機體製造與引擎零件", "macro_themes": ["軍工無人機與國防標案", "航太發動機與民航機體(GE/波音)"], "micro_themes": ["國機國造(勇鷹號)", "軍用無人機量產", "GE發動機機匣"]},
@@ -54,9 +72,9 @@ def load_market_rankings():
         {"symbol": "2330", "name": "台積電", "market": "上市", "close_price": 980.0, "r_5d": 4.5, "r_20d": 15.0, "r_60d": 32.0, "score": 18.00, "rs_rating": 98, "main_industry": "半導體業", "sub_industry": "晶圓代工龍頭", "macro_themes": ["矽光子(CPO)與光通訊", "CoWoS先進封裝與設備", "AI伺服器ODM與整機代工"], "micro_themes": ["TSMC-COUPE矽光子平台", "CoWoS先進封裝", "2nm先進製程"]},
         {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "水冷散熱模組", "macro_themes": ["水冷/液冷散熱模組"], "micro_themes": ["水冷板(Cold Plate)", "GB200冷卻模組", "散熱風扇"]},
         {"symbol": "1519", "name": "華城", "market": "上市", "close_price": 520.0, "r_5d": 2.1, "r_20d": 8.0, "r_60d": 15.0, "score": 11.20, "rs_rating": 88, "main_industry": "電機機械", "sub_industry": "特高壓變壓器", "macro_themes": ["重電設備與強韌電網"], "micro_themes": ["超特高壓500kV變壓器", "北美變壓器外銷", "台電強韌電網"]}
-    ])
+    ]), "備援範例資料"
 
-df_market = load_market_rankings()
+df_market, db_status = load_market_data()
 
 # ----------------- 3. 20 大精確題材計算與強弱排序 -----------------
 all_macro_themes = sorted(list(set(t for sublist in df_market["macro_themes"] for t in sublist if t)))
@@ -96,7 +114,7 @@ for ind in all_industries:
 
 df_industry_ranked = pd.DataFrame(industry_stats).sort_values(by="avg_rs", ascending=False)
 
-# 雙重共振標記 (強題材 + 強產業 + 個股 RS>=90)
+# 雙重共振標記
 def check_resonance(row):
     sym_ind = row["main_industry"]
     ind_ok = ind_rs_map.get(sym_ind, 0) >= 75
@@ -112,9 +130,17 @@ if "selected_theme" not in st.session_state:
 if "selected_industry" not in st.session_state:
     st.session_state.selected_industry = df_industry_ranked["industry"].iloc[0] if not df_industry_ranked.empty else "航太與國防"
 
-# ----------------- 4. 頂部萬用搜尋 -----------------
-st.title("🎯 台股 RS 動能：產業與精準題材雙核心系統")
+# ----------------- 4. 頂部狀態列與即時重新整理 -----------------
+head_col1, head_col2 = st.columns([3, 1])
+with head_col1:
+    st.title("🎯 台股 RS 動能：產業與精準題材雙核心系統")
+    st.caption(f"🟢 全市場資料庫：已收錄 **{len(df_market)}** 檔上市櫃股票 ｜ 狀態：`{db_status}` ｜ （盤中即時行情延遲約 15~20 分鐘）")
+with head_col2:
+    if st.button("🔄 盤中即時重新整理"):
+        st.cache_data.clear()
+        st.rerun()
 
+# 萬用搜尋
 search_txt = st.text_input("🔍 萬用個股搜尋 (輸入代碼如 2645 或名稱如 長榮航太):", "").strip()
 if search_txt:
     matched = df_market[df_market["symbol"].str.contains(search_txt) | df_market["name"].str.contains(search_txt)]
