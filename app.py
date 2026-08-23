@@ -5,40 +5,40 @@ import os
 
 st.set_page_config(page_title="台股 RS 動能板塊與題材穿透庫", layout="wide")
 
-# ----------------- 1. 自訂正方形按鈕與板塊 CSS 樣式 -----------------
+# ----------------- 1. 正方形按鈕與板塊 CSS 樣式 -----------------
 st.markdown("""
 <style>
-/* 讓 Streamlit 按鈕呈現正方形卡片磁磚風格 */
+/* 緊湊正方形按鈕磁磚 */
 div.stButton > button {
     width: 100% !important;
-    min-height: 110px !important;
+    min-height: 88px !important;
     aspect-ratio: 1 / 1 !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    border-radius: 12px !important;
+    border-radius: 10px !important;
     border: 1px solid #3b4252 !important;
     background: linear-gradient(145deg, #1e222b, #15181e) !important;
     color: #eceff4 !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
     font-weight: 600 !important;
     white-space: pre-wrap !important;
-    line-height: 1.4 !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
-    transition: all 0.2s ease-in-out !important;
-    padding: 8px !important;
+    line-height: 1.3 !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25) !important;
+    transition: all 0.15s ease-in-out !important;
+    padding: 6px 4px !important;
 }
 
 div.stButton > button:hover {
     border-color: #88c0d0 !important;
-    transform: translateY(-3px) !important;
-    box-shadow: 0 6px 12px rgba(136, 192, 208, 0.25) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 12px rgba(136, 192, 208, 0.3) !important;
+    background: linear-gradient(145deg, #2e3440, #1e222b) !important;
 }
 
-/* 讓表格與容器在手機版上具備良好間距 */
 .block-container {
-    padding-top: 1.5rem !important;
+    padding-top: 1rem !important;
     padding-bottom: 2rem !important;
 }
 </style>
@@ -50,12 +50,12 @@ def load_market_rankings():
     if os.path.exists("market_rankings.json"):
         with open("market_rankings.json", "r", encoding="utf-8") as f:
             return pd.DataFrame(json.load(f))
-    # 預設備援資料
+    # 備援資料
     return pd.DataFrame([
-        {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "飛機維修/發動機零件製造", "themes": ["GE航空供應鏈", "無人機", "波音供應鏈", "軍工國防", "長榮集團"]},
+        {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "飛機維修/發動機零件製造", "themes": ["GE航空供應鏈", "無人機概念", "波音供應鏈", "軍工國防", "長榮集團"]},
         {"symbol": "2330", "name": "台積電", "market": "上市", "close_price": 980.0, "r_5d": 4.5, "r_20d": 15.0, "r_60d": 32.0, "score": 18.0, "rs_rating": 98, "main_industry": "半導體業", "sub_industry": "先進製程晶圓代工", "themes": ["AI伺服器", "CoWoS先進封裝", "先進製程", "矽光子(CPO)"]},
-        {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "水冷散熱模組/水冷板", "themes": ["AI伺服器", "水冷散熱", "GB200", "散熱模組"]},
-        {"symbol": "8033", "name": "雷虎", "market": "上市", "close_price": 62.0, "r_5d": 6.8, "r_20d": 16.0, "r_60d": 30.0, "score": 17.5, "rs_rating": 91, "main_industry": "航太與國防", "sub_industry": "無人載具製造", "themes": ["無人機", "軍工國防"]},
+        {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "水冷散熱模組/水冷板", "themes": ["水冷散熱", "AI伺服器", "GB200概念", "散熱模組"]},
+        {"symbol": "8033", "name": "雷虎", "market": "上市", "close_price": 62.0, "r_5d": 6.8, "r_20d": 16.0, "r_60d": 30.0, "score": 17.5, "rs_rating": 91, "main_industry": "航太與國防", "sub_industry": "無人載具製造", "themes": ["無人機概念", "軍工國防"]},
         {"symbol": "1519", "name": "華城", "market": "上市", "close_price": 520.0, "r_5d": 2.1, "r_20d": 8.0, "r_60d": 15.0, "score": 11.2, "rs_rating": 85, "main_industry": "電機機械", "sub_industry": "超特高壓變壓器", "themes": ["重電設備", "台電強韌電網"]}
     ])
 
@@ -63,7 +63,7 @@ df_market = load_market_rankings()
 
 all_raw_themes = sorted(list(set(t for sublist in df_market["themes"] for t in sublist)))
 
-# ----------------- 3. 題材動能聚合計算與強弱排序 -----------------
+# ----------------- 3. 題材動能計算與每日動態強弱排序 -----------------
 theme_stats = []
 for th in all_raw_themes:
     sub_df = df_market[df_market["themes"].apply(lambda tags: th in tags)]
@@ -80,17 +80,16 @@ for th in all_raw_themes:
             "total_count": total_count
         })
 
-# 依「平均 RS 評分」由大到小排序（最強題材排在最前面）
 df_theme_ranked = pd.DataFrame(theme_stats).sort_values(by=["avg_rs", "avg_score"], ascending=[False, False])
 ranked_theme_list = df_theme_ranked["theme"].tolist()
 
 if "selected_theme" not in st.session_state:
-    st.session_state.selected_theme = ranked_theme_list[0] if ranked_theme_list else "無人機"
+    st.session_state.selected_theme = ranked_theme_list[0] if ranked_theme_list else "無人機概念"
 if "selected_sub_ind" not in st.session_state:
     st.session_state.selected_sub_ind = "飛機維修/發動機零件製造"
 
 # ----------------- 4. 頂部萬用搜尋 -----------------
-st.title("🎯 台股 RS 動能強弱板塊 & 題材穿透檢索庫")
+st.title("🎯 台股 RS 動能強弱板塊 & 題材穿透庫")
 
 search_txt = st.text_input("🔍 萬用個股搜尋 (輸入代碼如 2645 或名稱如 長榮航太):", "").strip()
 
@@ -102,13 +101,13 @@ if search_txt:
         
         with st.container():
             st.success(
-                f"### 📍 【{stk['name']} ({stk['symbol']})】 動能檔案\n"
+                f"### 📍 【{stk['name']} ({stk['symbol']})】 動能全方位檔案\n"
                 f"* **市場地位**：`{tier}` | **RS 強勢度**：`{stk['rs_rating']}` (PR) | **最新收盤價**：`{stk.get('close_price', 'N/A')} 元`\n"
                 f"* **動能拆解**：近5日 `{stk.get('r_5d', 0):+.2f}%` | 近1月 `{stk.get('r_20d', 0):+.2f}%` | 近1季 `{stk.get('r_60d', 0):+.2f}%`\n"
                 f"* **產業定位**：`{stk['main_industry']}` ➔ `{stk['sub_industry']}`"
             )
             
-            st.write("👉 **點擊下方標籤，立即穿透查看同族群個股：**")
+            st.write("👉 **點擊下方標籤，立即將上方畫面切換為該族群成分股：**")
             badge_cols = st.columns(len(stk['themes']) + 1)
             
             with badge_cols[0]:
@@ -126,56 +125,27 @@ st.markdown("---")
 
 # ----------------- 5. 主導航分頁 -----------------
 nav_tab1, nav_tab2, nav_tab3 = st.tabs([
-    "🔥 熱門題材強弱板塊 (正方形矩陣)",
+    "🔥 熱門題材強弱板塊 (點選即時置頂)",
     "🏭 細產業分類庫 (點擊看成分股)",
     "🏆 全市場真實 RS 排行榜"
 ])
 
 # =========================================================
-# TAB 1: 依強弱排序的正方形題材矩陣板塊
+# TAB 1: 題材強弱矩陣 (資料置頂 + 多欄橫向正方形按鈕)
 # =========================================================
 with nav_tab1:
-    st.subheader("🔥 全市場概念題材動能強弱板塊 (由強至弱排序)")
-    st.caption("點選任一正方形板塊，下方將即時展開該題材的成分股 RS 評分明細。")
-
-    # 4 欄正方形矩陣排列 (手機版自動適配)
-    cols_per_row = 4
-    for row_idx in range(0, len(df_theme_ranked), cols_per_row):
-        cols = st.columns(cols_per_row)
-        for col_idx in range(cols_per_row):
-            item_idx = row_idx + col_idx
-            if item_idx < len(df_theme_ranked):
-                item = df_theme_ranked.iloc[item_idx]
-                t_name = item["theme"]
-                t_avg_rs = item["avg_rs"]
-                t_cnt = item["total_count"]
-                t1_cnt = item["t1_count"]
-
-                # 依強弱給予徽章圖示
-                badge = "🔥" if t_avg_rs >= 85 else ("⚡" if t_avg_rs >= 75 else "📦")
-                
-                # 正方形按鈕內的多行標籤文字
-                btn_label = f"{badge} {t_name}\n\nRS {t_avg_rs:.1f}\n{t_cnt}檔 (T1:{t1_cnt})"
-
-                with cols[col_idx]:
-                    if st.button(btn_label, key=f"sq_btn_{t_name}"):
-                        st.session_state.selected_theme = t_name
-                        st.rerun()
-
-    st.markdown("---")
-
-    # --- 所選題材成分股穿透清單 ---
     cur_theme = st.session_state.selected_theme
     theme_constituents = df_market[df_market["themes"].apply(lambda tags: cur_theme in tags)].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
 
+    # --- 【資料置頂區】：所選題材 KPI 與成分股清單直接顯示在最上方 ---
+    st.markdown(f"### 📋 目前鎖定題材：【{cur_theme}】 成分股動能明細")
+
     kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-    kpi1.metric("當前選取題材", cur_theme)
+    kpi1.metric("當前題材", cur_theme)
     kpi2.metric("涵蓋成分股", f"{len(theme_constituents)} 檔")
     kpi3.metric("題材平均 RS", f"{theme_constituents['rs_rating'].mean():.1f}" if not theme_constituents.empty else "0")
     kpi4.metric("RS ≥ 90 領袖股", f"{len(theme_constituents[theme_constituents['rs_rating'] >= 90])} 檔")
 
-    st.markdown(f"### 📋 【{cur_theme}】 概念成分股動能清單")
-    
     theme_constituents["梯隊分級"] = theme_constituents["rs_rating"].apply(
         lambda r: "🥇 Tier 1 (90+)" if r >= 90 else ("🥈 Tier 2 (80-89)" if r >= 80 else "🥉 Tier 3 (75-79)")
     )
@@ -200,6 +170,35 @@ with nav_tab1:
             "RS 評分": st.column_config.ProgressColumn("RS 強勢度 (PR)", format="%d", min_value=1, max_value=99)
         }
     )
+
+    st.markdown("---")
+
+    # --- 【下方矩陣區】：正方形題材板塊 (支援自訂每排欄數) ---
+    grid_header_col1, grid_header_col2 = st.columns([3, 1])
+    with grid_header_col1:
+        st.subheader("🧱 全市場概念題材動能板塊 (每日依強弱排序)")
+        st.caption("點選下方任一正方形板塊，上方成分股清單將立即同步切換！")
+    with grid_header_col2:
+        cols_per_row = st.selectbox("每排板塊數量", [4, 6, 8], index=1, key="grid_cols_selector")
+
+    for row_idx in range(0, len(df_theme_ranked), cols_per_row):
+        cols = st.columns(cols_per_row)
+        for col_idx in range(cols_per_row):
+            item_idx = row_idx + col_idx
+            if item_idx < len(df_theme_ranked):
+                item = df_theme_ranked.iloc[item_idx]
+                t_name = item["theme"]
+                t_avg_rs = item["avg_rs"]
+                t_cnt = item["total_count"]
+                t1_cnt = item["t1_count"]
+
+                badge = "🔥" if t_avg_rs >= 85 else ("⚡" if t_avg_rs >= 75 else "📦")
+                btn_label = f"{badge} {t_name}\n\nRS {t_avg_rs:.1f}\n{t_cnt}檔(T1:{t1_cnt})"
+
+                with cols[col_idx]:
+                    if st.button(btn_label, key=f"sq_btn_{t_name}"):
+                        st.session_state.selected_theme = t_name
+                        st.rerun()
 
 # =========================================================
 # TAB 2: 細產業分類庫
