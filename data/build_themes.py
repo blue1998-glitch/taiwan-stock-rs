@@ -4,6 +4,7 @@ import re
 import time
 import requests
 from bs4 import BeautifulSoup
+from collections import defaultdict
 
 TWSE_INDUSTRY_MAP = {
     "01": "水泥工業", "1": "水泥工業", "02": "食品工業", "2": "食品工業",
@@ -29,14 +30,15 @@ def clean_industry_name(raw_ind, sym="", name=""):
         return TWSE_INDUSTRY_MAP[raw_str]
     return "其他" if raw_str.isdigit() or not raw_str else raw_str
 
-def normalize_theme_name(raw_name):
+def get_canonical_theme_name(raw_name):
     """
-    動態標準化與語意去重：將同質別名統一，去除雜訊尾綴，不限制總數量
+    同質題材合併規則：將同義詞對照至標準名稱；若無同義詞則保留原題材名稱（絕不刪除）
     """
     t = re.sub(r"\(MoneyDJ\)|\(鉅亨\)|\(Goodinfo\)|\(TW\)|\(TWO\)", "", raw_name).strip()
-    
-    # 同質題材語意合併對照表
-    synonym_map = {
+    t = re.sub(r"概念股$|族群$|概念$", "", t).strip()
+
+    # 同義重複題材合併對照字典
+    merge_rules = {
         r".*無人機.*": "軍用商規無人機",
         r".*GE.*(航空|發動機|引擎).*": "GE航太發動機供應鏈",
         r".*波音.*": "波音機體供應鏈",
@@ -60,19 +62,18 @@ def normalize_theme_name(raw_name):
         r".*(風電|太陽能|儲能案場).*": "綠能儲能與風電太陽能"
     }
 
-    for pattern, unified_name in synonym_map.items():
+    for pattern, standard_name in merge_rules.items():
         if re.match(pattern, t, re.IGNORECASE):
-            return unified_name
+            return standard_name
 
-    # 若非同質規則名單，只要字數合理且非空即保留為獨立特色題材
-    t = re.sub(r"概念股$|族群$|概念$", "", t).strip()
+    # 未在合併規則中的獨立題材，完整保留名稱
     return t if len(t) >= 2 else None
 
-# --- 1. MoneyDJ 概念爬蟲 ---
+# --- 1. MoneyDJ 概念庫 ---
 def fetch_source_moneydj():
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0"}
     concept_root = "https://www.moneydj.com/z/zg/zg_AA.djhtm"
-    data = {}
+    data = defaultdict(set)
     print("📡 [1/3] MoneyDJ 概念庫爬取中...")
     try:
         res = requests.get(concept_root, headers=headers, timeout=12)
@@ -92,7 +93,7 @@ def fetch_source_moneydj():
                 s_links = sub_soup.find_all("a", href=re.compile(r"/z/zc/zcA/zcA_(\d{4})\.djhtm"))
                 syms = [re.search(r"zcA_(\d{4})", s["href"]).group(1) for s in s_links if re.search(r"zcA_(\d{4})", s["href"])]
                 if syms:
-                    data[t_name] = list(set(syms))
+                    data[t_name].update(syms)
                 time.sleep(0.1)
             except Exception:
                 continue
@@ -100,46 +101,47 @@ def fetch_source_moneydj():
         print(f"MoneyDJ 略過: {e}")
     return data
 
-# --- 2. 鉅亨網 概念與法人標案 ---
+# --- 2. 鉅亨網 概念與標案 ---
 def fetch_source_anue():
     print("📡 [2/3] 鉅亨網 Anue 題材同步中...")
     return {
-        "軍用商規無人機": ["8033", "2645", "2634", "7402", "5371", "6829", "2630", "6928"],
-        "GE航太發動機供應鏈": ["2645", "2634", "8222", "4572", "3004", "4541", "6829"],
-        "波音機體供應鏈": ["2645", "2634", "4572", "3004", "4536", "5284", "5009"],
-        "矽光子(CPO)": ["2330", "3450", "6442", "4979", "6451", "3363", "3081", "4977", "3163", "4908"],
-        "CoWoS先進封裝與設備": ["2330", "3131", "6187", "3583", "6640", "3680", "2467", "6139", "6515", "6223"],
-        "水冷/液冷散熱模組": ["3017", "3324", "8996", "3653", "2421", "3483", "3013", "6230"],
-        "BBU伺服器備援電池": ["3211", "4931", "3323", "6781", "6558", "2308"],
-        "AI伺服器與GB200代工": ["2382", "2317", "6669", "3231", "2356", "2376"],
-        "重電設備與強韌電網": ["1519", "1503", "1513", "1514", "1504", "1609", "1618"],
-        "機器人與智慧自動化": ["2359", "2049", "4576", "8374", "4562", "6188", "1597"],
-        "低軌衛星太空通訊": ["3491", "2313", "6285", "5388", "2314"]
+        "軍用無人機": ["8033", "2645", "2634", "7402", "5371", "6829", "2630", "6928"],
+        "GE航空發動機": ["2645", "2634", "8222", "4572", "3004", "4541", "6829"],
+        "波音供應鏈": ["2645", "2634", "4572", "3004", "4536", "5284", "5009"],
+        "CPO矽光子": ["2330", "3450", "6442", "4979", "6451", "3363", "3081", "4977", "3163", "4908"],
+        "CoWoS先進封裝": ["2330", "3131", "6187", "3583", "6640", "3680", "2467", "6139", "6515", "6223"],
+        "水冷散熱模組": ["3017", "3324", "8996", "3653", "2421", "3483", "3013", "6230"],
+        "BBU備援電池": ["3211", "4931", "3323", "6781", "6558", "2308"],
+        "AI伺服器代工": ["2382", "2317", "6669", "3231", "2356", "2376"],
+        "重電設備與電網": ["1519", "1503", "1513", "1514", "1504", "1609", "1618"],
+        "機器人與AI視覺": ["2359", "2049", "4576", "8374", "4562", "6188", "1597"],
+        "低軌衛星太空鏈": ["3491", "2313", "6285", "5388", "2314"]
     }
 
 # --- 3. Goodinfo! 供應鏈與標籤 ---
 def fetch_source_goodinfo():
     print("📡 [3/3] Goodinfo! 細部標籤同步中...")
     return {
-        "軍用商規無人機": ["8033", "2645", "2634", "7402", "5371", "6829", "2630", "6928"],
-        "GE航太發動機供應鏈": ["2645", "8222", "4541", "2634", "3004"],
-        "波音機體供應鏈": ["2645", "4572", "5284", "2630"],
-        "矽光子(CPO)": ["2330", "3450", "6442", "4979", "6451", "3363", "3081", "4977", "3163"],
-        "CoWoS先進封裝與設備": ["3131", "3680", "3583", "6187", "6640"],
+        "無人機概念": ["8033", "2645", "2634", "7402", "5371", "6829", "2630", "6928"],
+        "發動機熱段製造": ["2645", "8222", "4541", "2634", "3004"],
+        "波音客改貨MRO": ["2645", "4572", "5284", "2630"],
+        "矽光子CPO": ["2330", "3450", "6442", "4979", "6451", "3363", "3081", "4977", "3163"],
+        "CoWoS濕製程/載具": ["3131", "3680", "3583", "6187", "6640"],
         "FOPLP面板級封裝": ["3663", "3580", "8064", "3481"],
-        "水冷/液冷散熱模組": ["3017", "3324", "8996", "3653"],
-        "BBU伺服器備援電池": ["3211", "4931", "3323", "6781", "6558"],
-        "伺服器滑軌與導軌機構": ["2059", "6584", "8210", "3013"],
-        "ASIC客製化晶片與矽智財": ["3661", "3443", "3035", "3529", "6643", "6531", "2454"],
-        "重電設備與強韌電網": ["1519", "1503", "1513"],
-        "機器人與智慧自動化": ["2359", "6188", "4576", "2049"],
-        "低軌衛星太空通訊": ["3491", "2313", "6285", "2314"]
+        "伺服器水冷CDU": ["3017", "3324", "8996", "3653"],
+        "BBU電池組裝": ["3211", "4931", "3323", "6781", "6558"],
+        "伺服器滑軌機構": ["2059", "6584", "8210", "3013"],
+        "ASIC設計服務": ["3661", "3443", "3035", "3529", "6643", "6531", "2454"],
+        "北美電網變壓器": ["1519", "1503", "1513"],
+        "AI 3D視覺機器人": ["2359", "6188", "4576", "2049"],
+        "低軌衛星天線PCB": ["3491", "2313", "6285", "2314"]
     }
 
 def generate_theme_database():
     os.makedirs("data", exist_ok=True)
     mapping_file = "data/theme_mapping.json"
 
+    # 1. 抓取全市場官方上市櫃清單母體
     all_stocks = {}
     try:
         twse = requests.get("https://openapi.twse.com.tw/v1/opendata/t187ap03_L", timeout=12).json()
@@ -155,45 +157,51 @@ def generate_theme_database():
     except Exception as e:
         print(f"母體抓取異常: {e}")
 
+    # 2. 獲取三大資料庫
     src1 = fetch_source_moneydj()
     src2 = fetch_source_anue()
     src3 = fetch_source_goodinfo()
 
-    # 聚合去重：股票代號 -> 題材集合 (無數量上限)
-    stock_themes_map = {sym: set() for sym in all_stocks}
-    stock_raw_tags_map = {sym: set() for sym in all_stocks}
+    # 3. 執行【成分股聯集融合 (Union Merge)】：將同義題材合併，其所有成分股全部累積聯集！
+    canonical_theme_to_stocks = defaultdict(set)
+    stock_raw_tags = defaultdict(set)
 
     for source_dict in [src1, src2, src3]:
         for raw_theme, sym_list in source_dict.items():
-            norm_theme = normalize_theme_name(raw_theme)
-            for sym in sym_list:
-                if sym in stock_themes_map:
-                    if norm_theme:
-                        stock_themes_map[sym].add(norm_theme)
-                    stock_raw_tags_map[sym].add(raw_theme)
+            canonical_name = get_canonical_theme_name(raw_theme)
+            if canonical_name:
+                # 聯集所有成分股，一檔都不丟失
+                canonical_theme_to_stocks[canonical_name].update(sym_list)
+                for sym in sym_list:
+                    clean_raw = re.sub(r"\(MoneyDJ\)|\(鉅亨\)|\(Goodinfo\)", "", raw_theme).strip()
+                    stock_raw_tags[sym].add(clean_raw)
 
+    # 4. 反向建立個股資料庫
     final_db = {}
     for sym, base in all_stocks.items():
         main_ind = base["main_industry"]
-        themes = sorted(list(stock_themes_map.get(sym, [])))
-        micro_themes = sorted(list(stock_raw_tags_map.get(sym, [])))
-
-        # 淨化微題材標籤
-        clean_micro = [re.sub(r"\(MoneyDJ\)|\(鉅亨\)|\(Goodinfo\)", "", m).strip() for m in micro_themes]
-        clean_micro = list(set([m for m in clean_micro if m and m not in themes]))
+        
+        # 找出該個股命中的所有合併後標準題材
+        matched_themes = [
+            t_name for t_name, stocks in canonical_theme_to_stocks.items()
+            if sym in stocks
+        ]
+        
+        # 細項微題材特徵標籤
+        matched_micro = list(stock_raw_tags.get(sym, set()))
 
         final_db[sym] = {
             "main_industry": main_ind,
             "sub_industry": f"{main_ind}應用",
-            "themes": themes,
-            "micro_themes": clean_micro if clean_micro else themes
+            "themes": sorted(matched_themes),
+            "micro_themes": sorted(matched_micro) if matched_micro else sorted(matched_themes)
         }
 
     with open(mapping_file, "w", encoding="utf-8") as f:
         json.dump(final_db, f, ensure_ascii=False, indent=2)
 
-    total_unique_themes = len(set(t for d in final_db.values() for t in d["themes"]))
-    print(f"🎉 題材庫生成完成！共納入 {len(final_db)} 檔股票，收錄 {total_unique_themes} 個非重複動態題材。")
+    total_themes_count = len(canonical_theme_to_stocks)
+    print(f"🎉 題材聯集融合完成！共收錄 {len(final_db)} 檔股票，形成 {total_themes_count} 個完整題材池（成分股 100% 聯集保留）。")
 
 if __name__ == "__main__":
     generate_theme_database()
