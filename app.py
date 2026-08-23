@@ -6,7 +6,7 @@ import requests
 
 st.set_page_config(page_title="台股動能 RS 產業與自適應雙軌題材系統", layout="wide")
 
-# ----------------- 1. 手機極簡緊湊膠囊與表格換行 CSS -----------------
+# ----------------- 1. 手機極簡緊湊膠囊與彈性滿版 CSS -----------------
 st.markdown("""
 <style>
 div.stButton > button {
@@ -35,13 +35,14 @@ div.stButton > button:hover {
 
 .block-container {
     padding-top: 0.8rem !important;
-    padding-bottom: 1.5rem !important;
+    padding-bottom: 1.2rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
 }
 
-/* 確保表格容器在手機上支援平滑橫向滑動且不破版 */
+/* 讓表格滿版並自適應平滑橫向滾動 */
 [data-testid="stDataFrame"] {
     width: 100% !important;
-    overflow-x: auto !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -187,15 +188,15 @@ if "selected_theme" not in st.session_state:
 if "selected_industry" not in st.session_state:
     st.session_state.selected_industry = df_industry_ranked["industry"].iloc[0] if not df_industry_ranked.empty else "航太與國防"
 
-# ----------------- 4. 統一表格欄位寬度配置 -----------------
+# ----------------- 4. 自適應等比欄位配置（消除空白） -----------------
 TABLE_COLUMN_CONFIG = {
-    "代號": st.column_config.TextColumn("代號", width="small"),
-    "名稱": st.column_config.TextColumn("名稱", width="small"),
-    "收盤價": st.column_config.NumberColumn("收盤價", width="small", format="%.2f"),
-    "綜合動能": st.column_config.NumberColumn("綜合動能", width="small", format="%.2f"),
-    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99, width="medium"),
-    "共振": st.column_config.TextColumn("共振", width="small"),
-    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵", width="large")
+    "代號": st.column_config.TextColumn("代號"),
+    "名稱": st.column_config.TextColumn("名稱"),
+    "收盤價": st.column_config.NumberColumn("收盤價", format="%.2f"),
+    "綜合動能": st.column_config.NumberColumn("綜合動能", format="%.2f"),
+    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99),
+    "共振": st.column_config.TextColumn("共振"),
+    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵")
 }
 
 # ----------------- 5. 頂部狀態列與萬用搜尋 -----------------
