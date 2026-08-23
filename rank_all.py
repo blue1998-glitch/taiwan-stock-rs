@@ -8,46 +8,19 @@ import yfinance as yf
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 TWSE_INDUSTRY_MAP = {
-    "01": "水泥工業", "1": "水泥工業",
-    "02": "食品工業", "2": "食品工業",
-    "03": "塑膠工業", "3": "塑膠工業",
-    "04": "紡織纖維", "4": "紡織纖維",
-    "05": "電機機械", "5": "電機機械",
-    "06": "電器電纜", "6": "電器電纜",
-    "07": "化學工業", "7": "化學工業",
-    "08": "玻璃陶瓷", "8": "玻璃陶瓷",
-    "09": "造紙工業", "9": "造紙工業",
-    "10": "鋼鐵工業",
-    "11": "橡膠工業",
-    "12": "汽車工業",
-    "13": "電子工業",
-    "14": "建材營造",
-    "15": "航運業",
-    "16": "觀光餐旅",
-    "17": "金融保險",
-    "18": "貿易百貨",
-    "19": "綜合",
-    "20": "其他",
-    "21": "化學工業",
-    "22": "生技醫療業",
-    "23": "油電燃氣業",
-    "24": "半導體業",
-    "25": "電腦及週邊設備業",
-    "26": "光電業",
-    "27": "通信網路業",
-    "28": "電子零組件業",
-    "29": "電子通路業",
-    "30": "資訊服務業",
-    "31": "其他電子業",
-    "32": "文化創意業",
-    "33": "農業科技業",
-    "34": "電子商務業",
-    "35": "綠能環保",
-    "36": "數位雲端",
-    "37": "運動休閒",
-    "38": "居家生活",
-    "80": "管理股票",
-    "91": "存託憑證(TDR)"
+    "01": "水泥工業", "1": "水泥工業", "02": "食品工業", "2": "食品工業",
+    "03": "塑膠工業", "3": "塑膠工業", "04": "紡織纖維", "4": "紡織纖維",
+    "05": "電機機械", "5": "電機機械", "06": "電器電纜", "6": "電器電纜",
+    "07": "化學工業", "7": "化學工業", "08": "玻璃陶瓷", "8": "玻璃陶瓷",
+    "09": "造紙工業", "9": "造紙工業", "10": "鋼鐵工業", "11": "橡膠工業",
+    "12": "汽車工業", "13": "電子工業", "14": "建材營造", "15": "航運業",
+    "16": "觀光餐旅", "17": "金融保險", "18": "貿易百貨", "19": "綜合",
+    "20": "其他", "21": "化學工業", "22": "生技醫療業", "23": "油電燃氣業",
+    "24": "半導體業", "25": "電腦及週邊設備業", "26": "光電業", "27": "通信網路業",
+    "28": "電子零組件業", "29": "電子通路業", "30": "資訊服務業", "31": "其他電子業",
+    "32": "文化創意業", "33": "農業科技業", "34": "電子商務業", "35": "綠能環保",
+    "36": "數位雲端", "37": "運動休閒", "38": "居家生活",
+    "80": "管理股票", "91": "存託憑證(TDR)"
 }
 
 def clean_industry_name(raw_ind, sym="", name=""):
@@ -57,8 +30,8 @@ def clean_industry_name(raw_ind, sym="", name=""):
     if raw_str in TWSE_INDUSTRY_MAP:
         return TWSE_INDUSTRY_MAP[raw_str]
     if raw_str.isdigit():
-        return "綜合產業"
-    return raw_str if raw_str else "綜合產業"
+        return "其他"
+    return raw_str if raw_str else "其他"
 
 def get_stock_list():
     stocks = []
@@ -76,7 +49,7 @@ def get_stock_list():
                     "industry": clean_industry_name(item.get("產業別", ""), sym, name)
                 })
     except Exception as e:
-        print(f"TWSE API 讀取: {e}")
+        print(f"TWSE API: {e}")
 
     try:
         r_tpex = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=10).json()
@@ -92,7 +65,7 @@ def get_stock_list():
                     "industry": clean_industry_name(item.get("Industry", ""), sym, name)
                 })
     except Exception as e:
-        print(f"TPEx API 讀取: {e}")
+        print(f"TPEx API: {e}")
 
     return pd.DataFrame(stocks)
 
@@ -119,7 +92,7 @@ def download_batch_prices(chunk):
         return pd.DataFrame()
 
 def calculate_real_market_rs():
-    print("⚡ 啟動全市場高速計算引擎...")
+    print("⚡ 啟動全市場真實動能計算與修剪題材注入...")
 
     if not os.path.exists("data/theme_mapping.json"):
         import sys
@@ -134,8 +107,6 @@ def calculate_real_market_rs():
     if stock_df.empty:
         print("❌ 無法取得股票清單")
         return
-
-    print(f"📋 共取得全市場 {len(stock_df)} 檔上市櫃個股，啟動多線程下載...")
 
     tickers = stock_df["ticker"].tolist()
     chunk_size = 60
@@ -155,7 +126,7 @@ def calculate_real_market_rs():
             except Exception as exc:
                 print(f"  ⚠ 批次 {idx+1} 略過: {exc}")
 
-    print("📊 股價數據彙整完畢，計算動能評分...")
+    print("📊 股價數據彙整完畢，計算真實動能得分...")
 
     valid_results = []
     for _, row in stock_df.iterrows():
@@ -167,8 +138,9 @@ def calculate_real_market_rs():
 
         tag_info = theme_map.get(sym, {
             "main_industry": ind,
-            "sub_industry": f"{ind}-一般應用",
-            "themes": [f"{ind}族群", f"{ind}供應鏈"]
+            "sub_industry": f"{ind}應用",
+            "macro_themes": [],
+            "micro_themes": []
         })
 
         if ticker not in all_close_data.columns:
@@ -201,7 +173,8 @@ def calculate_real_market_rs():
             "score": round(composite_score, 2),
             "main_industry": tag_info["main_industry"],
             "sub_industry": tag_info["sub_industry"],
-            "themes": tag_info["themes"]
+            "macro_themes": tag_info["macro_themes"],
+            "micro_themes": tag_info["micro_themes"]
         })
 
     df_rank = pd.DataFrame(valid_results)
@@ -221,7 +194,7 @@ def calculate_real_market_rs():
     with open("market_rankings.json", "w", encoding="utf-8") as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
 
-    print(f"🎉 全市場 RS 評分計算完成！共評比 {len(output_data)} 檔標的。")
+    print(f"🎉 全市場修剪版 RS 計算完成！共評比 {len(output_data)} 檔標的。")
 
 if __name__ == "__main__":
     calculate_real_market_rs()
