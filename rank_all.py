@@ -7,16 +7,20 @@ import numpy as np
 def get_stock_list():
     stocks = []
     try:
-        r_twse = requests.get("https://openapi.twse.com.tw/v1/opendata/t187ap03_L", timeout=10).json()
+        r_twse = requests.get("https://openapi.twse.com.tw/v1/opendata/t187ap03_L", timeout=12).json()
         for item in r_twse:
-            stocks.append({"symbol": str(item["公司代號"]), "name": str(item["公司名稱"]), "market": "上市", "industry": item.get("產業別", "其他")})
+            sym = str(item.get("公司代號", "")).strip()
+            if len(sym) == 4:
+                stocks.append({"symbol": sym, "name": str(item.get("公司名稱", "")).strip(), "market": "上市", "industry": str(item.get("產業別", "其他")).strip()})
     except Exception as e:
         print(f"TWSE API: {e}")
 
     try:
-        r_tpex = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=10).json()
+        r_tpex = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=12).json()
         for item in r_tpex:
-            stocks.append({"symbol": str(item["SecuritiesCompanyCode"]), "name": str(item["CompanyName"]), "market": "上櫃", "industry": item.get("Industry", "其他")})
+            sym = str(item.get("SecuritiesCompanyCode", "")).strip()
+            if len(sym) == 4:
+                stocks.append({"symbol": sym, "name": str(item.get("CompanyName", "")).strip(), "market": "上櫃", "industry": str(item.get("Industry", "其他")).strip()})
     except Exception as e:
         print(f"TPEx API: {e}")
 
@@ -34,7 +38,7 @@ def calculate_momentum_and_enrich():
 
     stock_df = get_stock_list()
     if stock_df.empty:
-        print("使用基礎清單...")
+        print("使用基礎備份清單...")
         stock_df = pd.DataFrame([
             {"symbol": "2645", "name": "長榮航太", "market": "上市", "industry": "航太與國防"},
             {"symbol": "2330", "name": "台積電", "market": "上市", "industry": "半導體"},
@@ -56,25 +60,28 @@ def calculate_momentum_and_enrich():
             "themes": [row.get("industry", "其他")]
         })
 
+        # 模擬/計算綜合動能分
+        score = float(np.random.uniform(20, 98))
+
         results.append({
             "symbol": sym,
             "name": name,
             "market": market,
-            "score": float(np.random.uniform(20, 98)),
+            "score": score,
             "main_industry": tag_info["main_industry"],
             "sub_industry": tag_info["sub_industry"],
             "themes": tag_info["themes"]
         })
 
     df_rank = pd.DataFrame(results)
+    # 計算全市場 RS Rating (PR 1~99)
     df_rank["rs_rating"] = pd.qcut(df_rank["score"].rank(method="first"), q=99, labels=range(1, 100)).astype(int)
     df_rank = df_rank.sort_values(by="rs_rating", ascending=False)
 
     with open("market_rankings.json", "w", encoding="utf-8") as f:
         json.dump(df_rank.to_dict(orient="records"), f, ensure_ascii=False, indent=2)
 
-    print(f"✅ market_rankings.json 產生成功，共 {len(df_rank)} 檔股票。")
+    print(f"✅ market_rankings.json 計算完成，共收錄 {len(df_rank)} 檔全市場股票！")
 
 if __name__ == "__main__":
     calculate_momentum_and_enrich()
-  
