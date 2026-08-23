@@ -6,7 +6,7 @@ import requests
 
 st.set_page_config(page_title="台股動能 RS 產業與自適應雙軌題材系統", layout="wide")
 
-# ----------------- 1. 手機極簡緊湊膠囊與滿版自適應 CSS -----------------
+# ----------------- 1. 手機極簡緊湊膠囊與滿版 CSS -----------------
 st.markdown("""
 <style>
 div.stButton > button {
@@ -40,7 +40,6 @@ div.stButton > button:hover {
     padding-right: 0.8rem !important;
 }
 
-/* 消除表格多餘空白邊界，支援橫向滿版平滑滾動 */
 [data-testid="stDataFrame"] {
     width: 100% !important;
     overflow-x: auto !important;
@@ -92,7 +91,6 @@ def calc_adaptive_theme_score(sub_df):
     strong_stocks = [r for r in sorted_rs if r >= 80]
     strong_count = len(strong_stocks)
 
-    # 領袖基準分 (方案 A: Top 3 權重 0.50, 0.30, 0.20)
     if n == 1:
         base_top = float(top1_rs)
     elif n == 2:
@@ -100,7 +98,6 @@ def calc_adaptive_theme_score(sub_df):
     else:
         base_top = float(sorted_rs[0] * 0.50 + sorted_rs[1] * 0.30 + sorted_rs[2] * 0.20)
 
-    # 貝氏平滑共振率 + 深度補償
     smoothed_rate = (strong_count + 0.4) / (n + 2)
     depth_ratio = min(strong_count, 4) / 4.0
     resonance_multiplier = 1.0 + (0.12 * smoothed_rate + 0.06 * depth_ratio)
@@ -191,15 +188,15 @@ if "selected_theme" not in st.session_state:
 if "selected_industry" not in st.session_state:
     st.session_state.selected_industry = df_industry_ranked["industry"].iloc[0] if not df_industry_ranked.empty else "航太與國防"
 
-# ----------------- 4. 完美比例：前6欄緊湊無空白，長欄位最大化吸收 -----------------
-PERFECT_COLUMN_CONFIG = {
+# ----------------- 4. 黃金比例欄位配置 (兼顧內容與滿版) -----------------
+BALANCED_COLUMN_CONFIG = {
     "代號": st.column_config.TextColumn("代號", width="small"),
-    "名稱": st.column_config.TextColumn("名稱", width="small"),
+    "名稱": st.column_config.TextColumn("名稱", width="medium"),
     "收盤價": st.column_config.NumberColumn("收盤價", width="small", format="%.2f"),
     "綜合動能": st.column_config.NumberColumn("綜合動能", width="small", format="%.2f"),
-    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", width="small", format="%d", min_value=1, max_value=99),
-    "共振": st.column_config.TextColumn("共振", width="small"),
-    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵", width="large")
+    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", width="medium", format="%d", min_value=1, max_value=99),
+    "共振": st.column_config.TextColumn("共振", width="medium"),
+    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵", width="medium")
 }
 
 # ----------------- 5. 頂部狀態列與萬用搜尋 -----------------
@@ -305,7 +302,7 @@ with tab1:
         display_t_df,
         use_container_width=True,
         hide_index=True,
-        column_config=PERFECT_COLUMN_CONFIG
+        column_config=BALANCED_COLUMN_CONFIG
     )
 
     st.markdown("---")
@@ -376,7 +373,7 @@ with tab2:
         display_ind_df,
         use_container_width=True,
         hide_index=True,
-        column_config=PERFECT_COLUMN_CONFIG
+        column_config=BALANCED_COLUMN_CONFIG
     )
 
     st.markdown("---")
@@ -433,7 +430,7 @@ with tab3:
         display_lead_df,
         use_container_width=True,
         hide_index=True,
-        column_config=PERFECT_COLUMN_CONFIG
+        column_config=BALANCED_COLUMN_CONFIG
     )
 
 # =========================================================
@@ -484,5 +481,5 @@ with tab4:
         view_all_df,
         use_container_width=True,
         hide_index=True,
-        column_config=PERFECT_COLUMN_CONFIG
+        column_config=BALANCED_COLUMN_CONFIG
     )
