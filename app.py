@@ -3,67 +3,63 @@ import pandas as pd
 import json
 import os
 
-st.set_page_config(page_title="台股 RS 動能板塊與題材穿透庫", layout="wide")
+st.set_page_config(page_title="台股動能 RS 評分與精準題材庫", layout="wide")
 
-# ----------------- 1. 正方形按鈕與板塊 CSS 樣式 -----------------
+# ----------------- 1. 極簡微型膠囊按鈕 CSS (手機專用，免滾動) -----------------
 st.markdown("""
 <style>
-/* 緊湊正方形按鈕磁磚 */
+/* 超緊湊膠囊按鈕：高度僅 34px，字體 12px，橫向高密度排列 */
 div.stButton > button {
     width: 100% !important;
-    min-height: 88px !important;
-    aspect-ratio: 1 / 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    border-radius: 10px !important;
+    min-height: 34px !important;
+    height: 35px !important;
+    border-radius: 6px !important;
     border: 1px solid #3b4252 !important;
-    background: linear-gradient(145deg, #1e222b, #15181e) !important;
-    color: #eceff4 !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    white-space: pre-wrap !important;
-    line-height: 1.3 !important;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25) !important;
-    transition: all 0.15s ease-in-out !important;
-    padding: 6px 4px !important;
+    background: #1e222b !important;
+    color: #e5e9f0 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    padding: 1px 6px !important;
+    margin-bottom: 2px !important;
+    transition: all 0.1s ease-in-out !important;
 }
 
 div.stButton > button:hover {
     border-color: #88c0d0 !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 12px rgba(136, 192, 208, 0.3) !important;
-    background: linear-gradient(145deg, #2e3440, #1e222b) !important;
+    background: #2e3440 !important;
+    color: #eceff4 !important;
 }
 
 .block-container {
-    padding-top: 1rem !important;
-    padding-bottom: 2rem !important;
+    padding-top: 0.8rem !important;
+    padding-bottom: 1.5rem !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ----------------- 2. 狀態與資料載入 -----------------
+# ----------------- 2. 載入統一資料庫 (確保所有分數絕對一致) -----------------
 @st.cache_data(ttl=60)
 def load_market_rankings():
     if os.path.exists("market_rankings.json"):
         with open("market_rankings.json", "r", encoding="utf-8") as f:
             return pd.DataFrame(json.load(f))
-    # 備援資料
+    # 預設備援資料
     return pd.DataFrame([
-        {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "飛機維修/發動機零件製造", "themes": ["GE航空供應鏈", "無人機概念", "波音供應鏈", "軍工國防", "長榮集團"]},
-        {"symbol": "2330", "name": "台積電", "market": "上市", "close_price": 980.0, "r_5d": 4.5, "r_20d": 15.0, "r_60d": 32.0, "score": 18.0, "rs_rating": 98, "main_industry": "半導體業", "sub_industry": "先進製程晶圓代工", "themes": ["AI伺服器", "CoWoS先進封裝", "先進製程", "矽光子(CPO)"]},
-        {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "水冷散熱模組/水冷板", "themes": ["水冷散熱", "AI伺服器", "GB200概念", "散熱模組"]},
-        {"symbol": "8033", "name": "雷虎", "market": "上市", "close_price": 62.0, "r_5d": 6.8, "r_20d": 16.0, "r_60d": 30.0, "score": 17.5, "rs_rating": 91, "main_industry": "航太與國防", "sub_industry": "無人載具製造", "themes": ["無人機概念", "軍工國防"]},
-        {"symbol": "1519", "name": "華城", "market": "上市", "close_price": 520.0, "r_5d": 2.1, "r_20d": 8.0, "r_60d": 15.0, "score": 11.2, "rs_rating": 85, "main_industry": "電機機械", "sub_industry": "超特高壓變壓器", "themes": ["重電設備", "台電強韌電網"]}
+        {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "飛機維修與航太製造", "themes": ["無人機概念", "GE航空供應鏈", "波音供應鏈", "國防軍工"]},
+        {"symbol": "2634", "name": "漢翔", "market": "上市", "close_price": 53.2, "r_5d": 2.1, "r_20d": 8.5, "r_60d": 18.0, "score": 10.07, "rs_rating": 85, "main_industry": "航太與國防", "sub_industry": "飛機維修與航太製造", "themes": ["無人機概念", "GE航空供應鏈", "波音供應鏈", "國防軍工"]},
+        {"symbol": "8033", "name": "雷虎", "market": "上市", "close_price": 62.0, "r_5d": 6.8, "r_20d": 16.0, "r_60d": 30.0, "score": 18.36, "rs_rating": 94, "main_industry": "航太與國防", "sub_industry": "飛機維修與航太製造", "themes": ["無人機概念", "國防軍工"]},
+        {"symbol": "2330", "name": "台積電", "market": "上市", "close_price": 980.0, "r_5d": 4.5, "r_20d": 15.0, "r_60d": 32.0, "score": 18.00, "rs_rating": 98, "main_industry": "半導體業", "sub_industry": "晶圓製造與IC封測", "themes": ["CoWoS先進封裝", "矽光子(CPO)", "先進製程設備材料"]},
+        {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "電子零組件與模組", "themes": ["水冷散熱模組"]}
     ])
 
 df_market = load_market_rankings()
 
 all_raw_themes = sorted(list(set(t for sublist in df_market["themes"] for t in sublist)))
 
-# ----------------- 3. 題材動能計算與每日動態強弱排序 -----------------
+# ----------------- 3. 題材平均動能計算與強弱排序 -----------------
 theme_stats = []
 for th in all_raw_themes:
     sub_df = df_market[df_market["themes"].apply(lambda tags: th in tags)]
@@ -86,10 +82,10 @@ ranked_theme_list = df_theme_ranked["theme"].tolist()
 if "selected_theme" not in st.session_state:
     st.session_state.selected_theme = ranked_theme_list[0] if ranked_theme_list else "無人機概念"
 if "selected_sub_ind" not in st.session_state:
-    st.session_state.selected_sub_ind = "飛機維修/發動機零件製造"
+    st.session_state.selected_sub_ind = "飛機維修與航太製造"
 
 # ----------------- 4. 頂部萬用搜尋 -----------------
-st.title("🎯 台股 RS 動能強弱板塊 & 題材穿透庫")
+st.title("🎯 台股真實 RS 動能評分與精準題材庫")
 
 search_txt = st.text_input("🔍 萬用個股搜尋 (輸入代碼如 2645 或名稱如 長榮航太):", "").strip()
 
@@ -97,19 +93,18 @@ if search_txt:
     matched = df_market[df_market["symbol"].str.contains(search_txt) | df_market["name"].str.contains(search_txt)]
     if not matched.empty:
         stk = matched.iloc[0]
-        tier = "🥇 第一梯隊 (RS 90+ 領袖股)" if stk['rs_rating'] >= 90 else ("🥈 第二梯隊 (RS 80-89 強勢股)" if stk['rs_rating'] >= 80 else "🥉 第三梯隊 (RS 75-79 轉強股)")
+        tier = "🥇 第一梯隊 (RS 90+)" if stk['rs_rating'] >= 90 else ("🥈 第二梯隊 (RS 80-89)" if stk['rs_rating'] >= 80 else "🥉 第三梯隊 (RS 75-79)")
         
         with st.container():
             st.success(
-                f"### 📍 【{stk['name']} ({stk['symbol']})】 動能全方位檔案\n"
-                f"* **市場地位**：`{tier}` | **RS 強勢度**：`{stk['rs_rating']}` (PR) | **最新收盤價**：`{stk.get('close_price', 'N/A')} 元`\n"
+                f"### 📍 【{stk['name']} ({stk['symbol']})】\n"
+                f"* **市場梯隊**：`{tier}` | **RS 強勢評分**：`{stk['rs_rating']}` | **綜合動能得分**：`{stk.get('score', 0):.2f}`\n"
                 f"* **動能拆解**：近5日 `{stk.get('r_5d', 0):+.2f}%` | 近1月 `{stk.get('r_20d', 0):+.2f}%` | 近1季 `{stk.get('r_60d', 0):+.2f}%`\n"
-                f"* **產業定位**：`{stk['main_industry']}` ➔ `{stk['sub_industry']}`"
+                f"* **產業分類**：`{stk['main_industry']}` ➔ `{stk['sub_industry']}`"
             )
             
-            st.write("👉 **點擊下方標籤，立即將上方畫面切換為該族群成分股：**")
+            st.write("👉 **點擊標籤立即置頂查看該群組真實成分股：**")
             badge_cols = st.columns(len(stk['themes']) + 1)
-            
             with badge_cols[0]:
                 if st.button(f"🏭 {stk['sub_industry']}", key=f"btn_sub_{stk['symbol']}"):
                     st.session_state.selected_sub_ind = stk['sub_industry']
@@ -125,24 +120,24 @@ st.markdown("---")
 
 # ----------------- 5. 主導航分頁 -----------------
 nav_tab1, nav_tab2, nav_tab3 = st.tabs([
-    "🔥 熱門題材強弱板塊 (點選即時置頂)",
+    "🔥 熱門題材動能板塊 (置頂透視)",
     "🏭 細產業分類庫 (點擊看成分股)",
     "🏆 全市場真實 RS 排行榜"
 ])
 
 # =========================================================
-# TAB 1: 題材強弱矩陣 (資料置頂 + 多欄橫向正方形按鈕)
+# TAB 1: 題材強弱板塊 (資料置頂 + 極簡膠囊徽章)
 # =========================================================
 with nav_tab1:
     cur_theme = st.session_state.selected_theme
     theme_constituents = df_market[df_market["themes"].apply(lambda tags: cur_theme in tags)].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
 
-    # --- 【資料置頂區】：所選題材 KPI 與成分股清單直接顯示在最上方 ---
-    st.markdown(f"### 📋 目前鎖定題材：【{cur_theme}】 成分股動能明細")
+    # --- 【資料置頂區】：所選題材 KPI 與成分股清單直接呈現在最頂部 ---
+    st.markdown(f"### 📋 目前鎖定題材：【{cur_theme}】 真實成分股動能明細")
 
     kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-    kpi1.metric("當前題材", cur_theme)
-    kpi2.metric("涵蓋成分股", f"{len(theme_constituents)} 檔")
+    kpi1.metric("鎖定題材", cur_theme)
+    kpi2.metric("真實成分股", f"{len(theme_constituents)} 檔")
     kpi3.metric("題材平均 RS", f"{theme_constituents['rs_rating'].mean():.1f}" if not theme_constituents.empty else "0")
     kpi4.metric("RS ≥ 90 領袖股", f"{len(theme_constituents[theme_constituents['rs_rating'] >= 90])} 檔")
 
@@ -156,8 +151,8 @@ with nav_tab1:
     ].rename(
         columns={
             "symbol": "股票代號", "name": "股票名稱", "rs_rating": "RS 評分",
-            "close_price": "收盤現價", "r_5d": "近5日(%)", "r_20d": "近1月(%)",
-            "r_60d": "近1季(%)", "score": "綜合動能",
+            "close_price": "最新現價", "r_5d": "近5日(%)", "r_20d": "近1月(%)",
+            "r_60d": "近1季(%)", "score": "綜合動能得分",
             "main_industry": "主產業", "sub_industry": "細產業分類"
         }
     )
@@ -173,14 +168,11 @@ with nav_tab1:
 
     st.markdown("---")
 
-    # --- 【下方矩陣區】：正方形題材板塊 (支援自訂每排欄數) ---
-    grid_header_col1, grid_header_col2 = st.columns([3, 1])
-    with grid_header_col1:
-        st.subheader("🧱 全市場概念題材動能板塊 (每日依強弱排序)")
-        st.caption("點選下方任一正方形板塊，上方成分股清單將立即同步切換！")
-    with grid_header_col2:
-        cols_per_row = st.selectbox("每排板塊數量", [4, 6, 8], index=1, key="grid_cols_selector")
+    # --- 【極簡微型膠囊板塊區】：高度極低，橫向 3 欄緊湊排列 ---
+    st.subheader("⚡ 題材強弱切換板塊 (每日依平均 RS 排序)")
+    st.caption("點選下方任一膠囊徽章，上方成分股即時同步切換：")
 
+    cols_per_row = 3
     for row_idx in range(0, len(df_theme_ranked), cols_per_row):
         cols = st.columns(cols_per_row)
         for col_idx in range(cols_per_row):
@@ -190,13 +182,13 @@ with nav_tab1:
                 t_name = item["theme"]
                 t_avg_rs = item["avg_rs"]
                 t_cnt = item["total_count"]
-                t1_cnt = item["t1_count"]
-
-                badge = "🔥" if t_avg_rs >= 85 else ("⚡" if t_avg_rs >= 75 else "📦")
-                btn_label = f"{badge} {t_name}\n\nRS {t_avg_rs:.1f}\n{t_cnt}檔(T1:{t1_cnt})"
+                
+                icon = "🔥" if t_avg_rs >= 85 else ("⚡" if t_avg_rs >= 75 else "📦")
+                is_active = "▶ " if t_name == cur_theme else ""
+                btn_label = f"{is_active}{icon} {t_name} | {t_avg_rs:.1f} ({t_cnt}檔)"
 
                 with cols[col_idx]:
-                    if st.button(btn_label, key=f"sq_btn_{t_name}"):
+                    if st.button(btn_label, key=f"pill_btn_{t_name}"):
                         st.session_state.selected_theme = t_name
                         st.rerun()
 
@@ -237,8 +229,8 @@ with nav_tab2:
     ].rename(
         columns={
             "symbol": "股票代號", "name": "股票名稱", "rs_rating": "RS 評分",
-            "close_price": "收盤現價", "r_5d": "近5日(%)", "r_20d": "近1月(%)",
-            "r_60d": "近1季(%)", "score": "綜合動能", "main_industry": "主產業"
+            "close_price": "最新現價", "r_5d": "近5日(%)", "r_20d": "近1月(%)",
+            "r_60d": "近1季(%)", "score": "綜合動能得分", "main_industry": "主產業"
         }
     )
 
@@ -290,8 +282,8 @@ with nav_tab3:
     ].rename(
         columns={
             "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
-            "close_price": "收盤現價", "r_5d": "近5日(%)", "r_20d": "近1月(%)",
-            "r_60d": "近1季(%)", "score": "綜合動能",
+            "close_price": "最新現價", "r_5d": "近5日(%)", "r_20d": "近1月(%)",
+            "r_60d": "近1季(%)", "score": "綜合動能得分",
             "main_industry": "主產業", "sub_industry": "細產業"
         }
     )
