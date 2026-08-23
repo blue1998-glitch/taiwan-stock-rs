@@ -29,7 +29,7 @@
       "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
-      "伺服器滑軌機構"
+      "伺服器滑軌與導軌機構"
     ],
     "rs_rating": 99
   },
@@ -89,8 +89,12 @@
     "score": 63.22,
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "銅箔基板(CCL)"
+    ],
+    "micro_themes": [
+      "銅箔基板(CCL)"
+    ],
     "rs_rating": 99
   },
   {
@@ -138,8 +142,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "伺服器水冷CDU",
-      "水冷散熱模組"
+      "水冷/液冷散熱模組"
     ],
     "rs_rating": 99
   },
@@ -218,8 +221,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 99
   },
@@ -294,8 +296,12 @@
     "score": 38.3,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "矽光子(CPO)"
+    ],
+    "micro_themes": [
+      "矽光子(CPO)"
+    ],
     "rs_rating": 99
   },
   {
@@ -538,8 +544,7 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU備援電池",
-      "BBU電池組裝"
+      "BBU伺服器備援電池"
     ],
     "rs_rating": 98
   },
@@ -783,7 +788,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC設計服務"
+      "ASIC客製化晶片與矽智財"
     ],
     "rs_rating": 97
   },
@@ -1102,8 +1107,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 96
   },
@@ -1362,8 +1366,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 95
   },
@@ -1456,15 +1459,12 @@
     "themes": [
       "GE航太發動機供應鏈",
       "波音機體供應鏈",
-      "發動機熱段製造",
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "GE航空發動機",
-      "波音供應鏈",
-      "無人機概念",
-      "發動機熱段製造",
-      "軍用無人機"
+      "GE航太發動機供應鏈",
+      "波音機體供應鏈",
+      "軍用商規無人機"
     ],
     "rs_rating": 95
   },
@@ -1479,8 +1479,12 @@
     "score": 17.69,
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "ABF高階載板"
+    ],
+    "micro_themes": [
+      "ABF高階載板"
+    ],
     "rs_rating": 95
   },
   {
@@ -1914,8 +1918,14 @@
     "score": 14.55,
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "電腦及週邊設備業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "AI伺服器與GB200代工",
+      "機器人與智慧自動化"
+    ],
+    "micro_themes": [
+      "AI伺服器與GB200代工",
+      "機器人與智慧自動化"
+    ],
     "rs_rating": 93
   },
   {
@@ -1944,8 +1954,12 @@
     "score": 14.36,
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "電腦及週邊設備業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "AI伺服器與GB200代工"
+    ],
+    "micro_themes": [
+      "AI伺服器與GB200代工"
+    ],
     "rs_rating": 93
   },
   {
@@ -2068,8 +2082,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 93
   },
@@ -2265,12 +2278,10 @@
     "main_industry": "其他",
     "sub_industry": "其他應用",
     "themes": [
-      "GE航太發動機供應鏈",
-      "發動機熱段製造"
+      "GE航太發動機供應鏈"
     ],
     "micro_themes": [
-      "GE航空發動機",
-      "發動機熱段製造"
+      "GE航太發動機供應鏈"
     ],
     "rs_rating": 92
   },
@@ -2405,8 +2416,12 @@
     "score": 12.15,
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "折疊手機鉸鏈軸承"
+    ],
+    "micro_themes": [
+      "折疊手機鉸鏈軸承"
+    ],
     "rs_rating": 92
   },
   {
@@ -2480,8 +2495,12 @@
     "score": 12.06,
     "main_industry": "半導體業",
     "sub_industry": "半導體業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "ASIC客製化晶片與矽智財"
+    ],
+    "micro_themes": [
+      "ASIC客製化晶片與矽智財"
+    ],
     "rs_rating": 91
   },
   {
@@ -2574,7 +2593,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器代工"
+      "AI伺服器與GB200代工"
     ],
     "rs_rating": 91
   },
@@ -2589,8 +2608,12 @@
     "score": 11.86,
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "銅箔基板(CCL)"
+    ],
+    "micro_themes": [
+      "銅箔基板(CCL)"
+    ],
     "rs_rating": 91
   },
   {
@@ -2634,8 +2657,12 @@
     "score": 11.7,
     "main_industry": "其他電子業",
     "sub_industry": "其他電子業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "機器人與智慧自動化"
+    ],
+    "micro_themes": [
+      "機器人與智慧自動化"
+    ],
     "rs_rating": 91
   },
   {
@@ -2694,8 +2721,12 @@
     "score": 11.57,
     "main_industry": "半導體業",
     "sub_industry": "半導體業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "ABF高階載板"
+    ],
+    "micro_themes": [
+      "ABF高階載板"
+    ],
     "rs_rating": 91
   },
   {
@@ -2848,8 +2879,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "伺服器水冷CDU",
-      "水冷散熱模組"
+      "水冷/液冷散熱模組"
     ],
     "rs_rating": 90
   },
@@ -2910,11 +2940,10 @@
     "main_industry": "其他",
     "sub_industry": "其他應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "micro_themes": [
-      "CoWoS先進封裝",
-      "CoWoS濕製程/載具"
+      "CoWoS先進封裝"
     ],
     "rs_rating": 90
   },
@@ -3398,8 +3427,7 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "無人機概念",
-      "軍用無人機"
+      "軍用商規無人機"
     ],
     "rs_rating": 88
   },
@@ -3609,8 +3637,12 @@
     "score": 8.58,
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "ABF高階載板"
+    ],
+    "micro_themes": [
+      "ABF高階載板"
+    ],
     "rs_rating": 88
   },
   {
@@ -4449,8 +4481,12 @@
     "score": 6.96,
     "main_industry": "電器電纜",
     "sub_industry": "電器電纜應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "重電設備與強韌電網"
+    ],
+    "micro_themes": [
+      "重電設備與強韌電網"
+    ],
     "rs_rating": 85
   },
   {
@@ -4524,8 +4560,12 @@
     "score": 6.77,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "銅箔基板(CCL)"
+    ],
+    "micro_themes": [
+      "銅箔基板(CCL)"
+    ],
     "rs_rating": 85
   },
   {
@@ -5094,8 +5134,12 @@
     "score": 5.93,
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "電腦及週邊設備業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "波音機體供應鏈"
+    ],
+    "micro_themes": [
+      "波音機體供應鏈"
+    ],
     "rs_rating": 83
   },
   {
@@ -5353,8 +5397,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "北美電網變壓器",
-      "重電設備與電網"
+      "重電設備與強韌電網"
     ],
     "rs_rating": 82
   },
@@ -5568,7 +5611,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與電網"
+      "重電設備與強韌電網"
     ],
     "rs_rating": 81
   },
@@ -5677,8 +5720,7 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "無人機概念",
-      "軍用無人機"
+      "軍用商規無人機"
     ],
     "rs_rating": 81
   },
@@ -5874,10 +5916,12 @@
     "main_industry": "運動休閒",
     "sub_industry": "運動休閒應用",
     "themes": [
-      "波音機體供應鏈"
+      "波音機體供應鏈",
+      "軍用商規無人機"
     ],
     "micro_themes": [
-      "波音供應鏈"
+      "波音機體供應鏈",
+      "軍用商規無人機"
     ],
     "rs_rating": 80
   },
@@ -6432,8 +6476,12 @@
     "score": 4.54,
     "main_industry": "其他電子業",
     "sub_industry": "其他電子業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
+    "micro_themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
     "rs_rating": 78
   },
   {
@@ -6856,7 +6904,7 @@
       "波音機體供應鏈"
     ],
     "micro_themes": [
-      "波音供應鏈"
+      "波音機體供應鏈"
     ],
     "rs_rating": 77
   },
@@ -7401,9 +7449,8 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "波音客改貨MRO",
-      "無人機概念",
-      "軍用無人機"
+      "波音機體供應鏈",
+      "軍用商規無人機"
     ],
     "rs_rating": 75
   },
@@ -7542,7 +7589,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器代工"
+      "AI伺服器與GB200代工"
     ],
     "rs_rating": 74
   },
@@ -7636,8 +7683,7 @@
       "波音機體供應鏈"
     ],
     "micro_themes": [
-      "波音供應鏈",
-      "波音客改貨MRO"
+      "波音機體供應鏈"
     ],
     "rs_rating": 74
   },
@@ -7791,8 +7837,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "AI 3D視覺機器人",
-      "機器人與AI視覺"
+      "機器人與智慧自動化"
     ],
     "rs_rating": 74
   },
@@ -8122,8 +8167,12 @@
     "score": 3.14,
     "main_industry": "電機機械",
     "sub_industry": "電機機械應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "重電設備與強韌電網"
+    ],
+    "micro_themes": [
+      "重電設備與強韌電網"
+    ],
     "rs_rating": 73
   },
   {
@@ -8258,12 +8307,10 @@
     "main_industry": "電機機械",
     "sub_industry": "電機機械應用",
     "themes": [
-      "GE航太發動機供應鏈",
-      "發動機熱段製造"
+      "GE航太發動機供應鏈"
     ],
     "micro_themes": [
-      "GE航空發動機",
-      "發動機熱段製造"
+      "GE航太發動機供應鏈"
     ],
     "rs_rating": 72
   },
@@ -8429,13 +8476,12 @@
     "main_industry": "半導體業",
     "sub_industry": "半導體業應用",
     "themes": [
-      "CoWoS先進封裝與設備",
+      "CoWoS先進封裝",
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
       "CoWoS先進封裝",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 72
   },
@@ -8661,7 +8707,7 @@
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "micro_themes": [
       "CoWoS先進封裝"
@@ -9133,8 +9179,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "北美電網變壓器",
-      "重電設備與電網"
+      "重電設備與強韌電網"
     ],
     "rs_rating": 69
   },
@@ -9948,7 +9993,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷散熱模組"
+      "水冷/液冷散熱模組"
     ],
     "rs_rating": 67
   },
@@ -10068,8 +10113,12 @@
     "score": 1.58,
     "main_industry": "光電業",
     "sub_industry": "光電業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "MicroLED/MiniLED"
+    ],
+    "micro_themes": [
+      "MicroLED/MiniLED"
+    ],
     "rs_rating": 66
   },
   {
@@ -10402,8 +10451,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "AI 3D視覺機器人",
-      "機器人與AI視覺"
+      "機器人與智慧自動化"
     ],
     "rs_rating": 65
   },
@@ -10433,8 +10481,12 @@
     "score": 1.42,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "水冷/液冷散熱模組"
+    ],
+    "micro_themes": [
+      "水冷/液冷散熱模組"
+    ],
     "rs_rating": 65
   },
   {
@@ -10677,8 +10729,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 64
   },
@@ -10982,8 +11033,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "伺服器水冷CDU",
-      "水冷散熱模組"
+      "水冷/液冷散熱模組"
     ],
     "rs_rating": 63
   },
@@ -11178,8 +11228,12 @@
     "score": 1.07,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "矽光子(CPO)"
+    ],
+    "micro_themes": [
+      "矽光子(CPO)"
+    ],
     "rs_rating": 62
   },
   {
@@ -11853,8 +11907,12 @@
     "score": 0.68,
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "電腦及週邊設備業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "AI伺服器與GB200代工"
+    ],
+    "micro_themes": [
+      "AI伺服器與GB200代工"
+    ],
     "rs_rating": 60
   },
   {
@@ -11932,7 +11990,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與電網"
+      "重電設備與強韌電網"
     ],
     "rs_rating": 60
   },
@@ -12086,7 +12144,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器代工"
+      "AI伺服器與GB200代工"
     ],
     "rs_rating": 59
   },
@@ -12896,8 +12954,12 @@
     "score": 0.14,
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "電腦及週邊設備業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "AI伺服器與GB200代工"
+    ],
+    "micro_themes": [
+      "AI伺服器與GB200代工"
+    ],
     "rs_rating": 57
   },
   {
@@ -13021,9 +13083,8 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "GE航空發動機",
-      "無人機概念",
-      "軍用無人機"
+      "GE航太發動機供應鏈",
+      "軍用商規無人機"
     ],
     "rs_rating": 56
   },
@@ -13327,7 +13388,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器代工"
+      "AI伺服器與GB200代工"
     ],
     "rs_rating": 55
   },
@@ -13406,7 +13467,7 @@
       "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
-      "伺服器滑軌機構"
+      "伺服器滑軌與導軌機構"
     ],
     "rs_rating": 55
   },
@@ -13721,8 +13782,12 @@
     "score": -0.26,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "矽光子(CPO)"
+    ],
+    "micro_themes": [
+      "矽光子(CPO)"
+    ],
     "rs_rating": 54
   },
   {
@@ -13830,8 +13895,7 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "無人機概念",
-      "軍用無人機"
+      "軍用商規無人機"
     ],
     "rs_rating": 54
   },
@@ -13937,11 +14001,10 @@
     "main_industry": "其他",
     "sub_industry": "其他應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "micro_themes": [
-      "CoWoS先進封裝",
-      "CoWoS濕製程/載具"
+      "CoWoS先進封裝"
     ],
     "rs_rating": 53
   },
@@ -14230,8 +14293,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "伺服器水冷CDU",
-      "水冷散熱模組"
+      "水冷/液冷散熱模組"
     ],
     "rs_rating": 52
   },
@@ -15270,8 +15332,7 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU備援電池",
-      "BBU電池組裝"
+      "BBU伺服器備援電池"
     ],
     "rs_rating": 49
   },
@@ -16865,7 +16926,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與電網"
+      "重電設備與強韌電網"
     ],
     "rs_rating": 43
   },
@@ -17046,11 +17107,10 @@
     "main_industry": "其他",
     "sub_industry": "其他應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "micro_themes": [
-      "CoWoS先進封裝",
-      "CoWoS濕製程/載具"
+      "CoWoS先進封裝"
     ],
     "rs_rating": 43
   },
@@ -17085,9 +17145,8 @@
       "波音機體供應鏈"
     ],
     "micro_themes": [
-      "GE航空發動機",
-      "波音供應鏈",
-      "波音客改貨MRO"
+      "GE航太發動機供應鏈",
+      "波音機體供應鏈"
     ],
     "rs_rating": 43
   },
@@ -17316,8 +17375,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "北美電網變壓器",
-      "重電設備與電網"
+      "重電設備與強韌電網"
     ],
     "rs_rating": 42
   },
@@ -17441,7 +17499,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC設計服務"
+      "ASIC客製化晶片與矽智財"
     ],
     "rs_rating": 42
   },
@@ -17501,8 +17559,12 @@
     "score": -2.3,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "水冷/液冷散熱模組"
+    ],
+    "micro_themes": [
+      "水冷/液冷散熱模組"
+    ],
     "rs_rating": 41
   },
   {
@@ -17546,8 +17608,12 @@
     "score": -2.34,
     "main_industry": "電機機械",
     "sub_industry": "電機機械應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "CoWoS先進封裝"
+    ],
+    "micro_themes": [
+      "CoWoS先進封裝"
+    ],
     "rs_rating": 41
   },
   {
@@ -17561,8 +17627,12 @@
     "score": -2.34,
     "main_industry": "電器電纜",
     "sub_industry": "電器電纜應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "重電設備與強韌電網"
+    ],
+    "micro_themes": [
+      "重電設備與強韌電網"
+    ],
     "rs_rating": 41
   },
   {
@@ -17730,8 +17800,7 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星天線PCB",
-      "低軌衛星太空鏈"
+      "低軌衛星太空通訊"
     ],
     "rs_rating": 41
   },
@@ -19355,8 +19424,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 35
   },
@@ -19686,8 +19754,12 @@
     "score": -3.74,
     "main_industry": "光電業",
     "sub_industry": "光電業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "MicroLED/MiniLED"
+    ],
+    "micro_themes": [
+      "MicroLED/MiniLED"
+    ],
     "rs_rating": 34
   },
   {
@@ -20166,8 +20238,12 @@
     "score": -4.14,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "ASIC客製化晶片與矽智財"
+    ],
+    "micro_themes": [
+      "ASIC客製化晶片與矽智財"
+    ],
     "rs_rating": 32
   },
   {
@@ -20725,7 +20801,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器代工"
+      "AI伺服器與GB200代工"
     ],
     "rs_rating": 31
   },
@@ -20890,8 +20966,12 @@
     "score": -4.58,
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "折疊手機鉸鏈軸承"
+    ],
+    "micro_themes": [
+      "折疊手機鉸鏈軸承"
+    ],
     "rs_rating": 30
   },
   {
@@ -20920,8 +21000,12 @@
     "score": -4.58,
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "電腦及週邊設備業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "低軌衛星太空通訊"
+    ],
+    "micro_themes": [
+      "低軌衛星太空通訊"
+    ],
     "rs_rating": 30
   },
   {
@@ -21070,8 +21154,12 @@
     "score": -4.73,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
+    "micro_themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
     "rs_rating": 29
   },
   {
@@ -21254,7 +21342,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器代工"
+      "AI伺服器與GB200代工"
     ],
     "rs_rating": 29
   },
@@ -21287,16 +21375,12 @@
     "themes": [
       "GE航太發動機供應鏈",
       "波音機體供應鏈",
-      "發動機熱段製造",
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "GE航空發動機",
-      "波音供應鏈",
-      "波音客改貨MRO",
-      "無人機概念",
-      "發動機熱段製造",
-      "軍用無人機"
+      "GE航太發動機供應鏈",
+      "波音機體供應鏈",
+      "軍用商規無人機"
     ],
     "rs_rating": 29
   },
@@ -21390,7 +21474,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與電網"
+      "重電設備與強韌電網"
     ],
     "rs_rating": 28
   },
@@ -21559,8 +21643,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "AI 3D視覺機器人",
-      "機器人與AI視覺"
+      "機器人與智慧自動化"
     ],
     "rs_rating": 28
   },
@@ -21609,7 +21692,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與AI視覺"
+      "機器人與智慧自動化"
     ],
     "rs_rating": 28
   },
@@ -21759,8 +21842,12 @@
     "score": -5.23,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
+    "micro_themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
     "rs_rating": 27
   },
   {
@@ -22022,7 +22109,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC設計服務"
+      "ASIC客製化晶片與矽智財"
     ],
     "rs_rating": 26
   },
@@ -22264,13 +22351,11 @@
     "sub_industry": "鋼鐵工業應用",
     "themes": [
       "GE航太發動機供應鏈",
-      "波音機體供應鏈",
-      "發動機熱段製造"
+      "波音機體供應鏈"
     ],
     "micro_themes": [
-      "GE航空發動機",
-      "波音供應鏈",
-      "發動機熱段製造"
+      "GE航太發動機供應鏈",
+      "波音機體供應鏈"
     ],
     "rs_rating": 25
   },
@@ -22439,7 +22524,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC設計服務"
+      "ASIC客製化晶片與矽智財"
     ],
     "rs_rating": 25
   },
@@ -22728,8 +22813,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 24
   },
@@ -22775,7 +22859,7 @@
     "main_industry": "其他電子業",
     "sub_industry": "其他電子業應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "micro_themes": [
       "CoWoS先進封裝"
@@ -22913,8 +22997,12 @@
     "score": -6.09,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "折疊手機鉸鏈軸承"
+    ],
+    "micro_themes": [
+      "折疊手機鉸鏈軸承"
+    ],
     "rs_rating": 23
   },
   {
@@ -23052,8 +23140,7 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "無人機概念",
-      "軍用無人機"
+      "軍用商規無人機"
     ],
     "rs_rating": 23
   },
@@ -23383,8 +23470,12 @@
     "score": -6.42,
     "main_industry": "其他電子業",
     "sub_industry": "其他電子業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "CoWoS先進封裝"
+    ],
+    "micro_themes": [
+      "CoWoS先進封裝"
+    ],
     "rs_rating": 22
   },
   {
@@ -23402,8 +23493,7 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU備援電池",
-      "BBU電池組裝"
+      "BBU伺服器備援電池"
     ],
     "rs_rating": 22
   },
@@ -23557,7 +23647,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與AI視覺"
+      "機器人與智慧自動化"
     ],
     "rs_rating": 21
   },
@@ -23576,7 +23666,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子"
+      "矽光子(CPO)"
     ],
     "rs_rating": 21
   },
@@ -23937,11 +24027,10 @@
     "main_industry": "半導體業",
     "sub_industry": "半導體業應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "micro_themes": [
-      "CoWoS先進封裝",
-      "CoWoS濕製程/載具"
+      "CoWoS先進封裝"
     ],
     "rs_rating": 20
   },
@@ -23956,8 +24045,12 @@
     "score": -6.88,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "ASIC客製化晶片與矽智財"
+    ],
+    "micro_themes": [
+      "ASIC客製化晶片與矽智財"
+    ],
     "rs_rating": 20
   },
   {
@@ -24286,8 +24379,12 @@
     "score": -7.17,
     "main_industry": "其他電子業",
     "sub_industry": "其他電子業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "機器人與智慧自動化"
+    ],
+    "micro_themes": [
+      "機器人與智慧自動化"
+    ],
     "rs_rating": 19
   },
   {
@@ -24301,8 +24398,12 @@
     "score": -7.18,
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "GE航太發動機供應鏈"
+    ],
+    "micro_themes": [
+      "GE航太發動機供應鏈"
+    ],
     "rs_rating": 19
   },
   {
@@ -24316,8 +24417,12 @@
     "score": -7.19,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "BBU伺服器備援電池"
+    ],
+    "micro_themes": [
+      "BBU伺服器備援電池"
+    ],
     "rs_rating": 19
   },
   {
@@ -24406,8 +24511,12 @@
     "score": -7.23,
     "main_industry": "半導體業",
     "sub_industry": "半導體業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
+    "micro_themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
     "rs_rating": 18
   },
   {
@@ -24527,7 +24636,7 @@
     "main_industry": "其他",
     "sub_industry": "其他應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "micro_themes": [
       "CoWoS先進封裝"
@@ -24579,8 +24688,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "AI 3D視覺機器人",
-      "機器人與AI視覺"
+      "機器人與智慧自動化"
     ],
     "rs_rating": 18
   },
@@ -25274,8 +25382,7 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星天線PCB",
-      "低軌衛星太空鏈"
+      "低軌衛星太空通訊"
     ],
     "rs_rating": 16
   },
@@ -25444,7 +25551,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與AI視覺"
+      "機器人與智慧自動化"
     ],
     "rs_rating": 15
   },
@@ -25955,7 +26062,7 @@
     "main_industry": "半導體業",
     "sub_industry": "半導體業應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "micro_themes": [
       "CoWoS先進封裝"
@@ -26067,7 +26174,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷散熱模組"
+      "水冷/液冷散熱模組"
     ],
     "rs_rating": 13
   },
@@ -26131,7 +26238,7 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星太空鏈"
+      "低軌衛星太空通訊"
     ],
     "rs_rating": 13
   },
@@ -26390,8 +26497,12 @@
     "score": -9.69,
     "main_industry": "光電業",
     "sub_industry": "光電業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "FOPLP面板級封裝"
+    ],
+    "micro_themes": [
+      "FOPLP面板級封裝"
+    ],
     "rs_rating": 12
   },
   {
@@ -26544,7 +26655,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC設計服務"
+      "ASIC客製化晶片與矽智財"
     ],
     "rs_rating": 11
   },
@@ -26788,8 +26899,7 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星天線PCB",
-      "低軌衛星太空鏈"
+      "低軌衛星太空通訊"
     ],
     "rs_rating": 11
   },
@@ -26834,8 +26944,12 @@
     "score": -10.36,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
+    "micro_themes": [
+      "第三代半導體(SiC/GaN)"
+    ],
     "rs_rating": 10
   },
   {
@@ -26913,7 +27027,7 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU備援電池"
+      "BBU伺服器備援電池"
     ],
     "rs_rating": 10
   },
@@ -26958,8 +27072,12 @@
     "score": -10.47,
     "main_industry": "半導體業",
     "sub_industry": "半導體業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "CoWoS先進封裝"
+    ],
+    "micro_themes": [
+      "CoWoS先進封裝"
+    ],
     "rs_rating": 10
   },
   {
@@ -27007,8 +27125,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CPO矽光子",
-      "矽光子CPO"
+      "矽光子(CPO)"
     ],
     "rs_rating": 10
   },
@@ -27073,8 +27190,8 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "伺服器滑軌機構",
-      "水冷散熱模組"
+      "伺服器滑軌與導軌機構",
+      "水冷/液冷散熱模組"
     ],
     "rs_rating": 10
   },
@@ -27584,8 +27701,12 @@
     "score": -11.45,
     "main_industry": "半導體業",
     "sub_industry": "半導體業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "MicroLED/MiniLED"
+    ],
+    "micro_themes": [
+      "MicroLED/MiniLED"
+    ],
     "rs_rating": 8
   },
   {
@@ -27614,8 +27735,12 @@
     "score": -11.49,
     "main_industry": "電子零組件業",
     "sub_industry": "電子零組件業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "低軌衛星太空通訊"
+    ],
+    "micro_themes": [
+      "低軌衛星太空通訊"
+    ],
     "rs_rating": 8
   },
   {
@@ -28102,8 +28227,7 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU備援電池",
-      "BBU電池組裝"
+      "BBU伺服器備援電池"
     ],
     "rs_rating": 6
   },
@@ -28137,8 +28261,7 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU備援電池",
-      "BBU電池組裝"
+      "BBU伺服器備援電池"
     ],
     "rs_rating": 6
   },
@@ -28247,7 +28370,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷散熱模組"
+      "水冷/液冷散熱模組"
     ],
     "rs_rating": 6
   },
@@ -28337,8 +28460,12 @@
     "score": -13.02,
     "main_industry": "通信網路業",
     "sub_industry": "通信網路業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "低軌衛星太空通訊"
+    ],
+    "micro_themes": [
+      "低軌衛星太空通訊"
+    ],
     "rs_rating": 5
   },
   {
@@ -28401,7 +28528,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC設計服務"
+      "ASIC客製化晶片與矽智財"
     ],
     "rs_rating": 5
   },
@@ -29159,8 +29286,7 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星天線PCB",
-      "低軌衛星太空鏈"
+      "低軌衛星太空通訊"
     ],
     "rs_rating": 3
   },
@@ -29359,7 +29485,7 @@
       "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
-      "伺服器滑軌機構"
+      "伺服器滑軌與導軌機構"
     ],
     "rs_rating": 2
   },
@@ -29644,8 +29770,12 @@
     "score": -18.57,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "CoWoS先進封裝"
+    ],
+    "micro_themes": [
+      "CoWoS先進封裝"
+    ],
     "rs_rating": 1
   },
   {
@@ -29659,8 +29789,12 @@
     "score": -18.66,
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "電腦及週邊設備業應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "機器人與智慧自動化"
+    ],
+    "micro_themes": [
+      "機器人與智慧自動化"
+    ],
     "rs_rating": 1
   },
   {
@@ -29719,8 +29853,12 @@
     "score": -19.1,
     "main_industry": "電機機械",
     "sub_industry": "電機機械應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "機器人與智慧自動化"
+    ],
+    "micro_themes": [
+      "機器人與智慧自動化"
+    ],
     "rs_rating": 1
   },
   {
@@ -29888,7 +30026,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC設計服務"
+      "ASIC客製化晶片與矽智財"
     ],
     "rs_rating": 1
   },
@@ -29919,11 +30057,12 @@
     "main_industry": "其他",
     "sub_industry": "其他應用",
     "themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝",
+      "FOPLP面板級封裝"
     ],
     "micro_themes": [
       "CoWoS先進封裝",
-      "CoWoS濕製程/載具"
+      "FOPLP面板級封裝"
     ],
     "rs_rating": 1
   },
@@ -30058,8 +30197,12 @@
     "score": -31.13,
     "main_industry": "其他",
     "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
+    "themes": [
+      "BBU伺服器備援電池"
+    ],
+    "micro_themes": [
+      "BBU伺服器備援電池"
+    ],
     "rs_rating": 1
   },
   {
