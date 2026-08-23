@@ -6,7 +6,7 @@ import requests
 
 st.set_page_config(page_title="台股動能 RS 產業與自適應雙軌題材系統", layout="wide")
 
-# ----------------- 1. 手機極簡緊湊膠囊與平滑橫向滑動 CSS -----------------
+# ----------------- 1. 手機極簡緊湊膠囊與字數自適應 CSS -----------------
 st.markdown("""
 <style>
 div.stButton > button {
@@ -40,11 +40,10 @@ div.stButton > button:hover {
     padding-right: 0.8rem !important;
 }
 
-/* 確保表格維持自然資料寬度，並支援平滑橫向手勢滑動 */
+/* 確保表格容器緊貼內容，且在手機端可平滑橫向滑動瀏覽 */
 [data-testid="stDataFrame"] {
     width: 100% !important;
     overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -190,15 +189,15 @@ if "selected_theme" not in st.session_state:
 if "selected_industry" not in st.session_state:
     st.session_state.selected_industry = df_industry_ranked["industry"].iloc[0] if not df_industry_ranked.empty else "航太與國防"
 
-# ----------------- 4. 嚴格依資料長度適度配置（前短後長，自然滑動） -----------------
-NATURAL_FIT_CONFIG = {
-    "代號": st.column_config.TextColumn("代號", width="small"),
-    "名稱": st.column_config.TextColumn("名稱", width="small"),
-    "收盤價": st.column_config.NumberColumn("收盤價", width="small", format="%.2f"),
-    "綜合動能": st.column_config.NumberColumn("綜合動能", width="small", format="%.2f"),
-    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", width="small", format="%d", min_value=1, max_value=99),
-    "共振": st.column_config.TextColumn("共振", width="small"),
-    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵", width="large")
+# ----------------- 4. 依資料長度自動貼合配置 (Auto-Fit) -----------------
+CONTENT_AUTOFIT_CONFIG = {
+    "代號": st.column_config.TextColumn("代號"),
+    "名稱": st.column_config.TextColumn("名稱"),
+    "收盤價": st.column_config.NumberColumn("收盤價", format="%.2f"),
+    "綜合動能": st.column_config.NumberColumn("綜合動能", format="%.2f"),
+    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99),
+    "共振": st.column_config.TextColumn("共振"),
+    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵")
 }
 
 # ----------------- 5. 頂部狀態列與萬用搜尋 -----------------
@@ -254,7 +253,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
 ])
 
 # =========================================================
-# TAB 1: 自適應雙軌題材庫 (use_container_width=False 自然滑動)
+# TAB 1: 自適應雙軌題材庫
 # =========================================================
 with tab1:
     cur_t = st.session_state.selected_theme
@@ -304,7 +303,7 @@ with tab1:
         display_t_df,
         use_container_width=False,
         hide_index=True,
-        column_config=NATURAL_FIT_CONFIG
+        column_config=CONTENT_AUTOFIT_CONFIG
     )
 
     st.markdown("---")
@@ -339,7 +338,7 @@ with tab1:
                         st.rerun()
 
 # =========================================================
-# TAB 2: 產業視角 (use_container_width=False 自然滑動)
+# TAB 2: 產業視角
 # =========================================================
 with tab2:
     cur_ind = st.session_state.selected_industry
@@ -375,7 +374,7 @@ with tab2:
         display_ind_df,
         use_container_width=False,
         hide_index=True,
-        column_config=NATURAL_FIT_CONFIG
+        column_config=CONTENT_AUTOFIT_CONFIG
     )
 
     st.markdown("---")
@@ -398,7 +397,7 @@ with tab2:
                         st.rerun()
 
 # =========================================================
-# TAB 3: 主流領袖專區 (use_container_width=False 自然滑動)
+# TAB 3: 主流領袖專區 (先鋒突圍 + 集團共振)
 # =========================================================
 with tab3:
     st.subheader("⚡ 全市場「主流領袖」超級專區")
@@ -432,11 +431,11 @@ with tab3:
         display_lead_df,
         use_container_width=False,
         hide_index=True,
-        column_config=NATURAL_FIT_CONFIG
+        column_config=CONTENT_AUTOFIT_CONFIG
     )
 
 # =========================================================
-# TAB 4: 全市場真實 RS 排行榜 (use_container_width=False 自然滑動)
+# TAB 4: 全市場真實 RS 排行榜
 # =========================================================
 with tab4:
     st.subheader("🏆 全市場真實 RS 動能綜合排行榜")
@@ -483,5 +482,5 @@ with tab4:
         view_all_df,
         use_container_width=False,
         hide_index=True,
-        column_config=NATURAL_FIT_CONFIG
+        column_config=CONTENT_AUTOFIT_CONFIG
     )
