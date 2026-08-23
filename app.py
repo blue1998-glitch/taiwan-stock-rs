@@ -6,7 +6,7 @@ import requests
 
 st.set_page_config(page_title="台股動能 RS 產業與自適應雙軌題材系統", layout="wide")
 
-# ----------------- 1. 手機極簡緊湊膠囊 CSS -----------------
+# ----------------- 1. 手機極簡緊湊膠囊與表格換行 CSS -----------------
 st.markdown("""
 <style>
 div.stButton > button {
@@ -36,6 +36,12 @@ div.stButton > button:hover {
 .block-container {
     padding-top: 0.8rem !important;
     padding-bottom: 1.5rem !important;
+}
+
+/* 確保表格容器在手機上支援平滑橫向滑動且不破版 */
+[data-testid="stDataFrame"] {
+    width: 100% !important;
+    overflow-x: auto !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -84,7 +90,6 @@ def calc_adaptive_theme_score(sub_df):
     strong_stocks = [r for r in sorted_rs if r >= 80]
     strong_count = len(strong_stocks)
 
-    # 1. 領袖基準分 (方案 A: Top 3 權重 0.50, 0.30, 0.20)
     if n == 1:
         base_top = float(top1_rs)
     elif n == 2:
@@ -92,17 +97,14 @@ def calc_adaptive_theme_score(sub_df):
     else:
         base_top = float(sorted_rs[0] * 0.50 + sorted_rs[1] * 0.30 + sorted_rs[2] * 0.20)
 
-    # 2. 貝氏平滑共振率 + 絕對兵力深度補償
     smoothed_rate = (strong_count + 0.4) / (n + 2)
     depth_ratio = min(strong_count, 4) / 4.0
     resonance_multiplier = 1.0 + (0.12 * smoothed_rate + 0.06 * depth_ratio)
 
-    # 3. 雙軌取大值 (先鋒極速分 beta = 0.92)
     vanguard_score = top1_rs * 0.92
     resonance_score = base_top * resonance_multiplier
     final_score = max(vanguard_score, resonance_score)
 
-    # 4. 題材狀態徽章判定
     raw_rate = strong_count / n
     if top1_rs >= 90 and raw_rate <= 0.34 and strong_count <= 2:
         stage_badge = "🚀 先鋒突圍"
@@ -157,7 +159,6 @@ for ind in all_industries:
 
 df_industry_ranked = pd.DataFrame(industry_stats).sort_values(by="avg_rs", ascending=False)
 
-# 個股動能狀態標註（僅使用 4 種市場發動狀態）
 def assign_stock_badge(row):
     stock_themes = row.get("themes", [])
     rs = row.get("rs_rating", 50)
@@ -186,7 +187,18 @@ if "selected_theme" not in st.session_state:
 if "selected_industry" not in st.session_state:
     st.session_state.selected_industry = df_industry_ranked["industry"].iloc[0] if not df_industry_ranked.empty else "航太與國防"
 
-# ----------------- 4. 頂部狀態列與萬用搜尋 -----------------
+# ----------------- 4. 統一表格欄位寬度配置 -----------------
+TABLE_COLUMN_CONFIG = {
+    "代號": st.column_config.TextColumn("代號", width="small"),
+    "名稱": st.column_config.TextColumn("名稱", width="small"),
+    "收盤價": st.column_config.NumberColumn("收盤價", width="small", format="%.2f"),
+    "綜合動能": st.column_config.NumberColumn("綜合動能", width="small", format="%.2f"),
+    "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99, width="medium"),
+    "共振": st.column_config.TextColumn("共振", width="small"),
+    "詳細業務特徵": st.column_config.TextColumn("詳細業務特徵", width="large")
+}
+
+# ----------------- 5. 頂部狀態列與萬用搜尋 -----------------
 head_col1, head_col2 = st.columns([3, 1])
 with head_col1:
     st.title("🎯 台股 RS 動能：自適應雙軌題材與產業系統")
@@ -230,7 +242,7 @@ if search_txt:
 
 st.markdown("---")
 
-# ----------------- 5. 主導航分頁 -----------------
+# ----------------- 6. 主導航分頁 -----------------
 tab1, tab2, tab3, tab4 = st.tabs([
     "🔥 自適應雙軌題材庫 (置頂成分股)",
     "🏭 產業視角 (看法定類股輪動)",
@@ -289,12 +301,11 @@ with tab1:
         display_t_df,
         use_container_width=True,
         hide_index=True,
-        column_config={"RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)}
+        column_config=TABLE_COLUMN_CONFIG
     )
 
     st.markdown("---")
 
-    # 題材板塊切換矩陣
     t_header_c1, t_header_c2 = st.columns([2, 1])
     with t_header_c1:
         st.subheader(f"⚡ 全市場動態題材庫 (共收錄 {len(df_theme_ranked)} 個非重複題材，依雙軌動能排序)")
@@ -361,7 +372,7 @@ with tab2:
         display_ind_df,
         use_container_width=True,
         hide_index=True,
-        column_config={"RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)}
+        column_config=TABLE_COLUMN_CONFIG
     )
 
     st.markdown("---")
@@ -418,7 +429,7 @@ with tab3:
         display_lead_df,
         use_container_width=True,
         hide_index=True,
-        column_config={"RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)}
+        column_config=TABLE_COLUMN_CONFIG
     )
 
 # =========================================================
@@ -469,7 +480,5 @@ with tab4:
         view_all_df,
         use_container_width=True,
         hide_index=True,
-        column_config={
-            "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)
-        }
+        column_config=TABLE_COLUMN_CONFIG
     )
