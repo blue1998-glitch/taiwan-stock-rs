@@ -4,7 +4,7 @@ import json
 import os
 import requests
 
-st.set_page_config(page_title="台股動能 RS 產業與動態題材雙核心系統", layout="wide")
+st.set_page_config(page_title="台股動能 RS 產業與全維度題材系統", layout="wide")
 
 # ----------------- 1. 手機極簡緊湊膠囊 CSS -----------------
 st.markdown("""
@@ -40,7 +40,7 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-# ----------------- 2. 載入資料庫 (支援本機與 GitHub Raw 同步) -----------------
+# ----------------- 2. 載入資料庫 -----------------
 @st.cache_data(ttl=60)
 def load_market_data():
     if os.path.exists("market_rankings.json"):
@@ -63,17 +63,17 @@ def load_market_data():
         pass
 
     return pd.DataFrame([
-        {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "航太維修與發動機製造", "themes": ["軍用商規無人機", "GE航太發動機供應鏈", "波音機體供應鏈"], "micro_themes": ["軍用無人機原型", "GE航太發動機", "波音客改貨(P2F)"]},
-        {"symbol": "2634", "name": "漢翔", "market": "上市", "close_price": 53.2, "r_5d": 2.1, "r_20d": 8.5, "r_60d": 18.0, "score": 10.07, "rs_rating": 85, "main_industry": "航太與國防", "sub_industry": "機體製造與引擎零件", "themes": ["軍用商規無人機", "GE航太發動機供應鏈", "波音機體供應鏈"], "micro_themes": ["國機國造(勇鷹號)", "軍用無人機量產", "GE發動機機匣"]},
-        {"symbol": "8033", "name": "雷虎", "market": "上市", "close_price": 62.0, "r_5d": 6.8, "r_20d": 16.0, "r_60d": 30.0, "score": 18.36, "rs_rating": 94, "main_industry": "航太與國防", "sub_industry": "無人載具製造", "themes": ["軍用商規無人機"], "micro_themes": ["軍用商規無人機", "國防標案量產"]},
-        {"symbol": "2330", "name": "台積電", "market": "上市", "close_price": 980.0, "r_5d": 4.5, "r_20d": 15.0, "r_60d": 32.0, "score": 18.00, "rs_rating": 98, "main_industry": "半導體業", "sub_industry": "晶圓代工龍頭", "themes": ["矽光子(CPO)", "CoWoS先進封裝與設備", "AI伺服器與GB200代工"], "micro_themes": ["TSMC-COUPE矽光子平台", "CoWoS先進封裝", "2nm先進製程"]},
-        {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "水冷散熱模組", "themes": ["水冷/液冷散熱模組"], "micro_themes": ["水冷板(Cold Plate)", "GB200冷卻模組", "散熱風扇"]},
-        {"symbol": "1519", "name": "華城", "market": "上市", "close_price": 520.0, "r_5d": 2.1, "r_20d": 8.0, "r_60d": 15.0, "score": 11.20, "rs_rating": 88, "main_industry": "電機機械", "sub_industry": "特高壓變壓器", "themes": ["重電設備與強韌電網"], "micro_themes": ["超特高壓500kV變壓器", "北美變壓器外銷", "台電強韌電網"]}
+        {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "航太維修與發動機製造", "themes": ["軍用商規無人機", "GE航太發動機供應鏈", "波音機體供應鏈"], "micro_themes": ["軍用商規無人機", "GE航太發動機供應鏈", "波音機體供應鏈"]},
+        {"symbol": "2634", "name": "漢翔", "market": "上市", "close_price": 53.2, "r_5d": 2.1, "r_20d": 8.5, "r_60d": 18.0, "score": 10.07, "rs_rating": 85, "main_industry": "航太與國防", "sub_industry": "機體製造與引擎零件", "themes": ["軍用商規無人機", "GE航太發動機供應鏈", "波音機體供應鏈"], "micro_themes": ["軍用商規無人機", "GE航太發動機供應鏈", "波音機體供應鏈"]},
+        {"symbol": "8033", "name": "雷虎", "market": "上市", "close_price": 62.0, "r_5d": 6.8, "r_20d": 16.0, "r_60d": 30.0, "score": 18.36, "rs_rating": 94, "main_industry": "航太與國防", "sub_industry": "無人載具製造", "themes": ["軍用商規無人機"], "micro_themes": ["軍用商規無人機"]},
+        {"symbol": "2330", "name": "台積電", "market": "上市", "close_price": 980.0, "r_5d": 4.5, "r_20d": 15.0, "r_60d": 32.0, "score": 18.00, "rs_rating": 98, "main_industry": "半導體業", "sub_industry": "晶圓代工龍頭", "themes": ["矽光子(CPO)", "CoWoS先進封裝", "AI伺服器與GB200代工"], "micro_themes": ["矽光子(CPO)", "CoWoS先進封裝", "AI伺服器與GB200代工"]},
+        {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "水冷散熱模組", "themes": ["水冷/液冷散熱模組"], "micro_themes": ["水冷/液冷散熱模組"]},
+        {"symbol": "1519", "name": "華城", "market": "上市", "close_price": 520.0, "r_5d": 2.1, "r_20d": 8.0, "r_60d": 15.0, "score": 11.20, "rs_rating": 88, "main_industry": "電機機械", "sub_industry": "特高壓變壓器", "themes": ["重電設備與強韌電網"], "micro_themes": ["重電設備與強韌電網"]}
     ]), "備援範例資料"
 
 df_market, db_status = load_market_data()
 
-# ----------------- 3. 動態題材計算與強弱排序 (無數量限制) -----------------
+# ----------------- 3. 全量題材動能聚合計算 -----------------
 all_themes = sorted(list(set(t for sublist in df_market["themes"] for t in sublist if t)))
 theme_stats = []
 theme_rs_map = {}
@@ -92,7 +92,7 @@ for th in all_themes:
 
 df_theme_ranked = pd.DataFrame(theme_stats).sort_values(by="avg_rs", ascending=False)
 
-# 縱向法定產業統計 (33 大類)
+# 產業統計
 all_industries = sorted(df_market["main_industry"].unique().tolist())
 industry_stats = []
 ind_rs_map = {}
@@ -127,17 +127,16 @@ if "selected_theme" not in st.session_state:
 if "selected_industry" not in st.session_state:
     st.session_state.selected_industry = df_industry_ranked["industry"].iloc[0] if not df_industry_ranked.empty else "航太與國防"
 
-# ----------------- 4. 頂部狀態列與即時重新整理 -----------------
+# ----------------- 4. 頂部狀態列與萬用搜尋 -----------------
 head_col1, head_col2 = st.columns([3, 1])
 with head_col1:
-    st.title("🎯 台股 RS 動能：產業與動態題材雙核心系統")
+    st.title("🎯 台股 RS 動能：產業與全維度題材系統")
     st.caption(f"🟢 全市場資料庫：收錄 **{len(df_market)}** 檔股票 ｜ **{len(all_themes)}** 個非重複動態題材 ｜ 狀態：`{db_status}`")
 with head_col2:
     if st.button("🔄 盤中即時重新整理"):
         st.cache_data.clear()
         st.rerun()
 
-# 萬用搜尋
 search_txt = st.text_input("🔍 萬用個股搜尋 (輸入代碼如 2645 或名稱如 長榮航太):", "").strip()
 if search_txt:
     matched = df_market[df_market["symbol"].str.contains(search_txt) | df_market["name"].str.contains(search_txt)]
@@ -174,20 +173,20 @@ st.markdown("---")
 
 # ----------------- 5. 主導航分頁 -----------------
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🔥 動態題材庫 (所有非重複題材 ➔ 置頂成分股)",
+    "🔥 全維度動態題材庫 (置頂成分股)",
     "🏭 產業視角 (看法定類股輪動)",
     "⚡ 雙重共振專區 (強題材+強產業)",
     "🏆 全市場 RS 總榜"
 ])
 
 # =========================================================
-# TAB 1: 所有動態題材庫 (無數量上限，依 RS 強弱動態排列)
+# TAB 1: 全維度動態題材庫
 # =========================================================
 with tab1:
     cur_t = st.session_state.selected_theme
     t_constituents = df_market[df_market["themes"].apply(lambda tags: cur_t in tags)].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
 
-    # --- 資料置頂區 ---
+    # --- 1. 資料置頂區 ---
     st.markdown(f"### 📋 【{cur_t}】 題材成分股真實動能明細 (依 RS 評分排序)")
 
     covered_inds = t_constituents["main_industry"].value_counts().to_dict()
@@ -221,17 +220,24 @@ with tab1:
 
     st.markdown("---")
 
-    # --- 動態膠囊板塊區 (自動容納全部題材，橫向每排 3 顆) ---
-    st.subheader(f"⚡ 全市場動態題材庫 (共 {len(df_theme_ranked)} 個非重複題材，依平均 RS 排序)")
-    st.caption("點選下方任一膠囊徽章，上方成分股即時同步切換：")
+    # --- 2. 題材板塊快速篩選與動態膠囊矩陣 ---
+    t_header_c1, t_header_c2 = st.columns([2, 1])
+    with t_header_c1:
+        st.subheader(f"⚡ 全市場動態題材庫 (共收錄 {len(df_theme_ranked)} 個非重複題材，依動能排序)")
+    with t_header_c2:
+        theme_search = st.text_input("🔍 過濾題材名稱 (如：散熱、低軌、航太、半導體):", "").strip()
+
+    filtered_themes_df = df_theme_ranked
+    if theme_search:
+        filtered_themes_df = df_theme_ranked[df_theme_ranked["theme"].str.contains(theme_search, case=False)]
 
     cols_per_row = 3
-    for row_idx in range(0, len(df_theme_ranked), cols_per_row):
+    for row_idx in range(0, len(filtered_themes_df), cols_per_row):
         cols = st.columns(cols_per_row)
         for col_idx in range(cols_per_row):
             idx = row_idx + col_idx
-            if idx < len(df_theme_ranked):
-                item = df_theme_ranked.iloc[idx]
+            if idx < len(filtered_themes_df):
+                item = filtered_themes_df.iloc[idx]
                 t_name = item["theme"]
                 t_avg = item["avg_rs"]
                 t_cnt = item["total_count"]
@@ -244,7 +250,7 @@ with tab1:
                         st.rerun()
 
 # =========================================================
-# TAB 2: 產業視角 (縱向產業 ➔ 內部成分股)
+# TAB 2: 產業視角
 # =========================================================
 with tab2:
     cur_ind = st.session_state.selected_industry
@@ -297,7 +303,7 @@ with tab2:
                         st.rerun()
 
 # =========================================================
-# TAB 3: 雙重共振領袖股 (強題材 × 強產業)
+# TAB 3: 雙重共振領袖股
 # =========================================================
 with tab3:
     st.subheader("⚡ 全市場「雙重共振」超級領袖股")
@@ -320,7 +326,8 @@ with tab3:
             columns={
                 "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
                 "close_price": "收盤價", "r_5d": "5日(%)", "r_20d": "1月(%)",
-                "r_60d": "1季(%)", "score": "綜合動能", "main_industry": "主產業"
+                "r_60d": "1季(%)", "score": "綜合動能",
+                "main_industry": "主產業"
             }
         ),
         use_container_width=True,
