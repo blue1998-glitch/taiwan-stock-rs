@@ -1,11 +1,10 @@
-import os
+import yfinance as yf
+import pandas as pd
 import json
 import time
 import requests
-import pandas as pd
-import numpy as np
-import yfinance as yf
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import sys
+import os
 
 TWSE_INDUSTRY_MAP = {
     "01": "水泥工業", "1": "水泥工業", "02": "食品工業", "2": "食品工業",
@@ -33,67 +32,60 @@ def clean_industry_name(raw_ind, sym="", name=""):
         return "其他"
     return raw_str if raw_str else "其他"
 
-def get_stock_list():
-    stocks = []
+def get_tw_market_tickers():
+    """抓取全台股代號、中文簡稱與上市櫃類別 (整合官方 OpenAPI)"""
+    target_list = []
+    headers = {"User-Agent": "Mozilla/5.0"}
+    
+    # 1. 上市 (TWSE)
     try:
-        r_twse = requests.get("https://openapi.twse.com.tw/v1/opendata/t187ap03_L", timeout=10).json()
-        for item in r_twse:
-            sym = str(item.get("公司代號", "")).strip()
-            name = str(item.get("公司名稱", "")).strip()
-            if len(sym) == 4 and sym.isdigit():
-                stocks.append({
-                    "symbol": sym,
-                    "name": name,
-                    "market": "上市",
-                    "ticker": f"{sym}.TW",
-                    "industry": clean_industry_name(item.get("產業別", ""), sym, name)
-                })
+        url_twse = "https://openapi.twse.com.tw/v1/opendata/t187ap03_L"
+        res = requests.get(url_twse, headers=headers, timeout=12)
+        if res.status_code == 200:
+            for row in res.json():
+                c = str(row.get('公司代號', '')).strip()
+                n = str(row.get('公司簡稱', row.get('公司名稱', c))).strip()
+                raw_ind = row.get('產業別', '')
+                if len(c) == 4 and c.isdigit():
+                    target_list.append({
+                        "symbol": c,
+                        "name": n,
+                        "market": "上市",
+                        "ticker": f"{c}.TW",
+                        "industry": clean_industry_name(raw_ind, c, n)
+                    })
     except Exception as e:
-        print(f"TWSE API: {e}")
+        print(f"TWSE API 連線異常: {e}")
 
+    # 2. 上櫃 (TPEx)
     try:
-        r_tpex = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=10).json()
-        for item in r_tpex:
-            sym = str(item.get("SecuritiesCompanyCode", "")).strip()
-            name = str(item.get("CompanyName", "")).strip()
-            if len(sym) == 4 and sym.isdigit():
-                stocks.append({
-                    "symbol": sym,
-                    "name": name,
-                    "market": "上櫃",
-                    "ticker": f"{sym}.TWO",
-                    "industry": clean_industry_name(item.get("Industry", ""), sym, name)
-                })
+        url_tpex = "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O"
+        res = requests.get(url_tpex, headers=headers, timeout=12)
+        if res.status_code == 200:
+            for row in res.json():
+                c = str(row.get('SecuritiesCompanyCode', row.get('公司代號', ''))).strip()
+                n = str(row.get('CompanyAbbreviation', row.get('SecuritiesCompanyName', row.get('公司簡稱', c)))).strip()
+                raw_ind = row.get('Industry', '')
+                if len(c) == 4 and c.isdigit():
+                    target_list.append({
+                        "symbol": c,
+                        "name": n,
+                        "market": "上櫃",
+                        "ticker": f"{c}.TWO",
+                        "industry": clean_industry_name(raw_ind, c, n)
+                    })
     except Exception as e:
-        print(f"TPEx API: {e}")
+        print(f"TPEx API 連線異常: {e}")
 
-    return pd.DataFrame(stocks)
+    unique_map = {}
+    for item in target_list:
+        if item["symbol"] not in unique_map:
+            unique_map[item["symbol"]] = item
 
-def download_batch_prices(chunk):
-    try:
-        data = yf.download(
-            chunk,
-            period="3mo",
-            interval="1d",
-            progress=False,
-            auto_adjust=True,
-            threads=True,
-            timeout=8
-        )
-        if isinstance(data.columns, pd.MultiIndex):
-            if "Close" in data.columns.levels[0]:
-                return data["Close"]
-            else:
-                return data.xs("Close", level=0, axis=1)
-        elif "Close" in data:
-            return data["Close"]
-        return data
-    except Exception as e:
-        return pd.DataFrame()
+    return list(unique_map.values())
 
-def calculate_real_market_rs():
-    print("⚡ 啟動全市場真實動能計算與精確題材注入...")
-
+def main():
+    # 確保題材對照檔存在
     if not os.path.exists("data/theme_mapping.json"):
         import sys
         sys.path.append(".")
@@ -103,99 +95,109 @@ def calculate_real_market_rs():
     with open("data/theme_mapping.json", "r", encoding="utf-8") as f:
         theme_map = json.load(f)
 
-    stock_df = get_stock_list()
-    if stock_df.empty:
-        print("❌ 無法取得股票清單")
-        return
+    stock_info_list = get_tw_market_tickers()
+    print(f"成功取得台股全市場 {len(stock_info_list)} 檔標的資料，開始批次下載動能...")
 
-    tickers = stock_df["ticker"].tolist()
+    if len(stock_info_list) < 500:
+        print("❌ 取得代號數量不足，取消覆蓋檔案。")
+        sys.exit(1)
+
+    all_tickers = [item["ticker"] for item in stock_info_list]
+    ticker_to_info = {item["ticker"]: item for item in stock_info_list}
+
     chunk_size = 60
-    chunks = [tickers[i:i + chunk_size] for i in range(0, len(tickers), chunk_size)]
+    market_data = []
 
-    all_close_data = pd.DataFrame()
+    for i in range(0, len(all_tickers), chunk_size):
+        chunk = all_tickers[i:i + chunk_size]
+        try:
+            df = yf.download(
+                tickers=chunk,
+                period="6mo",
+                interval="1d",
+                auto_adjust=False,
+                progress=False,
+                threads=True,
+                timeout=20
+            )
 
-    with ThreadPoolExecutor(max_workers=6) as executor:
-        future_to_chunk = {executor.submit(download_batch_prices, chunk): i for i, chunk in enumerate(chunks)}
-        for future in as_completed(future_to_chunk):
-            idx = future_to_chunk[future]
-            try:
-                chunk_res = future.result()
-                if not chunk_res.empty:
-                    all_close_data = pd.concat([all_close_data, chunk_res], axis=1)
-                print(f"  ✔ 批次 {idx+1}/{len(chunks)} 下載完成")
-            except Exception as exc:
-                print(f"  ⚠ 批次 {idx+1} 略過: {exc}")
+            if df is not None and not df.empty and 'Close' in df:
+                closes_df = df['Close']
 
-    print("📊 股價數據彙整完畢，計算真實動能得分 (5日 20%、20日 50%、60日 30%)...")
+                for ticker in chunk:
+                    try:
+                        if isinstance(closes_df, pd.DataFrame):
+                            if ticker in closes_df.columns:
+                                series = closes_df[ticker].dropna()
+                            else:
+                                continue
+                        elif isinstance(closes_df, pd.Series):
+                            series = closes_df.dropna()
+                        else:
+                            continue
 
-    valid_results = []
-    for _, row in stock_df.iterrows():
-        sym = row["symbol"]
-        name = row["name"]
-        mkt = row["market"]
-        ticker = row["ticker"]
-        ind = row["industry"]
+                        if len(series) < 6:
+                            continue
 
-        tag_info = theme_map.get(sym, {
-            "main_industry": ind,
-            "sub_industry": f"{ind}應用",
-            "macro_themes": [],
-            "micro_themes": []
-        })
+                        p_now = float(series.iloc[-1])
+                        p_5d = float(series.iloc[-6]) if len(series) >= 6 else float(series.iloc[0])
+                        p_1m = float(series.iloc[-21]) if len(series) >= 21 else float(series.iloc[0])
+                        p_1q = float(series.iloc[-61]) if len(series) >= 61 else float(series.iloc[0])
 
-        if ticker not in all_close_data.columns:
-            continue
+                        r_5d = round(((p_now - p_5d) / p_5d) * 100, 2)
+                        r_1m = round(((p_now - p_1m) / p_1m) * 100, 2)
+                        r_1q = round(((p_now - p_1q) / p_1q) * 100, 2)
 
-        prices = all_close_data[ticker].dropna()
-        n = len(prices)
+                        # 完全採用您的加權公式
+                        score = round((r_5d * 0.2) + (r_1m * 0.5) + (r_1q * 0.3), 2)
+                        info = ticker_to_info[ticker]
+                        sym = info["symbol"]
 
-        if n < 5:
-            continue
+                        tag_info = theme_map.get(sym, {
+                            "main_industry": info["industry"],
+                            "sub_industry": f"{info['industry']}應用",
+                            "macro_themes": [],
+                            "micro_themes": []
+                        })
+                        
+                        market_data.append({
+                            "symbol": sym,
+                            "name": info["name"],
+                            "market": info["market"],
+                            "close_price": round(p_now, 2),
+                            "r_5d": r_5d,
+                            "r_20d": r_1m,
+                            "r_60d": r_1q,
+                            "score": score,
+                            "main_industry": tag_info["main_industry"],
+                            "sub_industry": tag_info["sub_industry"],
+                            "macro_themes": tag_info["macro_themes"],
+                            "micro_themes": tag_info["micro_themes"]
+                        })
+                    except Exception:
+                        continue
+        except Exception:
+            pass
 
-        cur_p = float(prices.iloc[-1])
-        if cur_p <= 0 or np.isnan(cur_p):
-            continue
+        time.sleep(0.3)
 
-        r_5 = float((cur_p - prices.iloc[-5]) / prices.iloc[-5] * 100)
-        r_20 = float((cur_p - prices.iloc[-20]) / prices.iloc[-20] * 100) if n >= 20 else r_5
-        r_60 = float((cur_p - prices.iloc[-60]) / prices.iloc[-60] * 100) if n >= 60 else r_20
+    # 排序並計算全市場 PR 百分位 (1 ~ 99)
+    market_data.sort(key=lambda x: x['score'], reverse=True)
+    total_count = len(market_data)
+    print(f"成功收錄 {total_count} 檔有效股票，開始計算全市場 PR 百分位...")
 
-        composite_score = (r_5 * 0.20) + (r_20 * 0.50) + (r_60 * 0.30)
+    if total_count < 1000:
+        print(f"❌ 警告：成功計算筆數 ({total_count}) 低於 1000，取消覆蓋檔案。")
+        sys.exit(1)
 
-        valid_results.append({
-            "symbol": sym,
-            "name": name,
-            "market": mkt,
-            "close_price": round(cur_p, 2),
-            "r_5d": round(r_5, 2),
-            "r_20d": round(r_20, 2),
-            "r_60d": round(r_60, 2),
-            "score": round(composite_score, 2),
-            "main_industry": tag_info["main_industry"],
-            "sub_industry": tag_info["sub_industry"],
-            "macro_themes": tag_info["macro_themes"],
-            "micro_themes": tag_info["micro_themes"]
-        })
+    for idx, item in enumerate(market_data):
+        pr = max(1, min(99, int(((total_count - idx) / total_count) * 100)))
+        item['rs_rating'] = pr
 
-    df_rank = pd.DataFrame(valid_results)
-    if df_rank.empty:
-        print("❌ 計算結果為空")
-        return
-
-    # 全市場精確百分位 PR 排名 (1~99)
-    df_rank["rs_rating"] = pd.qcut(
-        df_rank["score"].rank(method="first"),
-        q=99,
-        labels=range(1, 100)
-    ).astype(int)
-
-    df_rank = df_rank.sort_values(by=["rs_rating", "score"], ascending=[False, False])
-
-    output_data = df_rank.to_dict(orient="records")
     with open("market_rankings.json", "w", encoding="utf-8") as f:
-        json.dump(output_data, f, ensure_ascii=False, indent=2)
+        json.dump(market_data, f, ensure_ascii=False, indent=2)
 
-    print(f"🎉 全市場精確版 RS 計算完成！共評比 {len(output_data)} 檔標的。")
+    print(f"✅ 全市場排名大功告成！共計收錄 {total_count} 檔股票。")
 
 if __name__ == "__main__":
-    calculate_real_market_rs()
+    main()
