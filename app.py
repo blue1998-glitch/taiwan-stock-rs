@@ -83,7 +83,6 @@ def calc_adaptive_theme_score(sub_df):
     top1_rs = sorted_rs[0]
     strong_stocks = [r for r in sorted_rs if r >= 80]
     strong_count = len(strong_stocks)
-    t1_count = len([r for r in sorted_rs if r >= 90])
 
     # 1. 領袖基準分 (方案 A: Top 3 權重 0.50, 0.30, 0.20)
     if n == 1:
@@ -93,7 +92,7 @@ def calc_adaptive_theme_score(sub_df):
     else:
         base_top = float(sorted_rs[0] * 0.50 + sorted_rs[1] * 0.30 + sorted_rs[2] * 0.20)
 
-    # 2. 貝氏平滑共振率 + 絕對兵力深度補償 (總係數落在 0.18 平衡區間)
+    # 2. 貝氏平滑共振率 + 絕對兵力深度補償
     smoothed_rate = (strong_count + 0.4) / (n + 2)
     depth_ratio = min(strong_count, 4) / 4.0
     resonance_multiplier = 1.0 + (0.12 * smoothed_rate + 0.06 * depth_ratio)
@@ -156,7 +155,7 @@ for ind in all_industries:
 
 df_industry_ranked = pd.DataFrame(industry_stats).sort_values(by="avg_rs", ascending=False)
 
-# 雙重共振標記 (題材得分 >= 85 且 產業平均 >= 75 且 個股 RS >= 90)
+# 雙重共振標記
 def check_resonance(row):
     sym_ind = row["main_industry"]
     ind_ok = ind_rs_map.get(sym_ind, 0) >= 75
@@ -164,7 +163,7 @@ def check_resonance(row):
     stock_ok = row["rs_rating"] >= 90
     return "⚡ 雙強共振" if (ind_ok and theme_ok and stock_ok) else ("🥇 Tier 1 (90+)" if row["rs_rating"] >= 90 else ("🥈 Tier 2 (80-89)" if row["rs_rating"] >= 80 else "🥉 Tier 3 (75-79)"))
 
-df_market["梯隊與共振"] = df_market.apply(check_resonance, axis=1)
+df_market["共振"] = df_market.apply(check_resonance, axis=1)
 
 # 初始化狀態
 if "selected_theme" not in st.session_state:
@@ -194,7 +193,7 @@ if search_txt:
         with st.container():
             st.success(
                 f"### 📍 【{stk['name']} ({stk['symbol']})】\n"
-                f"* **動能地位**：`{stk['梯隊與共振']}` | **RS 強勢評分**：`{stk['rs_rating']}` | **綜合動能得分**：`{stk.get('score', 0):.2f}`\n"
+                f"* **動能地位**：`{stk['共振']}` | **RS 強勢評分**：`{stk['rs_rating']}` | **綜合動能得分**：`{stk.get('score', 0):.2f}`\n"
                 f"* **縱向產業**：`{stk['main_industry']} (產業均分: {ind_avg:.1f})` ➔ `{stk['sub_industry']}`\n"
                 f"* **涵蓋題材**：`{theme_str}`\n"
                 f"* **詳細業務特徵**：`{micro_str}`\n"
@@ -225,13 +224,12 @@ tab1, tab2, tab3, tab4 = st.tabs([
 ])
 
 # =========================================================
-# TAB 1: 自適應雙軌題材庫
+# TAB 1: 自適應雙軌題材庫 (精確呈現指定排序欄位)
 # =========================================================
 with tab1:
     cur_t = st.session_state.selected_theme
     t_constituents = df_market[df_market["themes"].apply(lambda tags: cur_t in tags)].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
 
-    # 當前題材統計指標
     cur_t_info = df_theme_ranked[df_theme_ranked["theme"] == cur_t]
     if not cur_t_info.empty:
         t_row = cur_t_info.iloc[0]
@@ -242,7 +240,6 @@ with tab1:
     else:
         cur_badge, cur_score, cur_top1, cur_strong = "📦 潛伏盤整", 0.0, 0, 0
 
-    # --- 1. 資料置頂區 ---
     st.markdown(f"### 📋 【{cur_t}】 題材成分股真實動能明細 (依 RS 評分排序)")
 
     covered_inds = t_constituents["main_industry"].value_counts().to_dict()
@@ -259,24 +256,31 @@ with tab1:
         lambda tags: " | ".join([f"🎯 {t}" for t in tags]) if tags else "—"
     )
 
+    # 依指定順序排列欄位：代號 -> 名稱 -> 收盤價 -> 綜合動能 -> RS 強勢度 -> 共振 -> 詳細業務特徵
+    display_t_df = t_constituents[
+        ["symbol", "name", "close_price", "score", "rs_rating", "共振", "詳細業務特徵"]
+    ].rename(
+        columns={
+            "symbol": "代號",
+            "name": "名稱",
+            "close_price": "收盤價",
+            "score": "綜合動能",
+            "rs_rating": "RS 強勢度",
+            "共振": "共振",
+            "詳細業務特徵": "詳細業務特徵"
+        }
+    )
+
     st.dataframe(
-        t_constituents[
-            ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "詳細業務特徵"]
-        ].rename(
-            columns={
-                "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
-                "close_price": "收盤價", "r_5d": "5日(%)", "r_20d": "1月(%)",
-                "r_60d": "1季(%)", "score": "綜合動能", "main_industry": "所屬主產業"
-            }
-        ),
+        display_t_df,
         use_container_width=True,
         hide_index=True,
-        column_config={"RS 評分": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)}
+        column_config={"RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)}
     )
 
     st.markdown("---")
 
-    # --- 2. 題材板塊快速篩選與動態膠囊矩陣 ---
+    # 題材板塊切換矩陣
     t_header_c1, t_header_c2 = st.columns([2, 1])
     with t_header_c1:
         st.subheader(f"⚡ 全市場動態題材庫 (共收錄 {len(df_theme_ranked)} 個非重複題材，依雙軌動能排序)")
@@ -321,23 +325,29 @@ with tab2:
     i3.metric("產業平均 RS", f"{ind_constituents['rs_rating'].mean():.1f}" if not ind_constituents.empty else "0")
     i4.metric("RS ≥ 90 領袖股", f"{len(ind_constituents[ind_constituents['rs_rating'] >= 90])} 檔")
 
-    ind_constituents["所屬題材"] = ind_constituents["themes"].apply(
-        lambda tags: " | ".join([f"#{t}" for t in tags]) if tags else "標準業務/無特定熱點"
+    ind_constituents["詳細業務特徵"] = ind_constituents["micro_themes"].apply(
+        lambda tags: " | ".join([f"🎯 {t}" for t in tags]) if tags else "—"
+    )
+
+    display_ind_df = ind_constituents[
+        ["symbol", "name", "close_price", "score", "rs_rating", "共振", "詳細業務特徵"]
+    ].rename(
+        columns={
+            "symbol": "代號",
+            "name": "名稱",
+            "close_price": "收盤價",
+            "score": "綜合動能",
+            "rs_rating": "RS 強勢度",
+            "共振": "共振",
+            "詳細業務特徵": "詳細業務特徵"
+        }
     )
 
     st.dataframe(
-        ind_constituents[
-            ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "sub_industry", "所屬題材"]
-        ].rename(
-            columns={
-                "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
-                "close_price": "收盤價", "r_5d": "5日(%)", "r_20d": "1月(%)",
-                "r_60d": "1季(%)", "score": "綜合動能", "sub_industry": "細產業分類"
-            }
-        ),
+        display_ind_df,
         use_container_width=True,
         hide_index=True,
-        column_config={"RS 評分": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)}
+        column_config={"RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)}
     )
 
     st.markdown("---")
@@ -366,7 +376,7 @@ with tab3:
     st.subheader("⚡ 全市場「雙重共振」超級領袖股")
     st.caption("條件：所屬題材雙軌得分 ≥ 85 ＋ 所屬產業平均 RS ≥ 75 ＋ 個股 RS ≥ 90（處於強勢產業且站在核心風口）")
 
-    resonance_df = df_market[df_market["梯隊與共振"] == "⚡ 雙強共振"].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
+    resonance_df = df_market[df_market["共振"] == "⚡ 雙強共振"].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
 
     r1, r2, r3 = st.columns(3)
     r1.metric("雙重共振標的", f"{len(resonance_df)} 檔")
@@ -376,20 +386,25 @@ with tab3:
 
     resonance_df["詳細業務特徵"] = resonance_df["micro_themes"].apply(lambda tags: " | ".join([f"🎯 {t}" for t in tags]))
 
+    display_res_df = resonance_df[
+        ["symbol", "name", "close_price", "score", "rs_rating", "共振", "詳細業務特徵"]
+    ].rename(
+        columns={
+            "symbol": "代號",
+            "name": "名稱",
+            "close_price": "收盤價",
+            "score": "綜合動能",
+            "rs_rating": "RS 強勢度",
+            "共振": "共振",
+            "詳細業務特徵": "詳細業務特徵"
+        }
+    )
+
     st.dataframe(
-        resonance_df[
-            ["symbol", "name", "rs_rating", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "詳細業務特徵"]
-        ].rename(
-            columns={
-                "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
-                "close_price": "收盤價", "r_5d": "5日(%)", "r_20d": "1月(%)",
-                "r_60d": "1季(%)", "score": "綜合動能",
-                "main_industry": "主產業"
-            }
-        ),
+        display_res_df,
         use_container_width=True,
         hide_index=True,
-        column_config={"RS 評分": st.column_config.ProgressColumn("動能 PR", format="%d", min_value=1, max_value=99)}
+        column_config={"RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)}
     )
 
 # =========================================================
@@ -420,16 +435,19 @@ with tab4:
     k2.metric("平均 RS 評分", f"{all_filtered['rs_rating'].mean():.1f}" if not all_filtered.empty else "0")
     k3.metric("RS ≥ 90 領袖股檔數", f"{len(all_filtered[all_filtered['rs_rating'] >= 90])} 檔")
 
-    all_filtered["所屬題材"] = all_filtered["themes"].apply(lambda tags: " | ".join([f"#{t}" for t in tags]) if tags else "—")
+    all_filtered["詳細業務特徵"] = all_filtered["micro_themes"].apply(lambda tags: " | ".join([f"🎯 {t}" for t in tags]) if tags else "—")
     
     view_all_df = all_filtered.sort_values(by=["rs_rating", "score"], ascending=[False, False])[
-        ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "sub_industry", "所屬題材"]
+        ["symbol", "name", "close_price", "score", "rs_rating", "共振", "詳細業務特徵"]
     ].rename(
         columns={
-            "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
-            "close_price": "最新現價", "r_5d": "近5日(%)", "r_20d": "近1月(%)",
-            "r_60d": "近1季(%)", "score": "綜合動能得分",
-            "main_industry": "主產業", "sub_industry": "細產業"
+            "symbol": "代號",
+            "name": "名稱",
+            "close_price": "收盤價",
+            "score": "綜合動能",
+            "rs_rating": "RS 強勢度",
+            "共振": "共振",
+            "詳細業務特徵": "詳細業務特徵"
         }
     )
 
@@ -438,6 +456,6 @@ with tab4:
         use_container_width=True,
         hide_index=True,
         column_config={
-            "RS 評分": st.column_config.ProgressColumn("動能 PR", format="%d", min_value=1, max_value=99)
+            "RS 強勢度": st.column_config.ProgressColumn("RS 強勢度", format="%d", min_value=1, max_value=99)
         }
     )
