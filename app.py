@@ -4,7 +4,7 @@ import json
 import os
 import requests
 
-st.set_page_config(page_title="台股動能 RS 產業與精準題材雙核心系統", layout="wide")
+st.set_page_config(page_title="台股動能 RS 產業與動態題材雙核心系統", layout="wide")
 
 # ----------------- 1. 手機極簡緊湊膠囊 CSS -----------------
 st.markdown("""
@@ -43,7 +43,6 @@ div.stButton > button:hover {
 # ----------------- 2. 載入資料庫 (支援本機與 GitHub Raw 同步) -----------------
 @st.cache_data(ttl=60)
 def load_market_data():
-    # 1. 優先從伺服器本機讀取
     if os.path.exists("market_rankings.json"):
         try:
             with open("market_rankings.json", "r", encoding="utf-8") as f:
@@ -53,7 +52,6 @@ def load_market_data():
         except Exception:
             pass
 
-    # 2. 自動連線 GitHub Raw 備援
     try:
         url = "https://raw.githubusercontent.com/blue1998-glitch/-/main/market_rankings.json"
         res = requests.get(url, timeout=8)
@@ -61,28 +59,27 @@ def load_market_data():
             data = res.json()
             if isinstance(data, list) and len(data) > 0:
                 return pd.DataFrame(data), "GitHub 線上同步成功"
-    except Exception as e:
+    except Exception:
         pass
 
-    # 3. 預設備援範例
     return pd.DataFrame([
-        {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "航太維修與發動機製造", "macro_themes": ["軍工無人機與國防標案", "航太發動機與民航機體(GE/波音)"], "micro_themes": ["軍用無人機原型", "GE航太發動機", "波音客改貨(P2F)"]},
-        {"symbol": "2634", "name": "漢翔", "market": "上市", "close_price": 53.2, "r_5d": 2.1, "r_20d": 8.5, "r_60d": 18.0, "score": 10.07, "rs_rating": 85, "main_industry": "航太與國防", "sub_industry": "機體製造與引擎零件", "macro_themes": ["軍工無人機與國防標案", "航太發動機與民航機體(GE/波音)"], "micro_themes": ["國機國造(勇鷹號)", "軍用無人機量產", "GE發動機機匣"]},
-        {"symbol": "8033", "name": "雷虎", "market": "上市", "close_price": 62.0, "r_5d": 6.8, "r_20d": 16.0, "r_60d": 30.0, "score": 18.36, "rs_rating": 94, "main_industry": "航太與國防", "sub_industry": "無人載具製造", "macro_themes": ["軍工無人機與國防標案"], "micro_themes": ["軍用商規無人機", "國防標案量產"]},
-        {"symbol": "2330", "name": "台積電", "market": "上市", "close_price": 980.0, "r_5d": 4.5, "r_20d": 15.0, "r_60d": 32.0, "score": 18.00, "rs_rating": 98, "main_industry": "半導體業", "sub_industry": "晶圓代工龍頭", "macro_themes": ["矽光子(CPO)與光通訊", "CoWoS先進封裝與設備", "AI伺服器ODM與整機代工"], "micro_themes": ["TSMC-COUPE矽光子平台", "CoWoS先進封裝", "2nm先進製程"]},
-        {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "水冷散熱模組", "macro_themes": ["水冷/液冷散熱模組"], "micro_themes": ["水冷板(Cold Plate)", "GB200冷卻模組", "散熱風扇"]},
-        {"symbol": "1519", "name": "華城", "market": "上市", "close_price": 520.0, "r_5d": 2.1, "r_20d": 8.0, "r_60d": 15.0, "score": 11.20, "rs_rating": 88, "main_industry": "電機機械", "sub_industry": "特高壓變壓器", "macro_themes": ["重電設備與強韌電網"], "micro_themes": ["超特高壓500kV變壓器", "北美變壓器外銷", "台電強韌電網"]}
+        {"symbol": "2645", "name": "長榮航太", "market": "上市", "close_price": 108.5, "r_5d": 3.2, "r_20d": 12.5, "r_60d": 25.0, "score": 14.39, "rs_rating": 92, "main_industry": "航太與國防", "sub_industry": "航太維修與發動機製造", "themes": ["軍用商規無人機", "GE航太發動機供應鏈", "波音機體供應鏈"], "micro_themes": ["軍用無人機原型", "GE航太發動機", "波音客改貨(P2F)"]},
+        {"symbol": "2634", "name": "漢翔", "market": "上市", "close_price": 53.2, "r_5d": 2.1, "r_20d": 8.5, "r_60d": 18.0, "score": 10.07, "rs_rating": 85, "main_industry": "航太與國防", "sub_industry": "機體製造與引擎零件", "themes": ["軍用商規無人機", "GE航太發動機供應鏈", "波音機體供應鏈"], "micro_themes": ["國機國造(勇鷹號)", "軍用無人機量產", "GE發動機機匣"]},
+        {"symbol": "8033", "name": "雷虎", "market": "上市", "close_price": 62.0, "r_5d": 6.8, "r_20d": 16.0, "r_60d": 30.0, "score": 18.36, "rs_rating": 94, "main_industry": "航太與國防", "sub_industry": "無人載具製造", "themes": ["軍用商規無人機"], "micro_themes": ["軍用商規無人機", "國防標案量產"]},
+        {"symbol": "2330", "name": "台積電", "market": "上市", "close_price": 980.0, "r_5d": 4.5, "r_20d": 15.0, "r_60d": 32.0, "score": 18.00, "rs_rating": 98, "main_industry": "半導體業", "sub_industry": "晶圓代工龍頭", "themes": ["矽光子(CPO)", "CoWoS先進封裝與設備", "AI伺服器與GB200代工"], "micro_themes": ["TSMC-COUPE矽光子平台", "CoWoS先進封裝", "2nm先進製程"]},
+        {"symbol": "3017", "name": "奇鋐", "market": "上市", "close_price": 650.0, "r_5d": 5.1, "r_20d": 18.2, "r_60d": 28.0, "score": 18.52, "rs_rating": 96, "main_industry": "電子零組件業", "sub_industry": "水冷散熱模組", "themes": ["水冷/液冷散熱模組"], "micro_themes": ["水冷板(Cold Plate)", "GB200冷卻模組", "散熱風扇"]},
+        {"symbol": "1519", "name": "華城", "market": "上市", "close_price": 520.0, "r_5d": 2.1, "r_20d": 8.0, "r_60d": 15.0, "score": 11.20, "rs_rating": 88, "main_industry": "電機機械", "sub_industry": "特高壓變壓器", "themes": ["重電設備與強韌電網"], "micro_themes": ["超特高壓500kV變壓器", "北美變壓器外銷", "台電強韌電網"]}
     ]), "備援範例資料"
 
 df_market, db_status = load_market_data()
 
-# ----------------- 3. 20 大精確題材計算與強弱排序 -----------------
-all_macro_themes = sorted(list(set(t for sublist in df_market["macro_themes"] for t in sublist if t)))
+# ----------------- 3. 動態題材計算與強弱排序 (無數量限制) -----------------
+all_themes = sorted(list(set(t for sublist in df_market["themes"] for t in sublist if t)))
 theme_stats = []
 theme_rs_map = {}
 
-for th in all_macro_themes:
-    sub_df = df_market[df_market["macro_themes"].apply(lambda tags: th in tags)]
+for th in all_themes:
+    sub_df = df_market[df_market["themes"].apply(lambda tags: th in tags)]
     if not sub_df.empty:
         avg_rs = sub_df["rs_rating"].mean()
         theme_rs_map[th] = avg_rs
@@ -118,7 +115,7 @@ df_industry_ranked = pd.DataFrame(industry_stats).sort_values(by="avg_rs", ascen
 def check_resonance(row):
     sym_ind = row["main_industry"]
     ind_ok = ind_rs_map.get(sym_ind, 0) >= 75
-    theme_ok = any(theme_rs_map.get(t, 0) >= 80 for t in row["macro_themes"])
+    theme_ok = any(theme_rs_map.get(t, 0) >= 80 for t in row["themes"])
     stock_ok = row["rs_rating"] >= 90
     return "⚡ 雙強共振" if (ind_ok and theme_ok and stock_ok) else ("🥇 Tier 1 (90+)" if row["rs_rating"] >= 90 else ("🥈 Tier 2 (80-89)" if row["rs_rating"] >= 80 else "🥉 Tier 3 (75-79)"))
 
@@ -126,15 +123,15 @@ df_market["梯隊與共振"] = df_market.apply(check_resonance, axis=1)
 
 # 初始化狀態
 if "selected_theme" not in st.session_state:
-    st.session_state.selected_theme = df_theme_ranked["theme"].iloc[0] if not df_theme_ranked.empty else "軍工無人機與國防標案"
+    st.session_state.selected_theme = df_theme_ranked["theme"].iloc[0] if not df_theme_ranked.empty else "軍用商規無人機"
 if "selected_industry" not in st.session_state:
     st.session_state.selected_industry = df_industry_ranked["industry"].iloc[0] if not df_industry_ranked.empty else "航太與國防"
 
 # ----------------- 4. 頂部狀態列與即時重新整理 -----------------
 head_col1, head_col2 = st.columns([3, 1])
 with head_col1:
-    st.title("🎯 台股 RS 動能：產業與精準題材雙核心系統")
-    st.caption(f"🟢 全市場資料庫：已收錄 **{len(df_market)}** 檔上市櫃股票 ｜ 狀態：`{db_status}` ｜ （盤中即時行情延遲約 15~20 分鐘）")
+    st.title("🎯 台股 RS 動能：產業與動態題材雙核心系統")
+    st.caption(f"🟢 全市場資料庫：收錄 **{len(df_market)}** 檔股票 ｜ **{len(all_themes)}** 個非重複動態題材 ｜ 狀態：`{db_status}`")
 with head_col2:
     if st.button("🔄 盤中即時重新整理"):
         st.cache_data.clear()
@@ -147,7 +144,7 @@ if search_txt:
     if not matched.empty:
         stk = matched.iloc[0]
         ind_avg = ind_rs_map.get(stk['main_industry'], 0)
-        macro_str = "、".join(stk["macro_themes"]) if stk["macro_themes"] else "一般產業標的"
+        theme_str = "、".join(stk["themes"]) if stk["themes"] else "一般產業標的"
         micro_str = " | ".join([f"🎯 {m}" for m in stk["micro_themes"]]) if stk["micro_themes"] else "標準業務"
 
         with st.container():
@@ -155,19 +152,19 @@ if search_txt:
                 f"### 📍 【{stk['name']} ({stk['symbol']})】\n"
                 f"* **動能地位**：`{stk['梯隊與共振']}` | **RS 強勢評分**：`{stk['rs_rating']}` | **綜合動能得分**：`{stk.get('score', 0):.2f}`\n"
                 f"* **縱向產業**：`{stk['main_industry']} (產業均分: {ind_avg:.1f})` ➔ `{stk['sub_industry']}`\n"
-                f"* **所屬核心題材**：`{macro_str}`\n"
+                f"* **涵蓋題材**：`{theme_str}`\n"
                 f"* **詳細業務特徵**：`{micro_str}`\n"
                 f"* **動能拆解**：近5日 `{stk.get('r_5d', 0):+.2f}%` | 近1月 `{stk.get('r_20d', 0):+.2f}%` | 近1季 `{stk.get('r_60d', 0):+.2f}%`"
             )
             
-            if stk['macro_themes']:
-                st.write("👉 **點擊板塊標籤快速置頂穿透：**")
-                b_cols = st.columns(len(stk['macro_themes']) + 1)
+            if stk['themes']:
+                st.write("👉 **點擊題材標籤快速置頂穿透：**")
+                b_cols = st.columns(len(stk['themes']) + 1)
                 with b_cols[0]:
                     if st.button(f"🏭 {stk['main_industry']}", key=f"s_btn_ind_{stk['symbol']}"):
                         st.session_state.selected_industry = stk['main_industry']
                         st.rerun()
-                for idx, tag in enumerate(stk['macro_themes']):
+                for idx, tag in enumerate(stk['themes']):
                     with b_cols[idx + 1]:
                         if st.button(f"🔥 {tag}", key=f"s_btn_t_{stk['symbol']}_{tag}"):
                             st.session_state.selected_theme = tag
@@ -177,39 +174,39 @@ st.markdown("---")
 
 # ----------------- 5. 主導航分頁 -----------------
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🔥 題材板塊 (20大核心題材 ➔ 置頂成分股細分)",
+    "🔥 動態題材庫 (所有非重複題材 ➔ 置頂成分股)",
     "🏭 產業視角 (看法定類股輪動)",
     "⚡ 雙重共振專區 (強題材+強產業)",
     "🏆 全市場 RS 總榜"
 ])
 
 # =========================================================
-# TAB 1: 20 大精確題材板塊 ➔ 置頂成分股與詳細微題材
+# TAB 1: 所有動態題材庫 (無數量上限，依 RS 強弱動態排列)
 # =========================================================
 with tab1:
     cur_t = st.session_state.selected_theme
-    t_constituents = df_market[df_market["macro_themes"].apply(lambda tags: cur_t in tags)].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
+    t_constituents = df_market[df_market["themes"].apply(lambda tags: cur_t in tags)].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
 
-    # --- 1. 【資料置頂區】：成分股清單直接呈現在最頂部 ---
+    # --- 資料置頂區 ---
     st.markdown(f"### 📋 【{cur_t}】 題材成分股真實動能明細 (依 RS 評分排序)")
 
     covered_inds = t_constituents["main_industry"].value_counts().to_dict()
     covered_str = " | ".join([f"{k} ({v}檔)" for k, v in covered_inds.items()])
 
     k1, k2, k3, k4 = st.columns(4)
-    k1.metric("當前題材板塊", cur_t)
+    k1.metric("當前題材", cur_t)
     k1.caption(f"橫跨產業: {covered_str}")
     k2.metric("真實成分股", f"{len(t_constituents)} 檔")
     k3.metric("題材平均 RS", f"{t_constituents['rs_rating'].mean():.1f}" if not t_constituents.empty else "0")
     k4.metric("RS ≥ 90 領袖股", f"{len(t_constituents[t_constituents['rs_rating'] >= 90])} 檔")
 
-    t_constituents["詳細題材特徵 / 業務切入點"] = t_constituents["micro_themes"].apply(
+    t_constituents["詳細業務特徵"] = t_constituents["micro_themes"].apply(
         lambda tags: " | ".join([f"🎯 {t}" for t in tags]) if tags else "—"
     )
 
     st.dataframe(
         t_constituents[
-            ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "詳細題材特徵 / 業務切入點"]
+            ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "詳細業務特徵"]
         ].rename(
             columns={
                 "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
@@ -224,9 +221,9 @@ with tab1:
 
     st.markdown("---")
 
-    # --- 2. 【20 大精確題材膠囊板塊】：每排 3 欄，橫向緊湊排列 ---
-    st.subheader("⚡ 核心題材板塊切換 (每日依平均 RS 動能排序)")
-    st.caption("點選下方任一板塊，上方成分股與詳細微題材將即時刷新：")
+    # --- 動態膠囊板塊區 (自動容納全部題材，橫向每排 3 顆) ---
+    st.subheader(f"⚡ 全市場動態題材庫 (共 {len(df_theme_ranked)} 個非重複題材，依平均 RS 排序)")
+    st.caption("點選下方任一膠囊徽章，上方成分股即時同步切換：")
 
     cols_per_row = 3
     for row_idx in range(0, len(df_theme_ranked), cols_per_row):
@@ -247,7 +244,7 @@ with tab1:
                         st.rerun()
 
 # =========================================================
-# TAB 2: 產業視角 (縱向產業 ➔ 內部成分股與具備之題材)
+# TAB 2: 產業視角 (縱向產業 ➔ 內部成分股)
 # =========================================================
 with tab2:
     cur_ind = st.session_state.selected_industry
@@ -261,14 +258,13 @@ with tab2:
     i3.metric("產業平均 RS", f"{ind_constituents['rs_rating'].mean():.1f}" if not ind_constituents.empty else "0")
     i4.metric("RS ≥ 90 領袖股", f"{len(ind_constituents[ind_constituents['rs_rating'] >= 90])} 檔")
 
-    ind_constituents["所屬題材與特徵"] = ind_constituents.apply(
-        lambda r: " | ".join(r["macro_themes"] + [f"({m})" for m in r["micro_themes"]]) if r["macro_themes"] else "標準業務/無特定熱點",
-        axis=1
+    ind_constituents["所屬題材"] = ind_constituents["themes"].apply(
+        lambda tags: " | ".join([f"#{t}" for t in tags]) if tags else "標準業務/無特定熱點"
     )
 
     st.dataframe(
         ind_constituents[
-            ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "sub_industry", "所屬題材與特徵"]
+            ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "sub_industry", "所屬題材"]
         ].rename(
             columns={
                 "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
@@ -315,17 +311,16 @@ with tab3:
     r2.metric("共振股平均 RS", f"{resonance_df['rs_rating'].mean():.1f}" if not resonance_df.empty else "0")
     r3.metric("平均動能得分", f"{resonance_df['score'].mean():.2f}" if not resonance_df.empty else "0")
 
-    resonance_df["詳細業務切入點"] = resonance_df["micro_themes"].apply(lambda tags: " | ".join([f"🎯 {t}" for t in tags]))
+    resonance_df["詳細業務特徵"] = resonance_df["micro_themes"].apply(lambda tags: " | ".join([f"🎯 {t}" for t in tags]))
 
     st.dataframe(
         resonance_df[
-            ["symbol", "name", "rs_rating", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "詳細業務切入點"]
+            ["symbol", "name", "rs_rating", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "詳細業務特徵"]
         ].rename(
             columns={
                 "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
                 "close_price": "收盤價", "r_5d": "5日(%)", "r_20d": "1月(%)",
-                "r_60d": "1季(%)", "score": "綜合動能",
-                "main_industry": "主產業"
+                "r_60d": "1季(%)", "score": "綜合動能", "main_industry": "主產業"
             }
         ),
         use_container_width=True,
@@ -361,13 +356,10 @@ with tab4:
     k2.metric("平均 RS 評分", f"{all_filtered['rs_rating'].mean():.1f}" if not all_filtered.empty else "0")
     k3.metric("RS ≥ 90 領袖股檔數", f"{len(all_filtered[all_filtered['rs_rating'] >= 90])} 檔")
 
-    all_filtered["所屬題材與特徵"] = all_filtered.apply(
-        lambda r: " | ".join(r["macro_themes"] + [f"({m})" for m in r["micro_themes"]]) if r["macro_themes"] else "—",
-        axis=1
-    )
+    all_filtered["所屬題材"] = all_filtered["themes"].apply(lambda tags: " | ".join([f"#{t}" for t in tags]) if tags else "—")
     
     view_all_df = all_filtered.sort_values(by=["rs_rating", "score"], ascending=[False, False])[
-        ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "sub_industry", "所屬題材與特徵"]
+        ["symbol", "name", "rs_rating", "梯隊與共振", "close_price", "r_5d", "r_20d", "r_60d", "score", "main_industry", "sub_industry", "所屬題材"]
     ].rename(
         columns={
             "symbol": "代號", "name": "名稱", "rs_rating": "RS 評分",
