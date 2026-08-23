@@ -29,7 +29,7 @@
       "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
-      "伺服器滑軌與導軌機構"
+      "伺服器滑軌機構"
     ],
     "rs_rating": 99
   },
@@ -138,7 +138,8 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷/液冷散熱模組"
+      "伺服器水冷CDU",
+      "水冷散熱模組"
     ],
     "rs_rating": 99
   },
@@ -217,7 +218,8 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "矽光子CPO"
     ],
     "rs_rating": 99
   },
@@ -536,7 +538,8 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU伺服器備援電池"
+      "BBU備援電池",
+      "BBU電池組裝"
     ],
     "rs_rating": 98
   },
@@ -780,7 +783,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC客製化晶片與矽智財"
+      "ASIC設計服務"
     ],
     "rs_rating": 97
   },
@@ -1099,7 +1102,8 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "矽光子CPO"
     ],
     "rs_rating": 96
   },
@@ -1358,7 +1362,8 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "矽光子CPO"
     ],
     "rs_rating": 95
   },
@@ -1451,12 +1456,15 @@
     "themes": [
       "GE航太發動機供應鏈",
       "波音機體供應鏈",
+      "發動機熱段製造",
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "GE航太發動機供應鏈",
-      "波音機體供應鏈",
-      "軍用商規無人機"
+      "GE航空發動機",
+      "波音供應鏈",
+      "無人機概念",
+      "發動機熱段製造",
+      "軍用無人機"
     ],
     "rs_rating": 95
   },
@@ -2060,7 +2068,8 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "矽光子CPO"
     ],
     "rs_rating": 93
   },
@@ -2256,10 +2265,12 @@
     "main_industry": "其他",
     "sub_industry": "其他應用",
     "themes": [
-      "GE航太發動機供應鏈"
+      "GE航太發動機供應鏈",
+      "發動機熱段製造"
     ],
     "micro_themes": [
-      "GE航太發動機供應鏈"
+      "GE航空發動機",
+      "發動機熱段製造"
     ],
     "rs_rating": 92
   },
@@ -2563,7 +2574,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器與GB200代工"
+      "AI伺服器代工"
     ],
     "rs_rating": 91
   },
@@ -2837,7 +2848,8 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷/液冷散熱模組"
+      "伺服器水冷CDU",
+      "水冷散熱模組"
     ],
     "rs_rating": 90
   },
@@ -2901,7 +2913,8 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝",
+      "CoWoS濕製程/載具"
     ],
     "rs_rating": 90
   },
@@ -3385,7 +3398,8 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "軍用商規無人機"
+      "無人機概念",
+      "軍用無人機"
     ],
     "rs_rating": 88
   },
@@ -5339,7 +5353,8 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與強韌電網"
+      "北美電網變壓器",
+      "重電設備與電網"
     ],
     "rs_rating": 82
   },
@@ -5553,7 +5568,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與強韌電網"
+      "重電設備與電網"
     ],
     "rs_rating": 81
   },
@@ -5662,7 +5677,8 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "軍用商規無人機"
+      "無人機概念",
+      "軍用無人機"
     ],
     "rs_rating": 81
   },
@@ -5861,7 +5877,7 @@
       "波音機體供應鏈"
     ],
     "micro_themes": [
-      "波音機體供應鏈"
+      "波音供應鏈"
     ],
     "rs_rating": 80
   },
@@ -6840,7 +6856,7 @@
       "波音機體供應鏈"
     ],
     "micro_themes": [
-      "波音機體供應鏈"
+      "波音供應鏈"
     ],
     "rs_rating": 77
   },
@@ -7385,8 +7401,9 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "波音機體供應鏈",
-      "軍用商規無人機"
+      "波音客改貨MRO",
+      "無人機概念",
+      "軍用無人機"
     ],
     "rs_rating": 75
   },
@@ -7525,7 +7542,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器與GB200代工"
+      "AI伺服器代工"
     ],
     "rs_rating": 74
   },
@@ -7619,7 +7636,8 @@
       "波音機體供應鏈"
     ],
     "micro_themes": [
-      "波音機體供應鏈"
+      "波音供應鏈",
+      "波音客改貨MRO"
     ],
     "rs_rating": 74
   },
@@ -7773,7 +7791,8 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與智慧自動化"
+      "AI 3D視覺機器人",
+      "機器人與AI視覺"
     ],
     "rs_rating": 74
   },
@@ -8078,21 +8097,6 @@
     "rs_rating": 73
   },
   {
-    "symbol": "2348",
-    "name": "海悅",
-    "market": "上市",
-    "close_price": 72.4,
-    "r_5d": 4.02,
-    "r_20d": -2.79,
-    "r_60d": 12.46,
-    "score": 3.15,
-    "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "themes": [],
-    "micro_themes": [],
-    "rs_rating": 73
-  },
-  {
     "symbol": "9906",
     "name": "欣巴巴",
     "market": "上市",
@@ -8135,7 +8139,7 @@
     "sub_industry": "電機機械應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 72
+    "rs_rating": 73
   },
   {
     "symbol": "4198",
@@ -8254,10 +8258,12 @@
     "main_industry": "電機機械",
     "sub_industry": "電機機械應用",
     "themes": [
-      "GE航太發動機供應鏈"
+      "GE航太發動機供應鏈",
+      "發動機熱段製造"
     ],
     "micro_themes": [
-      "GE航太發動機供應鏈"
+      "GE航空發動機",
+      "發動機熱段製造"
     ],
     "rs_rating": 72
   },
@@ -8397,21 +8403,6 @@
     "rs_rating": 72
   },
   {
-    "symbol": "2834",
-    "name": "臺企銀",
-    "market": "上市",
-    "close_price": 16.55,
-    "r_5d": 1.53,
-    "r_20d": -1.62,
-    "r_60d": 11.37,
-    "score": 2.91,
-    "main_industry": "金融保險",
-    "sub_industry": "金融保險應用",
-    "themes": [],
-    "micro_themes": [],
-    "rs_rating": 72
-  },
-  {
     "symbol": "6177",
     "name": "達麗",
     "market": "上市",
@@ -8442,10 +8433,11 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備",
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "CoWoS先進封裝",
+      "矽光子CPO"
     ],
-    "rs_rating": 71
+    "rs_rating": 72
   },
   {
     "symbol": "2062",
@@ -8460,7 +8452,7 @@
     "sub_industry": "居家生活應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 71
+    "rs_rating": 72
   },
   {
     "symbol": "5465",
@@ -8672,7 +8664,7 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "rs_rating": 71
   },
@@ -8734,7 +8726,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 70
+    "rs_rating": 71
   },
   {
     "symbol": "4116",
@@ -8749,7 +8741,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 70
+    "rs_rating": 71
   },
   {
     "symbol": "3646",
@@ -9034,7 +9026,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 69
+    "rs_rating": 70
   },
   {
     "symbol": "6757",
@@ -9049,7 +9041,7 @@
     "sub_industry": "航運業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 69
+    "rs_rating": 70
   },
   {
     "symbol": "1419",
@@ -9141,7 +9133,8 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與強韌電網"
+      "北美電網變壓器",
+      "重電設備與電網"
     ],
     "rs_rating": 69
   },
@@ -9311,21 +9304,6 @@
     "rs_rating": 69
   },
   {
-    "symbol": "2812",
-    "name": "台中銀",
-    "market": "上市",
-    "close_price": 18.85,
-    "r_5d": 1.07,
-    "r_20d": -1.65,
-    "r_60d": 8.72,
-    "score": 2.0,
-    "main_industry": "金融保險",
-    "sub_industry": "金融保險應用",
-    "themes": [],
-    "micro_themes": [],
-    "rs_rating": 69
-  },
-  {
     "symbol": "3556",
     "name": "禾瑞亞",
     "market": "上櫃",
@@ -9338,7 +9316,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 68
+    "rs_rating": 69
   },
   {
     "symbol": "1231",
@@ -9353,7 +9331,7 @@
     "sub_industry": "食品工業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 68
+    "rs_rating": 69
   },
   {
     "symbol": "2640",
@@ -9368,7 +9346,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 68
+    "rs_rating": 69
   },
   {
     "symbol": "8941",
@@ -9638,7 +9616,7 @@
     "sub_industry": "生技醫療業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 67
+    "rs_rating": 68
   },
   {
     "symbol": "2897",
@@ -9653,7 +9631,7 @@
     "sub_industry": "金融保險應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 67
+    "rs_rating": 68
   },
   {
     "symbol": "8410",
@@ -9668,7 +9646,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 67
+    "rs_rating": 68
   },
   {
     "symbol": "1217",
@@ -9938,7 +9916,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 66
+    "rs_rating": 67
   },
   {
     "symbol": "1711",
@@ -9953,7 +9931,7 @@
     "sub_industry": "化學工業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 66
+    "rs_rating": 67
   },
   {
     "symbol": "2421",
@@ -9970,9 +9948,9 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷/液冷散熱模組"
+      "水冷散熱模組"
     ],
-    "rs_rating": 66
+    "rs_rating": 67
   },
   {
     "symbol": "2106",
@@ -10227,7 +10205,7 @@
     "sub_industry": "運動休閒應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 65
+    "rs_rating": 66
   },
   {
     "symbol": "5525",
@@ -10242,7 +10220,7 @@
     "sub_industry": "建材營造應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 65
+    "rs_rating": 66
   },
   {
     "symbol": "4305",
@@ -10257,7 +10235,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 65
+    "rs_rating": 66
   },
   {
     "symbol": "8043",
@@ -10424,7 +10402,8 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與智慧自動化"
+      "AI 3D視覺機器人",
+      "機器人與AI視覺"
     ],
     "rs_rating": 65
   },
@@ -10531,7 +10510,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 64
+    "rs_rating": 65
   },
   {
     "symbol": "6174",
@@ -10546,7 +10525,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 64
+    "rs_rating": 65
   },
   {
     "symbol": "4706",
@@ -10561,7 +10540,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 64
+    "rs_rating": 65
   },
   {
     "symbol": "1339",
@@ -10698,7 +10677,8 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "矽光子CPO"
     ],
     "rs_rating": 64
   },
@@ -10835,7 +10815,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 63
+    "rs_rating": 64
   },
   {
     "symbol": "2022",
@@ -10850,7 +10830,7 @@
     "sub_industry": "鋼鐵工業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 63
+    "rs_rating": 64
   },
   {
     "symbol": "2534",
@@ -10865,7 +10845,7 @@
     "sub_industry": "建材營造應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 63
+    "rs_rating": 64
   },
   {
     "symbol": "8411",
@@ -11002,7 +10982,8 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷/液冷散熱模組"
+      "伺服器水冷CDU",
+      "水冷散熱模組"
     ],
     "rs_rating": 63
   },
@@ -11139,7 +11120,7 @@
     "sub_industry": "航運業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 62
+    "rs_rating": 63
   },
   {
     "symbol": "8101",
@@ -11154,7 +11135,7 @@
     "sub_industry": "通信網路業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 62
+    "rs_rating": 63
   },
   {
     "symbol": "2849",
@@ -11169,7 +11150,7 @@
     "sub_industry": "金融保險應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 62
+    "rs_rating": 63
   },
   {
     "symbol": "5269",
@@ -11439,7 +11420,7 @@
     "sub_industry": "電子零組件業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 61
+    "rs_rating": 62
   },
   {
     "symbol": "6156",
@@ -11454,7 +11435,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 61
+    "rs_rating": 62
   },
   {
     "symbol": "8367",
@@ -11469,7 +11450,7 @@
     "sub_industry": "航運業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 61
+    "rs_rating": 62
   },
   {
     "symbol": "2013",
@@ -11724,7 +11705,7 @@
     "sub_industry": "數位雲端應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 60
+    "rs_rating": 61
   },
   {
     "symbol": "3213",
@@ -11739,7 +11720,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 60
+    "rs_rating": 61
   },
   {
     "symbol": "3043",
@@ -11754,7 +11735,7 @@
     "sub_industry": "其他電子業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 60
+    "rs_rating": 61
   },
   {
     "symbol": "6150",
@@ -11951,7 +11932,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與強韌電網"
+      "重電設備與電網"
     ],
     "rs_rating": 60
   },
@@ -12028,7 +12009,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 59
+    "rs_rating": 60
   },
   {
     "symbol": "5353",
@@ -12043,7 +12024,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 59
+    "rs_rating": 60
   },
   {
     "symbol": "9917",
@@ -12058,7 +12039,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 59
+    "rs_rating": 60
   },
   {
     "symbol": "4716",
@@ -12105,7 +12086,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器與GB200代工"
+      "AI伺服器代工"
     ],
     "rs_rating": 59
   },
@@ -12332,7 +12313,7 @@
     "sub_industry": "電腦及週邊設備業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 58
+    "rs_rating": 59
   },
   {
     "symbol": "6573",
@@ -12347,7 +12328,7 @@
     "sub_industry": "半導體業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 58
+    "rs_rating": 59
   },
   {
     "symbol": "6654",
@@ -12362,7 +12343,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 58
+    "rs_rating": 59
   },
   {
     "symbol": "8021",
@@ -12632,7 +12613,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 57
+    "rs_rating": 58
   },
   {
     "symbol": "4138",
@@ -12647,7 +12628,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 57
+    "rs_rating": 58
   },
   {
     "symbol": "1784",
@@ -12662,7 +12643,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 57
+    "rs_rating": 58
   },
   {
     "symbol": "2063",
@@ -12917,7 +12898,7 @@
     "sub_industry": "電腦及週邊設備業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 56
+    "rs_rating": 57
   },
   {
     "symbol": "5016",
@@ -12932,7 +12913,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 56
+    "rs_rating": 57
   },
   {
     "symbol": "6996",
@@ -12947,7 +12928,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 56
+    "rs_rating": 57
   },
   {
     "symbol": "1417",
@@ -13040,8 +13021,9 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "GE航太發動機供應鏈",
-      "軍用商規無人機"
+      "GE航空發動機",
+      "無人機概念",
+      "軍用無人機"
     ],
     "rs_rating": 56
   },
@@ -13223,7 +13205,7 @@
     "sub_industry": "玻璃陶瓷應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 55
+    "rs_rating": 56
   },
   {
     "symbol": "9926",
@@ -13238,7 +13220,7 @@
     "sub_industry": "油電燃氣業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 55
+    "rs_rating": 56
   },
   {
     "symbol": "3684",
@@ -13253,7 +13235,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 55
+    "rs_rating": 56
   },
   {
     "symbol": "4106",
@@ -13345,7 +13327,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器與GB200代工"
+      "AI伺服器代工"
     ],
     "rs_rating": 55
   },
@@ -13424,7 +13406,7 @@
       "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
-      "伺服器滑軌與導軌機構"
+      "伺服器滑軌機構"
     ],
     "rs_rating": 55
   },
@@ -13531,7 +13513,7 @@
     "sub_industry": "食品工業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 54
+    "rs_rating": 55
   },
   {
     "symbol": "3532",
@@ -13546,7 +13528,7 @@
     "sub_industry": "半導體業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 54
+    "rs_rating": 55
   },
   {
     "symbol": "5478",
@@ -13561,7 +13543,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 54
+    "rs_rating": 55
   },
   {
     "symbol": "2208",
@@ -13831,7 +13813,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 53
+    "rs_rating": 54
   },
   {
     "symbol": "7402",
@@ -13848,9 +13830,10 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "軍用商規無人機"
+      "無人機概念",
+      "軍用無人機"
     ],
-    "rs_rating": 53
+    "rs_rating": 54
   },
   {
     "symbol": "8463",
@@ -13865,7 +13848,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 53
+    "rs_rating": 54
   },
   {
     "symbol": "7584",
@@ -13957,7 +13940,8 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝",
+      "CoWoS濕製程/載具"
     ],
     "rs_rating": 53
   },
@@ -14139,7 +14123,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 52
+    "rs_rating": 53
   },
   {
     "symbol": "7767",
@@ -14154,7 +14138,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 52
+    "rs_rating": 53
   },
   {
     "symbol": "2114",
@@ -14169,7 +14153,7 @@
     "sub_industry": "橡膠工業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 52
+    "rs_rating": 53
   },
   {
     "symbol": "4702",
@@ -14246,7 +14230,8 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷/液冷散熱模組"
+      "伺服器水冷CDU",
+      "水冷散熱模組"
     ],
     "rs_rating": 52
   },
@@ -14428,7 +14413,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 51
+    "rs_rating": 52
   },
   {
     "symbol": "3141",
@@ -14443,7 +14428,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 51
+    "rs_rating": 52
   },
   {
     "symbol": "1233",
@@ -14458,7 +14443,7 @@
     "sub_industry": "食品工業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 51
+    "rs_rating": 52
   },
   {
     "symbol": "2412",
@@ -14716,6 +14701,21 @@
     "rs_rating": 51
   },
   {
+    "symbol": "2348",
+    "name": "海悅",
+    "market": "上市",
+    "close_price": 72.4,
+    "r_5d": 4.02,
+    "r_20d": -7.42,
+    "r_60d": 7.1,
+    "score": -0.78,
+    "main_industry": "其他",
+    "sub_industry": "其他應用",
+    "themes": [],
+    "micro_themes": [],
+    "rs_rating": 51
+  },
+  {
     "symbol": "1788",
     "name": "杏昌",
     "market": "上櫃",
@@ -14728,7 +14728,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 50
+    "rs_rating": 51
   },
   {
     "symbol": "5210",
@@ -14743,7 +14743,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 50
+    "rs_rating": 51
   },
   {
     "symbol": "9930",
@@ -15028,7 +15028,7 @@
     "sub_industry": "塑膠工業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 49
+    "rs_rating": 50
   },
   {
     "symbol": "2820",
@@ -15043,7 +15043,7 @@
     "sub_industry": "金融保險應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 49
+    "rs_rating": 50
   },
   {
     "symbol": "5364",
@@ -15270,7 +15270,8 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU伺服器備援電池"
+      "BBU備援電池",
+      "BBU電池組裝"
     ],
     "rs_rating": 49
   },
@@ -15332,7 +15333,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 48
+    "rs_rating": 49
   },
   {
     "symbol": "6730",
@@ -15347,7 +15348,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 48
+    "rs_rating": 49
   },
   {
     "symbol": "1530",
@@ -15632,7 +15633,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 47
+    "rs_rating": 48
   },
   {
     "symbol": "1527",
@@ -15647,7 +15648,7 @@
     "sub_industry": "電機機械應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 47
+    "rs_rating": 48
   },
   {
     "symbol": "4109",
@@ -15917,7 +15918,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 46
+    "rs_rating": 47
   },
   {
     "symbol": "1809",
@@ -15932,7 +15933,7 @@
     "sub_industry": "玻璃陶瓷應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 46
+    "rs_rating": 47
   },
   {
     "symbol": "2505",
@@ -16217,7 +16218,7 @@
     "sub_industry": "其他電子業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 45
+    "rs_rating": 46
   },
   {
     "symbol": "4183",
@@ -16232,7 +16233,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 45
+    "rs_rating": 46
   },
   {
     "symbol": "2012",
@@ -16517,7 +16518,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 44
+    "rs_rating": 45
   },
   {
     "symbol": "4107",
@@ -16532,7 +16533,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 44
+    "rs_rating": 45
   },
   {
     "symbol": "6803",
@@ -16817,7 +16818,7 @@
     "sub_industry": "其他電子業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 43
+    "rs_rating": 44
   },
   {
     "symbol": "6222",
@@ -16832,7 +16833,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 43
+    "rs_rating": 44
   },
   {
     "symbol": "8933",
@@ -16864,7 +16865,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與強韌電網"
+      "重電設備與電網"
     ],
     "rs_rating": 43
   },
@@ -17048,7 +17049,8 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝",
+      "CoWoS濕製程/載具"
     ],
     "rs_rating": 43
   },
@@ -17083,8 +17085,9 @@
       "波音機體供應鏈"
     ],
     "micro_themes": [
-      "GE航太發動機供應鏈",
-      "波音機體供應鏈"
+      "GE航空發動機",
+      "波音供應鏈",
+      "波音客改貨MRO"
     ],
     "rs_rating": 43
   },
@@ -17131,7 +17134,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 42
+    "rs_rating": 43
   },
   {
     "symbol": "3373",
@@ -17146,7 +17149,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 42
+    "rs_rating": 43
   },
   {
     "symbol": "1780",
@@ -17313,7 +17316,8 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與強韌電網"
+      "北美電網變壓器",
+      "重電設備與電網"
     ],
     "rs_rating": 42
   },
@@ -17420,7 +17424,7 @@
     "sub_industry": "觀光餐旅應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 41
+    "rs_rating": 42
   },
   {
     "symbol": "3661",
@@ -17437,9 +17441,9 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC客製化晶片與矽智財"
+      "ASIC設計服務"
     ],
-    "rs_rating": 41
+    "rs_rating": 42
   },
   {
     "symbol": "3118",
@@ -17726,9 +17730,10 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星太空通訊"
+      "低軌衛星天線PCB",
+      "低軌衛星太空鏈"
     ],
-    "rs_rating": 40
+    "rs_rating": 41
   },
   {
     "symbol": "3002",
@@ -17743,7 +17748,7 @@
     "sub_industry": "電腦及週邊設備業應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 40
+    "rs_rating": 41
   },
   {
     "symbol": "1813",
@@ -17756,6 +17761,21 @@
     "score": -2.49,
     "main_industry": "其他",
     "sub_industry": "其他應用",
+    "themes": [],
+    "micro_themes": [],
+    "rs_rating": 40
+  },
+  {
+    "symbol": "2834",
+    "name": "臺企銀",
+    "market": "上市",
+    "close_price": 16.55,
+    "r_5d": 1.53,
+    "r_20d": -8.06,
+    "r_60d": 4.09,
+    "score": -2.5,
+    "main_industry": "金融保險",
+    "sub_industry": "金融保險應用",
     "themes": [],
     "micro_themes": [],
     "rs_rating": 40
@@ -18028,7 +18048,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 39
+    "rs_rating": 40
   },
   {
     "symbol": "2755",
@@ -18328,7 +18348,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 38
+    "rs_rating": 39
   },
   {
     "symbol": "6523",
@@ -18613,7 +18633,7 @@
     "sub_industry": "其他應用",
     "themes": [],
     "micro_themes": [],
-    "rs_rating": 37
+    "rs_rating": 38
   },
   {
     "symbol": "6838",
@@ -18806,6 +18826,21 @@
     "score": -3.12,
     "main_industry": "觀光餐旅",
     "sub_industry": "觀光餐旅應用",
+    "themes": [],
+    "micro_themes": [],
+    "rs_rating": 37
+  },
+  {
+    "symbol": "2812",
+    "name": "台中銀",
+    "market": "上市",
+    "close_price": 18.85,
+    "r_5d": 1.07,
+    "r_20d": -7.82,
+    "r_60d": 1.89,
+    "score": -3.13,
+    "main_industry": "金融保險",
+    "sub_industry": "金融保險應用",
     "themes": [],
     "micro_themes": [],
     "rs_rating": 37
@@ -19320,7 +19355,8 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "矽光子CPO"
     ],
     "rs_rating": 35
   },
@@ -20689,7 +20725,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器與GB200代工"
+      "AI伺服器代工"
     ],
     "rs_rating": 31
   },
@@ -21218,7 +21254,7 @@
       "AI伺服器與GB200代工"
     ],
     "micro_themes": [
-      "AI伺服器與GB200代工"
+      "AI伺服器代工"
     ],
     "rs_rating": 29
   },
@@ -21251,12 +21287,16 @@
     "themes": [
       "GE航太發動機供應鏈",
       "波音機體供應鏈",
+      "發動機熱段製造",
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "GE航太發動機供應鏈",
-      "波音機體供應鏈",
-      "軍用商規無人機"
+      "GE航空發動機",
+      "波音供應鏈",
+      "波音客改貨MRO",
+      "無人機概念",
+      "發動機熱段製造",
+      "軍用無人機"
     ],
     "rs_rating": 29
   },
@@ -21350,7 +21390,7 @@
       "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電設備與強韌電網"
+      "重電設備與電網"
     ],
     "rs_rating": 28
   },
@@ -21519,7 +21559,8 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與智慧自動化"
+      "AI 3D視覺機器人",
+      "機器人與AI視覺"
     ],
     "rs_rating": 28
   },
@@ -21568,7 +21609,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與智慧自動化"
+      "機器人與AI視覺"
     ],
     "rs_rating": 28
   },
@@ -21981,7 +22022,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC客製化晶片與矽智財"
+      "ASIC設計服務"
     ],
     "rs_rating": 26
   },
@@ -22223,11 +22264,13 @@
     "sub_industry": "鋼鐵工業應用",
     "themes": [
       "GE航太發動機供應鏈",
-      "波音機體供應鏈"
+      "波音機體供應鏈",
+      "發動機熱段製造"
     ],
     "micro_themes": [
-      "GE航太發動機供應鏈",
-      "波音機體供應鏈"
+      "GE航空發動機",
+      "波音供應鏈",
+      "發動機熱段製造"
     ],
     "rs_rating": 25
   },
@@ -22396,7 +22439,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC客製化晶片與矽智財"
+      "ASIC設計服務"
     ],
     "rs_rating": 25
   },
@@ -22685,7 +22728,8 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "矽光子CPO"
     ],
     "rs_rating": 24
   },
@@ -22734,7 +22778,7 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "rs_rating": 24
   },
@@ -23008,7 +23052,8 @@
       "軍用商規無人機"
     ],
     "micro_themes": [
-      "軍用商規無人機"
+      "無人機概念",
+      "軍用無人機"
     ],
     "rs_rating": 23
   },
@@ -23357,7 +23402,8 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU伺服器備援電池"
+      "BBU備援電池",
+      "BBU電池組裝"
     ],
     "rs_rating": 22
   },
@@ -23511,7 +23557,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與智慧自動化"
+      "機器人與AI視覺"
     ],
     "rs_rating": 21
   },
@@ -23530,7 +23576,7 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子"
     ],
     "rs_rating": 21
   },
@@ -23894,7 +23940,8 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝",
+      "CoWoS濕製程/載具"
     ],
     "rs_rating": 20
   },
@@ -24483,7 +24530,7 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "rs_rating": 18
   },
@@ -24532,7 +24579,8 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與智慧自動化"
+      "AI 3D視覺機器人",
+      "機器人與AI視覺"
     ],
     "rs_rating": 18
   },
@@ -25226,7 +25274,8 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星太空通訊"
+      "低軌衛星天線PCB",
+      "低軌衛星太空鏈"
     ],
     "rs_rating": 16
   },
@@ -25395,7 +25444,7 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "機器人與智慧自動化"
+      "機器人與AI視覺"
     ],
     "rs_rating": 15
   },
@@ -25909,7 +25958,7 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝"
     ],
     "rs_rating": 13
   },
@@ -26018,7 +26067,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷/液冷散熱模組"
+      "水冷散熱模組"
     ],
     "rs_rating": 13
   },
@@ -26082,7 +26131,7 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星太空通訊"
+      "低軌衛星太空鏈"
     ],
     "rs_rating": 13
   },
@@ -26495,7 +26544,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC客製化晶片與矽智財"
+      "ASIC設計服務"
     ],
     "rs_rating": 11
   },
@@ -26739,7 +26788,8 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星太空通訊"
+      "低軌衛星天線PCB",
+      "低軌衛星太空鏈"
     ],
     "rs_rating": 11
   },
@@ -26863,7 +26913,7 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU伺服器備援電池"
+      "BBU備援電池"
     ],
     "rs_rating": 10
   },
@@ -26957,7 +27007,8 @@
       "矽光子(CPO)"
     ],
     "micro_themes": [
-      "矽光子(CPO)"
+      "CPO矽光子",
+      "矽光子CPO"
     ],
     "rs_rating": 10
   },
@@ -27022,8 +27073,8 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "伺服器滑軌與導軌機構",
-      "水冷/液冷散熱模組"
+      "伺服器滑軌機構",
+      "水冷散熱模組"
     ],
     "rs_rating": 10
   },
@@ -28051,7 +28102,8 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU伺服器備援電池"
+      "BBU備援電池",
+      "BBU電池組裝"
     ],
     "rs_rating": 6
   },
@@ -28085,7 +28137,8 @@
       "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU伺服器備援電池"
+      "BBU備援電池",
+      "BBU電池組裝"
     ],
     "rs_rating": 6
   },
@@ -28194,7 +28247,7 @@
       "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷/液冷散熱模組"
+      "水冷散熱模組"
     ],
     "rs_rating": 6
   },
@@ -28348,7 +28401,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC客製化晶片與矽智財"
+      "ASIC設計服務"
     ],
     "rs_rating": 5
   },
@@ -29106,7 +29159,8 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "低軌衛星太空通訊"
+      "低軌衛星天線PCB",
+      "低軌衛星太空鏈"
     ],
     "rs_rating": 3
   },
@@ -29305,7 +29359,7 @@
       "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
-      "伺服器滑軌與導軌機構"
+      "伺服器滑軌機構"
     ],
     "rs_rating": 2
   },
@@ -29834,7 +29888,7 @@
       "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC客製化晶片與矽智財"
+      "ASIC設計服務"
     ],
     "rs_rating": 1
   },
@@ -29868,7 +29922,8 @@
       "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
-      "CoWoS先進封裝與設備"
+      "CoWoS先進封裝",
+      "CoWoS濕製程/載具"
     ],
     "rs_rating": 1
   },
