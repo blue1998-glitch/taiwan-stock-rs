@@ -4,7 +4,7 @@ import json
 import os
 import requests
 
-st.set_page_config(page_title="台股動能 RS 產業與全維度題材系統", layout="wide")
+st.set_page_config(page_title="台股動能 RS 產業與自適應雙軌題材系統", layout="wide")
 
 # ----------------- 1. 手機極簡緊湊膠囊 CSS -----------------
 st.markdown("""
@@ -73,24 +73,69 @@ def load_market_data():
 
 df_market, db_status = load_market_data()
 
-# ----------------- 3. 全量題材動能聚合計算 -----------------
+# ----------------- 3. 自適應雙軌題材動能計算引擎 -----------------
+def calc_adaptive_theme_score(sub_df):
+    sorted_rs = sorted(sub_df["rs_rating"].tolist(), reverse=True)
+    n = len(sorted_rs)
+    if n == 0:
+        return 0.0, "📦 潛伏盤整", 0, 0, 0.0
+    
+    top1_rs = sorted_rs[0]
+    strong_stocks = [r for r in sorted_rs if r >= 80]
+    strong_count = len(strong_stocks)
+    t1_count = len([r for r in sorted_rs if r >= 90])
+
+    # 1. 領袖基準分 (方案 A: Top 3 權重 0.50, 0.30, 0.20)
+    if n == 1:
+        base_top = float(top1_rs)
+    elif n == 2:
+        base_top = float(sorted_rs[0] * 0.65 + sorted_rs[1] * 0.35)
+    else:
+        base_top = float(sorted_rs[0] * 0.50 + sorted_rs[1] * 0.30 + sorted_rs[2] * 0.20)
+
+    # 2. 貝氏平滑共振率 + 絕對兵力深度補償 (總係數落在 0.18 平衡區間)
+    smoothed_rate = (strong_count + 0.4) / (n + 2)
+    depth_ratio = min(strong_count, 4) / 4.0
+    resonance_multiplier = 1.0 + (0.12 * smoothed_rate + 0.06 * depth_ratio)
+
+    # 3. 雙軌取大值 (先鋒極速分 beta = 0.92)
+    vanguard_score = top1_rs * 0.92
+    resonance_score = base_top * resonance_multiplier
+    final_score = max(vanguard_score, resonance_score)
+
+    # 4. 題材狀態徽章判定
+    raw_rate = strong_count / n
+    if top1_rs >= 90 and raw_rate <= 0.34 and strong_count <= 2:
+        stage_badge = "🚀 先鋒突圍"
+    elif top1_rs >= 85 and (raw_rate >= 0.35 or strong_count >= 3):
+        stage_badge = "🔥 集團共振"
+    elif strong_count >= 2:
+        stage_badge = "⚡ 補漲擴散"
+    else:
+        stage_badge = "📦 潛伏盤整"
+
+    return round(final_score, 1), stage_badge, top1_rs, strong_count, round(base_top, 1)
+
 all_themes = sorted(list(set(t for sublist in df_market["themes"] for t in sublist if t)))
 theme_stats = []
-theme_rs_map = {}
+theme_score_map = {}
 
 for th in all_themes:
     sub_df = df_market[df_market["themes"].apply(lambda tags: th in tags)]
     if not sub_df.empty:
-        avg_rs = sub_df["rs_rating"].mean()
-        theme_rs_map[th] = avg_rs
+        f_score, badge, top1, strong_cnt, base_top = calc_adaptive_theme_score(sub_df)
+        theme_score_map[th] = f_score
         theme_stats.append({
             "theme": th,
-            "avg_rs": avg_rs,
-            "t1_count": len(sub_df[sub_df["rs_rating"] >= 90]),
+            "final_score": f_score,
+            "stage_badge": badge,
+            "top1_rs": top1,
+            "strong_count": strong_cnt,
+            "base_top": base_top,
             "total_count": len(sub_df)
         })
 
-df_theme_ranked = pd.DataFrame(theme_stats).sort_values(by="avg_rs", ascending=False)
+df_theme_ranked = pd.DataFrame(theme_stats).sort_values(by="final_score", ascending=False)
 
 # 產業統計
 all_industries = sorted(df_market["main_industry"].unique().tolist())
@@ -111,11 +156,11 @@ for ind in all_industries:
 
 df_industry_ranked = pd.DataFrame(industry_stats).sort_values(by="avg_rs", ascending=False)
 
-# 雙重共振標記
+# 雙重共振標記 (題材得分 >= 85 且 產業平均 >= 75 且 個股 RS >= 90)
 def check_resonance(row):
     sym_ind = row["main_industry"]
     ind_ok = ind_rs_map.get(sym_ind, 0) >= 75
-    theme_ok = any(theme_rs_map.get(t, 0) >= 80 for t in row["themes"])
+    theme_ok = any(theme_score_map.get(t, 0) >= 85 for t in row["themes"])
     stock_ok = row["rs_rating"] >= 90
     return "⚡ 雙強共振" if (ind_ok and theme_ok and stock_ok) else ("🥇 Tier 1 (90+)" if row["rs_rating"] >= 90 else ("🥈 Tier 2 (80-89)" if row["rs_rating"] >= 80 else "🥉 Tier 3 (75-79)"))
 
@@ -130,8 +175,8 @@ if "selected_industry" not in st.session_state:
 # ----------------- 4. 頂部狀態列與萬用搜尋 -----------------
 head_col1, head_col2 = st.columns([3, 1])
 with head_col1:
-    st.title("🎯 台股 RS 動能：產業與全維度題材系統")
-    st.caption(f"🟢 全市場資料庫：收錄 **{len(df_market)}** 檔股票 ｜ **{len(all_themes)}** 個非重複動態題材 ｜ 狀態：`{db_status}`")
+    st.title("🎯 台股 RS 動能：自適應雙軌題材與產業系統")
+    st.caption(f"🟢 資料庫：收錄 **{len(df_market)}** 檔股票 ｜ **{len(all_themes)}** 個非重複題材 ｜ 狀態：`{db_status}`")
 with head_col2:
     if st.button("🔄 盤中即時重新整理"):
         st.cache_data.clear()
@@ -173,18 +218,29 @@ st.markdown("---")
 
 # ----------------- 5. 主導航分頁 -----------------
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🔥 全維度動態題材庫 (置頂成分股)",
+    "🔥 自適應雙軌題材庫 (置頂成分股)",
     "🏭 產業視角 (看法定類股輪動)",
     "⚡ 雙重共振專區 (強題材+強產業)",
     "🏆 全市場 RS 總榜"
 ])
 
 # =========================================================
-# TAB 1: 全維度動態題材庫
+# TAB 1: 自適應雙軌題材庫
 # =========================================================
 with tab1:
     cur_t = st.session_state.selected_theme
     t_constituents = df_market[df_market["themes"].apply(lambda tags: cur_t in tags)].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
+
+    # 當前題材統計指標
+    cur_t_info = df_theme_ranked[df_theme_ranked["theme"] == cur_t]
+    if not cur_t_info.empty:
+        t_row = cur_t_info.iloc[0]
+        cur_badge = t_row["stage_badge"]
+        cur_score = t_row["final_score"]
+        cur_top1 = t_row["top1_rs"]
+        cur_strong = t_row["strong_count"]
+    else:
+        cur_badge, cur_score, cur_top1, cur_strong = "📦 潛伏盤整", 0.0, 0, 0
 
     # --- 1. 資料置頂區 ---
     st.markdown(f"### 📋 【{cur_t}】 題材成分股真實動能明細 (依 RS 評分排序)")
@@ -193,11 +249,11 @@ with tab1:
     covered_str = " | ".join([f"{k} ({v}檔)" for k, v in covered_inds.items()])
 
     k1, k2, k3, k4 = st.columns(4)
-    k1.metric("當前題材", cur_t)
+    k1.metric("當前題材與階段", cur_t, cur_badge)
     k1.caption(f"橫跨產業: {covered_str}")
-    k2.metric("真實成分股", f"{len(t_constituents)} 檔")
-    k3.metric("題材平均 RS", f"{t_constituents['rs_rating'].mean():.1f}" if not t_constituents.empty else "0")
-    k4.metric("RS ≥ 90 領袖股", f"{len(t_constituents[t_constituents['rs_rating'] >= 90])} 檔")
+    k2.metric("題材雙軌總分", f"{cur_score} 分")
+    k3.metric("先鋒龍頭 RS", f"{cur_top1} 分")
+    k4.metric("RS ≥ 80 強勢股", f"{cur_strong} / {len(t_constituents)} 檔")
 
     t_constituents["詳細業務特徵"] = t_constituents["micro_themes"].apply(
         lambda tags: " | ".join([f"🎯 {t}" for t in tags]) if tags else "—"
@@ -223,9 +279,9 @@ with tab1:
     # --- 2. 題材板塊快速篩選與動態膠囊矩陣 ---
     t_header_c1, t_header_c2 = st.columns([2, 1])
     with t_header_c1:
-        st.subheader(f"⚡ 全市場動態題材庫 (共收錄 {len(df_theme_ranked)} 個非重複題材，依動能排序)")
+        st.subheader(f"⚡ 全市場動態題材庫 (共收錄 {len(df_theme_ranked)} 個非重複題材，依雙軌動能排序)")
     with t_header_c2:
-        theme_search = st.text_input("🔍 過濾題材名稱 (如：散熱、低軌、航太、半導體):", "").strip()
+        theme_search = st.text_input("🔍 過濾題材名稱 (如：散熱、低軌、無人機、半導體):", "").strip()
 
     filtered_themes_df = df_theme_ranked
     if theme_search:
@@ -239,11 +295,12 @@ with tab1:
             if idx < len(filtered_themes_df):
                 item = filtered_themes_df.iloc[idx]
                 t_name = item["theme"]
-                t_avg = item["avg_rs"]
+                t_score = item["final_score"]
+                t_badge = item["stage_badge"]
+                t_strong = item["strong_count"]
                 t_cnt = item["total_count"]
-                icon = "🔥" if t_avg >= 85 else ("⚡" if t_avg >= 75 else "📦")
                 is_active = "▶ " if t_name == cur_t else ""
-                btn_label = f"{is_active}{icon} {t_name} | {t_avg:.1f} ({t_cnt}檔)"
+                btn_label = f"{is_active}{t_badge} {t_name} | {t_score}分 (強勢:{t_strong}/{t_cnt})"
                 with cols[col_idx]:
                     if st.button(btn_label, key=f"tab1_p_{t_name}"):
                         st.session_state.selected_theme = t_name
@@ -307,7 +364,7 @@ with tab2:
 # =========================================================
 with tab3:
     st.subheader("⚡ 全市場「雙重共振」超級領袖股")
-    st.caption("條件：所屬題材平均 RS ≥ 80 ＋ 所屬產業平均 RS ≥ 75 ＋ 個股 RS ≥ 90（處於強勢產業且站在核心風口）")
+    st.caption("條件：所屬題材雙軌得分 ≥ 85 ＋ 所屬產業平均 RS ≥ 75 ＋ 個股 RS ≥ 90（處於強勢產業且站在核心風口）")
 
     resonance_df = df_market[df_market["梯隊與共振"] == "⚡ 雙強共振"].sort_values(by=["rs_rating", "score"], ascending=[False, False]).copy()
 
