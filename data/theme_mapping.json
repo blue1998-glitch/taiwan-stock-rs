@@ -609,19 +609,23 @@
     "main_industry": "電機機械",
     "sub_industry": "重電設備製造",
     "macro_themes": [
-      "重電能源與強韌電網"
+      "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "重電變壓器",
-      "北美外銷",
-      "台電標案"
+      "重電變壓器/配電盤",
+      "外銷北美變壓器標案"
     ]
   },
   "1504": {
     "main_industry": "電機機械",
-    "sub_industry": "電機機械應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "重電馬達製造",
+    "macro_themes": [
+      "重電設備與強韌電網"
+    ],
+    "micro_themes": [
+      "重電馬達/開關設備",
+      "儲能電力工程"
+    ]
   },
   "1506": {
     "main_industry": "電機機械",
@@ -639,23 +643,22 @@
     "main_industry": "電機機械",
     "sub_industry": "高壓開關設備",
     "macro_themes": [
-      "重電能源與強韌電網"
+      "重電設備與強韌電網"
     ],
     "micro_themes": [
       "GIS氣體絕緣開關",
-      "台電統包標案",
-      "氫能"
+      "台電統包統購標案"
     ]
   },
   "1514": {
     "main_industry": "電機機械",
     "sub_industry": "配電盤與變壓器",
     "macro_themes": [
-      "重電能源與強韌電網"
+      "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "配電盤/變壓器",
-      "台積電擴廠重電設備"
+      "配電盤與變壓器",
+      "半導體廠電力工程"
     ]
   },
   "1515": {
@@ -680,11 +683,11 @@
     "main_industry": "電機機械",
     "sub_industry": "特高壓變壓器",
     "macro_themes": [
-      "重電能源與強韌電網"
+      "重電設備與強韌電網"
     ],
     "micro_themes": [
-      "超特高壓變壓器",
-      "北美電網外銷",
+      "超特高壓500kV變壓器",
+      "北美變壓器外銷",
       "台電強韌電網"
     ]
   },
@@ -768,9 +771,14 @@
   },
   "1536": {
     "main_industry": "汽車工業",
-    "sub_industry": "汽車工業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "汽車傳動齒輪",
+    "macro_themes": [
+      "車用電子與電動車供應鏈"
+    ],
+    "micro_themes": [
+      "電動車減速齒輪箱",
+      "Tesla主要齒輪供應商"
+    ]
   },
   "1537": {
     "main_industry": "電機機械",
@@ -896,11 +904,11 @@
     "main_industry": "電器電纜",
     "sub_industry": "特高壓電纜",
     "macro_themes": [
-      "重電能源與強韌電網"
+      "重電設備與強韌電網"
     ],
     "micro_themes": [
       "特高壓電力電纜",
-      "綠能儲能案場"
+      "強韌電網地下化標案"
     ]
   },
   "1611": {
@@ -943,11 +951,11 @@
     "main_industry": "電器電纜",
     "sub_industry": "電力電纜",
     "macro_themes": [
-      "重電能源與強韌電網"
+      "重電設備與強韌電網"
     ],
     "micro_themes": [
       "超高壓電力電纜",
-      "台電強韌電網標案"
+      "綠能電廠饋線"
     ]
   },
   "1623": {
@@ -1168,9 +1176,14 @@
   },
   "1795": {
     "main_industry": "生技醫療業",
-    "sub_industry": "生技醫療業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "特殊學名藥",
+    "macro_themes": [
+      "生技醫療與CDMO新藥"
+    ],
+    "micro_themes": [
+      "美時學名藥龍頭",
+      "抗癌重磅藥物"
+    ]
   },
   "1802": {
     "main_industry": "玻璃陶瓷",
@@ -1408,18 +1421,18 @@
     ],
     "micro_themes": [
       "滾珠螺桿/線性滑軌",
-      "機器人關節零組件"
+      "機器人關節軸承"
     ]
   },
   "2059": {
     "main_industry": "電子零組件業",
     "sub_industry": "伺服器滑軌龍頭",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
-      "高階伺服器滑軌",
-      "GB200機櫃專用導軌"
+      "川湖伺服器滑軌龍頭",
+      "GB200專用導軌"
     ]
   },
   "2062": {
@@ -1652,9 +1665,16 @@
   },
   "2308": {
     "main_industry": "電子零組件業",
-    "sub_industry": "電子零組件業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "電源供應器與儲能",
+    "macro_themes": [
+      "BBU伺服器備援電池",
+      "AI伺服器ODM與整機代工"
+    ],
+    "micro_themes": [
+      "伺服器電源供應器",
+      "BBU儲能系統",
+      "電動車充電樁"
+    ]
   },
   "2312": {
     "main_industry": "其他電子業",
@@ -1670,7 +1690,7 @@
     ],
     "micro_themes": [
       "低軌衛星高階HDI板",
-      "SpaceX主要板廠"
+      "SpaceX地面接收主板"
     ]
   },
   "2314": {
@@ -1680,8 +1700,8 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "衛星收發天線",
-      "地面站射頻元件"
+      "衛星收發射頻元件",
+      "地面站天線模組"
     ]
   },
   "2316": {
@@ -1694,12 +1714,11 @@
     "main_industry": "其他電子業",
     "sub_industry": "EMS電子代工龍頭",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "AI伺服器ODM與整機代工"
     ],
     "micro_themes": [
-      "GB200 NVL72代工",
-      "AI伺服器主機板",
-      "鴻海集團"
+      "GB200 NVL72整機組裝",
+      "AI伺服器伺服算力中心"
     ]
   },
   "2321": {
@@ -1742,12 +1761,13 @@
     "main_industry": "半導體業",
     "sub_industry": "晶圓代工龍頭",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)",
-      "AI伺服器與液冷/BBU"
+      "矽光子(CPO)與光通訊",
+      "CoWoS先進封裝與設備",
+      "AI伺服器ODM與整機代工"
     ],
     "micro_themes": [
+      "TSMC-COUPE矽光子平台",
       "CoWoS先進封裝",
-      "CPO矽光子",
       "2nm先進製程"
     ]
   },
@@ -1849,9 +1869,14 @@
   },
   "2356": {
     "main_industry": "電腦及週邊設備業",
-    "sub_industry": "電腦及週邊設備業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "電子代工製造",
+    "macro_themes": [
+      "AI伺服器ODM與整機代工"
+    ],
+    "micro_themes": [
+      "伺服器整機製造",
+      "英業達伺服器"
+    ]
   },
   "2357": {
     "main_industry": "電腦及週邊設備業",
@@ -1867,7 +1892,7 @@
     ],
     "micro_themes": [
       "AI 3D視覺感測",
-      "機器人手臂整合",
+      "機器人視覺導航",
       "輝達生態系"
     ]
   },
@@ -1909,9 +1934,14 @@
   },
   "2368": {
     "main_industry": "電子零組件業",
-    "sub_industry": "電子零組件業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "高層PCB板製造",
+    "macro_themes": [
+      "PCB高階載板與伺服器板"
+    ],
+    "micro_themes": [
+      "AI伺服器高層板",
+      "超高層高頻厚銅板"
+    ]
   },
   "2369": {
     "main_industry": "半導體業",
@@ -1945,9 +1975,14 @@
   },
   "2376": {
     "main_industry": "電腦及週邊設備業",
-    "sub_industry": "電腦及週邊設備業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "伺服器主機板製造",
+    "macro_themes": [
+      "AI伺服器ODM與整機代工"
+    ],
+    "micro_themes": [
+      "技鋼AI伺服器",
+      "伺服器主機板"
+    ]
   },
   "2377": {
     "main_industry": "電腦及週邊設備業",
@@ -1971,19 +2006,24 @@
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "AI伺服器ODM代工",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "AI伺服器ODM與整機代工"
     ],
     "micro_themes": [
-      "AI伺服器ODM",
-      "GB200整機櫃",
+      "GB200整機櫃代工",
+      "AI伺服器主機板",
       "廣達集團"
     ]
   },
   "2383": {
     "main_industry": "電子零組件業",
-    "sub_industry": "電子零組件業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "銅箔基板製造",
+    "macro_themes": [
+      "PCB高階載板與伺服器板"
+    ],
+    "micro_themes": [
+      "銅箔基板(CCL)龍頭",
+      "高頻高速M8材料"
+    ]
   },
   "2385": {
     "main_industry": "電子零組件業",
@@ -2125,9 +2165,14 @@
   },
   "2421": {
     "main_industry": "電子零組件業",
-    "sub_industry": "電子零組件業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "高階散熱風扇",
+    "macro_themes": [
+      "水冷/液冷散熱模組"
+    ],
+    "micro_themes": [
+      "高風壓伺服器風扇",
+      "水冷輔助散熱系統"
+    ]
   },
   "2423": {
     "main_industry": "其他電子業",
@@ -2271,11 +2316,11 @@
     "main_industry": "半導體業",
     "sub_industry": "手機與通訊IC設計",
     "macro_themes": [
-      "ASIC與矽智財(IP)"
+      "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
       "旗艦天璣手機晶片",
-      "客製化ASIC",
+      "客製化ASIC晶片",
       "WiFi 7"
     ]
   },
@@ -2341,9 +2386,14 @@
   },
   "2467": {
     "main_industry": "電子零組件業",
-    "sub_industry": "電子零組件業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "半導體壓膜設備",
+    "macro_themes": [
+      "CoWoS先進封裝與設備"
+    ],
+    "micro_themes": [
+      "晶圓壓膜機",
+      "高階PCB設備"
+    ]
   },
   "2468": {
     "main_industry": "資訊服務業",
@@ -2473,9 +2523,14 @@
   },
   "2497": {
     "main_industry": "汽車工業",
-    "sub_industry": "汽車工業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "車用光學鏡頭",
+    "macro_themes": [
+      "車用電子與電動車供應鏈"
+    ],
+    "micro_themes": [
+      "車用環景鏡頭",
+      "ADAS先進駕駛輔助"
+    ]
   },
   "2498": {
     "main_industry": "通信網路業",
@@ -2485,9 +2540,14 @@
   },
   "2501": {
     "main_industry": "建材營造",
-    "sub_industry": "建材營造應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "營建建材工程",
+    "macro_themes": [
+      "營建資產與都更工程"
+    ],
+    "micro_themes": [
+      "國建住宅推案",
+      "國泰集團房地產"
+    ]
   },
   "2504": {
     "main_industry": "建材營造",
@@ -2539,9 +2599,14 @@
   },
   "2520": {
     "main_industry": "建材營造",
-    "sub_industry": "建材營造應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "營建建材工程",
+    "macro_themes": [
+      "營建資產與都更工程"
+    ],
+    "micro_themes": [
+      "冠德捷運聯開案",
+      "北部精華區都更建案"
+    ]
   },
   "2524": {
     "main_industry": "建材營造",
@@ -2659,15 +2724,25 @@
   },
   "2603": {
     "main_industry": "航運業",
-    "sub_industry": "航運業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "貨櫃海運",
+    "macro_themes": [
+      "航運貨櫃散裝與航空物流"
+    ],
+    "micro_themes": [
+      "長榮海運貨櫃龍頭",
+      "歐美遠洋航線"
+    ]
   },
   "2605": {
     "main_industry": "航運業",
-    "sub_industry": "航運業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "散裝海運",
+    "macro_themes": [
+      "航運貨櫃散裝與航空物流"
+    ],
+    "micro_themes": [
+      "新興散裝海運",
+      "海岬型/巴拿馬型散裝"
+    ]
   },
   "2606": {
     "main_industry": "航運業",
@@ -2689,15 +2764,25 @@
   },
   "2609": {
     "main_industry": "航運業",
-    "sub_industry": "航運業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "貨櫃海運",
+    "macro_themes": [
+      "航運貨櫃散裝與航空物流"
+    ],
+    "micro_themes": [
+      "陽明海運貨櫃",
+      "全球航運聯盟"
+    ]
   },
   "2610": {
     "main_industry": "航運業",
-    "sub_industry": "航運業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "航空客貨運",
+    "macro_themes": [
+      "航運貨櫃散裝與航空物流"
+    ],
+    "micro_themes": [
+      "中華航空客貨運",
+      "波音/空巴新機隊"
+    ]
   },
   "2611": {
     "main_industry": "航運業",
@@ -2725,9 +2810,14 @@
   },
   "2615": {
     "main_industry": "航運業",
-    "sub_industry": "航運業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "近洋貨櫃海運",
+    "macro_themes": [
+      "航運貨櫃散裝與航空物流"
+    ],
+    "micro_themes": [
+      "萬海近洋航線龍頭",
+      "亞洲區間航線"
+    ]
   },
   "2616": {
     "main_industry": "油電燃氣業",
@@ -2743,19 +2833,25 @@
   },
   "2618": {
     "main_industry": "航運業",
-    "sub_industry": "航運業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "航空客貨運",
+    "macro_themes": [
+      "航運貨櫃散裝與航空物流"
+    ],
+    "micro_themes": [
+      "長榮航空客運復甦",
+      "航空貨運航線"
+    ]
   },
   "2630": {
     "main_industry": "航運業",
     "sub_industry": "軍機維修",
     "macro_themes": [
-      "航太國防與無人機"
+      "軍工無人機與國防標案",
+      "航太發動機與民航機體(GE/波音)"
     ],
     "micro_themes": [
       "軍機翻修",
-      "國防後勤標案"
+      "空軍後勤保修標案"
     ]
   },
   "2633": {
@@ -2768,13 +2864,13 @@
     "main_industry": "航運業",
     "sub_industry": "機體製造與引擎零件",
     "macro_themes": [
-      "航太國防與無人機"
+      "軍工無人機與國防標案",
+      "航太發動機與民航機體(GE/波音)"
     ],
     "micro_themes": [
-      "國機國造",
-      "GE引擎零組件",
-      "軍用無人機",
-      "波音代工"
+      "國機國造(勇鷹號)",
+      "軍用無人機量產",
+      "GE發動機機匣"
     ]
   },
   "2636": {
@@ -2799,12 +2895,13 @@
     "main_industry": "航運業",
     "sub_industry": "航太維修與發動機製造",
     "macro_themes": [
-      "航太國防與無人機"
+      "軍工無人機與國防標案",
+      "航太發動機與民航機體(GE/波音)"
     ],
     "micro_themes": [
+      "軍用無人機原型",
       "GE航太發動機",
-      "軍用無人機",
-      "波音機體維修(MRO)"
+      "波音客改貨(P2F)"
     ]
   },
   "2646": {
@@ -3001,15 +3098,25 @@
   },
   "2881": {
     "main_industry": "金融保險",
-    "sub_industry": "金融保險應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "綜合金融金控",
+    "macro_themes": [
+      "金控股權與高股息存股"
+    ],
+    "micro_themes": [
+      "富邦金控獲利王",
+      "壽險與證券金控龍頭"
+    ]
   },
   "2882": {
     "main_industry": "金融保險",
-    "sub_industry": "金融保險應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "綜合金融金控",
+    "macro_themes": [
+      "金控股權與高股息存股"
+    ],
+    "micro_themes": [
+      "國泰金控龍頭",
+      "國泰人壽資產配置"
+    ]
   },
   "2883": {
     "main_industry": "金融保險",
@@ -3019,9 +3126,14 @@
   },
   "2884": {
     "main_industry": "金融保險",
-    "sub_industry": "金融保險應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "綜合金融金控",
+    "macro_themes": [
+      "金控股權與高股息存股"
+    ],
+    "micro_themes": [
+      "玉山金控財富管理",
+      "綠色金融與科技銀行"
+    ]
   },
   "2885": {
     "main_industry": "金融保險",
@@ -3031,9 +3143,14 @@
   },
   "2886": {
     "main_industry": "金融保險",
-    "sub_industry": "金融保險應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "官股金融金控",
+    "macro_themes": [
+      "金控股權與高股息存股"
+    ],
+    "micro_themes": [
+      "兆豐金控官股龍頭",
+      "外匯業務與穩健配息"
+    ]
   },
   "2887": {
     "main_industry": "金融保險",
@@ -3055,9 +3172,14 @@
   },
   "2891": {
     "main_industry": "金融保險",
-    "sub_industry": "金融保險應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "綜合金融金控",
+    "macro_themes": [
+      "金控股權與高股息存股"
+    ],
+    "micro_themes": [
+      "中信金控銀行獲利",
+      "消金與信用卡龍頭"
+    ]
   },
   "2892": {
     "main_industry": "金融保險",
@@ -3177,11 +3299,11 @@
     "main_industry": "鋼鐵工業",
     "sub_industry": "航太緊固件",
     "macro_themes": [
-      "航太國防與無人機"
+      "航太發動機與民航機體(GE/波音)"
     ],
     "micro_themes": [
-      "GE發動機扣件",
-      "航太引擎緊固件"
+      "GE航空發動機扣件",
+      "航太高溫緊固件"
     ]
   },
   "3005": {
@@ -3216,9 +3338,15 @@
   },
   "3013": {
     "main_industry": "電腦及週邊設備業",
-    "sub_industry": "電腦及週邊設備業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "精密連接器與機構",
+    "macro_themes": [
+      "水冷/液冷散熱模組",
+      "伺服器滑軌與導軌機構"
+    ],
+    "micro_themes": [
+      "CPU Socket散熱插座",
+      "液冷快接頭機構"
+    ]
   },
   "3014": {
     "main_industry": "半導體業",
@@ -3242,12 +3370,12 @@
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "水冷散熱模組",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷散熱板/模組",
-      "散熱風扇",
-      "GB200供應鏈"
+      "水冷板(Cold Plate)",
+      "GB200冷卻模組",
+      "散熱風扇"
     ]
   },
   "3018": {
@@ -3350,11 +3478,11 @@
     "main_industry": "半導體業",
     "sub_industry": "ASIC設計服務",
     "macro_themes": [
-      "ASIC與矽智財(IP)"
+      "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
-      "ASIC客製化設計",
-      "聯電集團"
+      "ASIC客製化設計服務",
+      "聯電集團矽智財"
     ]
   },
   "3036": {
@@ -3365,9 +3493,14 @@
   },
   "3037": {
     "main_industry": "電子零組件業",
-    "sub_industry": "電子零組件業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "ABF載板製造",
+    "macro_themes": [
+      "PCB高階載板與伺服器板"
+    ],
+    "micro_themes": [
+      "ABF高階載板龍頭",
+      "AI晶片封裝載板"
+    ]
   },
   "3038": {
     "main_industry": "光電業",
@@ -3587,9 +3720,14 @@
   },
   "3231": {
     "main_industry": "電腦及週邊設備業",
-    "sub_industry": "電腦及週邊設備業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "伺服器製造代工",
+    "macro_themes": [
+      "AI伺服器ODM與整機代工"
+    ],
+    "micro_themes": [
+      "AI伺服器代工",
+      "GPU運算基板"
+    ]
   },
   "3257": {
     "main_industry": "半導體業",
@@ -3709,7 +3847,7 @@
     "main_industry": "半導體業",
     "sub_industry": "ASIC與矽智財",
     "macro_themes": [
-      "ASIC與矽智財(IP)"
+      "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
       "台積電主要ASIC夥伴",
@@ -3726,7 +3864,7 @@
     "main_industry": "半導體業",
     "sub_industry": "光通訊雷射封測",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "矽光子(CPO)與光通訊"
     ],
     "micro_themes": [
       "CPO雷射封測",
@@ -3735,9 +3873,14 @@
   },
   "3481": {
     "main_industry": "光電業",
-    "sub_industry": "光電業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "面板製造與封裝",
+    "macro_themes": [
+      "FOPLP面板級封裝"
+    ],
+    "micro_themes": [
+      "3.5代舊廠轉FOPLP封裝",
+      "群創先進封裝"
+    ]
   },
   "3494": {
     "main_industry": "電腦及週邊設備業",
@@ -3839,7 +3982,7 @@
     "main_industry": "半導體業",
     "sub_industry": "半導體設備與再生晶圓",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
       "濕製程設備",
@@ -3914,24 +4057,26 @@
   },
   "3653": {
     "main_industry": "電子零組件業",
-    "sub_industry": "均熱片與散熱機構件",
+    "sub_industry": "均熱片與機構件",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "水冷/液冷散熱模組",
+      "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
       "均熱片(ILid)",
-      "伺服器散熱底板"
+      "伺服器散熱底座",
+      "高階滑軌"
     ]
   },
   "3661": {
     "main_industry": "半導體業",
     "sub_industry": "ASIC設計服務",
     "macro_themes": [
-      "ASIC與矽智財(IP)"
+      "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
       "7nm/3nm先進ASIC設計",
-      "北美雲端CSP晶片"
+      "北美CSP大廠專用晶片"
     ]
   },
   "3665": {
@@ -4188,9 +4333,14 @@
   },
   "4536": {
     "main_industry": "運動休閒",
-    "sub_industry": "運動休閒應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "精密金屬鍛件",
+    "macro_themes": [
+      "航太發動機與民航機體(GE/波音)"
+    ],
+    "micro_themes": [
+      "波音起落架零組件",
+      "航太鍛壓件"
+    ]
   },
   "4540": {
     "main_industry": "電機機械",
@@ -4242,7 +4392,7 @@
     ],
     "micro_themes": [
       "全電式智慧彎管機",
-      "協作型機器人"
+      "協作型自動化機械"
     ]
   },
   "4564": {
@@ -4273,11 +4423,11 @@
     "main_industry": "電機機械",
     "sub_industry": "航太結構零件",
     "macro_themes": [
-      "航太國防與無人機"
+      "航太發動機與民航機體(GE/波音)"
     ],
     "micro_themes": [
       "波音機體結構件",
-      "航太精密機加"
+      "起落架機構件代工"
     ]
   },
   "4576": {
@@ -4287,8 +4437,8 @@
       "機器人與智慧自動化"
     ],
     "micro_themes": [
-      "直驅馬達/高階定位平台",
-      "半導體機器人控制"
+      "直驅馬達/定位平台",
+      "機器人旋轉關節控制"
     ]
   },
   "4581": {
@@ -4539,9 +4689,14 @@
   },
   "4977": {
     "main_industry": "通信網路業",
-    "sub_industry": "通信網路業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "光通訊模組",
+    "macro_themes": [
+      "矽光子(CPO)與光通訊"
+    ],
+    "micro_themes": [
+      "高階光收發模組",
+      "微型光學元件"
+    ]
   },
   "4989": {
     "main_industry": "電子零組件業",
@@ -4637,7 +4792,7 @@
     "main_industry": "其他",
     "sub_industry": "航太機電機構件",
     "macro_themes": [
-      "航太國防與無人機"
+      "航太發動機與民航機體(GE/波音)"
     ],
     "micro_themes": [
       "波音/空巴駕駛艙件",
@@ -4675,8 +4830,8 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "衛星通訊終端",
-      "光纖寬頻設備"
+      "衛星通訊接收器",
+      "寬頻光纖設備"
     ]
   },
   "5434": {
@@ -4747,9 +4902,14 @@
   },
   "5534": {
     "main_industry": "建材營造",
-    "sub_industry": "建材營造應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "商用不動產開發",
+    "macro_themes": [
+      "營建資產與都更工程"
+    ],
+    "micro_themes": [
+      "長虹商辦廠辦開發",
+      "內科與北士科商辦"
+    ]
   },
   "5538": {
     "main_industry": "鋼鐵工業",
@@ -4879,9 +5039,14 @@
   },
   "6139": {
     "main_industry": "其他電子業",
-    "sub_industry": "其他電子業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "無塵室工程",
+    "macro_themes": [
+      "CoWoS先進封裝與設備"
+    ],
+    "micro_themes": [
+      "台積電無塵室工程",
+      "高科技廠務系統"
+    ]
   },
   "6141": {
     "main_industry": "電子零組件業",
@@ -5071,9 +5236,14 @@
   },
   "6235": {
     "main_industry": "電腦及週邊設備業",
-    "sub_industry": "電腦及週邊設備業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "車用連接器",
+    "macro_themes": [
+      "車用電子與電動車供應鏈"
+    ],
+    "micro_themes": [
+      "車用連接器",
+      "高壓車用線束"
+    ]
   },
   "6239": {
     "main_industry": "半導體業",
@@ -5149,7 +5319,7 @@
     ],
     "micro_themes": [
       "地面接收站天線/路由器",
-      "低軌衛星設備"
+      "車載衛星通訊"
     ]
   },
   "6405": {
@@ -5210,7 +5380,7 @@
     "main_industry": "通信網路業",
     "sub_industry": "光纖跳線與模組",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "矽光子(CPO)與光通訊"
     ],
     "micro_themes": [
       "CPO高階光纖跳線",
@@ -5219,15 +5389,25 @@
   },
   "6443": {
     "main_industry": "光電業",
-    "sub_industry": "光電業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "太陽能模組製造",
+    "macro_themes": [
+      "綠能儲能與風電太陽能"
+    ],
+    "micro_themes": [
+      "元晶太陽能模組",
+      "大型地面型太陽能案場"
+    ]
   },
   "6446": {
     "main_industry": "生技醫療業",
-    "sub_industry": "生技醫療業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "生技新藥研發",
+    "macro_themes": [
+      "生技醫療與CDMO新藥"
+    ],
+    "micro_themes": [
+      "藥華藥罕病新藥",
+      "美國FDA藥證上市"
+    ]
   },
   "6449": {
     "main_industry": "電子零組件業",
@@ -5239,7 +5419,7 @@
     "main_industry": "半導體業",
     "sub_industry": "系統級封裝(SiP)",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "矽光子(CPO)與光通訊"
     ],
     "micro_themes": [
       "CPO光學模組封裝",
@@ -5260,9 +5440,14 @@
   },
   "6472": {
     "main_industry": "生技醫療業",
-    "sub_industry": "生技醫療業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "CDMO委託藥品代工",
+    "macro_themes": [
+      "生技醫療與CDMO新藥"
+    ],
+    "micro_themes": [
+      "保瑞CDMO製藥龍頭",
+      "全球代工外銷"
+    ]
   },
   "6477": {
     "main_industry": "光電業",
@@ -5290,9 +5475,14 @@
   },
   "6515": {
     "main_industry": "半導體業",
-    "sub_industry": "半導體業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "半導體測試介面",
+    "macro_themes": [
+      "CoWoS先進封裝與設備"
+    ],
+    "micro_themes": [
+      "垂直探針卡(VPC)",
+      "CoWoS封裝測試座"
+    ]
   },
   "6525": {
     "main_industry": "半導體業",
@@ -5308,9 +5498,14 @@
   },
   "6531": {
     "main_industry": "半導體業",
-    "sub_industry": "半導體業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "ASIC設計服務",
+    "macro_themes": [
+      "ASIC客製化晶片與矽智財"
+    ],
+    "micro_themes": [
+      "客製化ASIC設計",
+      "邊緣運算晶片"
+    ]
   },
   "6533": {
     "main_industry": "半導體業",
@@ -5344,9 +5539,14 @@
   },
   "6558": {
     "main_industry": "其他電子業",
-    "sub_industry": "其他電子業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "鋰電池封裝製造",
+    "macro_themes": [
+      "BBU伺服器備援電池"
+    ],
+    "micro_themes": [
+      "微型鋰電池封裝",
+      "BBU備援電芯"
+    ]
   },
   "6573": {
     "main_industry": "半導體業",
@@ -5472,11 +5672,11 @@
     "main_industry": "電腦及週邊設備業",
     "sub_industry": "雲端伺服器主機",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "AI伺服器ODM與整機代工"
     ],
     "micro_themes": [
-      "AI伺服器白牌主機",
-      "ASIC專用伺服器"
+      "白牌AI伺服器主機",
+      "CSP雲端專案"
     ]
   },
   "6670": {
@@ -5615,11 +5815,11 @@
     "main_industry": "電子零組件業",
     "sub_industry": "高階電池模組",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "BBU伺服器備援電池"
     ],
     "micro_themes": [
       "高階伺服器BBU",
-      "輕型電動車電池"
+      "輕型載具電池"
     ]
   },
   "6782": {
@@ -6160,11 +6360,11 @@
     "main_industry": "其他",
     "sub_industry": "無人載具製造",
     "macro_themes": [
-      "航太國防與無人機"
+      "軍工無人機與國防標案"
     ],
     "micro_themes": [
       "軍用商規無人機",
-      "國防標案"
+      "國防標案量產"
     ]
   },
   "8039": {
@@ -6181,9 +6381,14 @@
   },
   "8046": {
     "main_industry": "電子零組件業",
-    "sub_industry": "電子零組件業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "IC載板製造",
+    "macro_themes": [
+      "PCB高階載板與伺服器板"
+    ],
+    "micro_themes": [
+      "高階ABF/BT載板",
+      "車用電子載板"
+    ]
   },
   "8070": {
     "main_industry": "電子通路業",
@@ -6277,13 +6482,13 @@
   },
   "8210": {
     "main_industry": "電腦及週邊設備業",
-    "sub_industry": "機構導軌零組件",
+    "sub_industry": "導軌機構件",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "伺服器滑軌與導軌機構"
     ],
     "micro_themes": [
-      "伺服器滑軌",
-      "精密機構件"
+      "伺服器導軌機構",
+      "電子精密組件"
     ]
   },
   "8213": {
@@ -6302,11 +6507,11 @@
     "main_industry": "電機機械",
     "sub_industry": "發動機熱段零件",
     "macro_themes": [
-      "航太國防與無人機"
+      "航太發動機與民航機體(GE/波音)"
     ],
     "micro_themes": [
       "GE/LEAP燃燒室零件",
-      "發動機熱段"
+      "發動機熱段擴壓管"
     ]
   },
   "8249": {
@@ -6347,7 +6552,7 @@
     ],
     "micro_themes": [
       "機器人視覺系統整合",
-      "自動化傳動零件"
+      "自動化機電傳動"
     ]
   },
   "8404": {
@@ -6492,11 +6697,11 @@
     "main_industry": "電機機械",
     "sub_industry": "熱交換器與冷卻系統",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "水冷/液冷散熱模組"
     ],
     "micro_themes": [
       "板式熱交換器",
-      "CDU水冷核心零件"
+      "水冷CDU關鍵沖壓件"
     ]
   },
   "9103": {
@@ -6747,9 +6952,14 @@
   },
   "9958": {
     "main_industry": "鋼鐵工業",
-    "sub_industry": "鋼鐵工業應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "風電鋼構工程",
+    "macro_themes": [
+      "綠能儲能與風電太陽能"
+    ],
+    "micro_themes": [
+      "世紀鋼離岸風電水下基礎",
+      "套筒式水下基樁"
+    ]
   },
   "1240": {
     "main_industry": "其他",
@@ -7199,7 +7409,7 @@
     "main_industry": "其他",
     "sub_industry": "化合物半導體磊晶",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "矽光子(CPO)與光通訊"
     ],
     "micro_themes": [
       "矽光子磊晶片",
@@ -7282,12 +7492,12 @@
     "main_industry": "其他",
     "sub_industry": "半導體濕製程設備",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
       "CoWoS濕製程設備",
-      "台積電供應鏈",
-      "單晶圓清洗"
+      "台積電主要供應鏈",
+      "晶圓清洗機"
     ]
   },
   "3141": {
@@ -7322,9 +7532,14 @@
   },
   "3163": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "光通訊被動元件",
+    "macro_themes": [
+      "矽光子(CPO)與光通訊"
+    ],
+    "micro_themes": [
+      "光纖隔離器",
+      "DWDM波分復用器"
+    ]
   },
   "3169": {
     "main_industry": "其他",
@@ -7384,11 +7599,11 @@
     "main_industry": "其他",
     "sub_industry": "BBU備援電池模組",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "伺服器BBU電池模組",
-      "AI備援電力"
+      "伺服器BBU模組",
+      "AI資料中心備援電力"
     ]
   },
   "3213": {
@@ -7611,22 +7826,23 @@
     "main_industry": "其他",
     "sub_industry": "鋰電池組裝",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "BBU鋰電池組裝",
-      "伺服器電源"
+      "BBU電池PACK組裝",
+      "電源管理系統"
     ]
   },
   "3324": {
     "main_industry": "其他",
     "sub_industry": "散熱導管與水冷系統",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "水冷/液冷散熱模組"
     ],
     "micro_themes": [
-      "水冷板(Cold Plate)",
-      "CDU冷卻液分配器"
+      "水冷散熱板",
+      "CDU冷卻液分配器",
+      "散熱導管"
     ]
   },
   "3325": {
@@ -7681,7 +7897,7 @@
     "main_industry": "其他",
     "sub_industry": "光纖連接模組",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "矽光子(CPO)與光通訊"
     ],
     "micro_themes": [
       "光纖陣列連接器",
@@ -7792,9 +8008,14 @@
   },
   "3483": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "散熱模組製造",
+    "macro_themes": [
+      "水冷/液冷散熱模組"
+    ],
+    "micro_themes": [
+      "伺服器散熱模組",
+      "均溫板加工"
+    ]
   },
   "3484": {
     "main_industry": "其他",
@@ -7827,8 +8048,8 @@
       "低軌衛星太空通訊"
     ],
     "micro_themes": [
-      "衛星天線/微波元件",
-      "SpaceX/Kuiper供應鏈"
+      "高頻微波元件",
+      "SpaceX/Kuiper地面天線"
     ]
   },
   "3492": {
@@ -7913,11 +8134,11 @@
     "main_industry": "其他",
     "sub_industry": "嵌入式記憶體IP",
     "macro_themes": [
-      "ASIC與矽智財(IP)"
+      "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
       "嵌入式非揮發記憶體IP",
-      "安全晶片IP"
+      "安全晶片矽智財"
     ]
   },
   "3531": {
@@ -7964,9 +8185,14 @@
   },
   "3552": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "車用光電顯示",
+    "macro_themes": [
+      "車用電子與電動車供應鏈"
+    ],
+    "micro_themes": [
+      "車用抬頭顯示器(HUD)",
+      "智慧座艙儀表"
+    ]
   },
   "3555": {
     "main_industry": "其他",
@@ -8012,9 +8238,14 @@
   },
   "3580": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "雷射加工設備",
+    "macro_themes": [
+      "FOPLP面板級封裝"
+    ],
+    "micro_themes": [
+      "面板級雷射剝離",
+      "晶圓雷射切割"
+    ]
   },
   "3581": {
     "main_industry": "其他",
@@ -8116,11 +8347,11 @@
     "main_industry": "其他",
     "sub_industry": "面板級封裝與靶材",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "FOPLP面板級封裝"
     ],
     "micro_themes": [
-      "FOPLP面板級封裝載板",
-      "靶材加工"
+      "FOPLP面板級載板",
+      "高階靶材加工"
     ]
   },
   "3664": {
@@ -8151,7 +8382,7 @@
     "main_industry": "其他",
     "sub_industry": "半導體載具與光罩盒",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
       "EUV極紫外光光罩盒",
@@ -8630,11 +8861,11 @@
     "main_industry": "其他",
     "sub_industry": "航太發動機零件",
     "macro_themes": [
-      "航太國防與無人機"
+      "航太發動機與民航機體(GE/波音)"
     ],
     "micro_themes": [
-      "GE發動機機匣",
-      "起落架結構件"
+      "GE發動機機匣加工",
+      "航太渦輪扇零件"
     ]
   },
   "4542": {
@@ -8917,11 +9148,11 @@
     "main_industry": "其他",
     "sub_industry": "高功率鋰電池",
     "macro_themes": [
-      "AI伺服器與液冷/BBU"
+      "BBU伺服器備援電池"
     ],
     "micro_themes": [
-      "高功率BBU模組",
-      "儲能鋰電池"
+      "高功率鋰電池BBU",
+      "伺服器專用電池模組"
     ]
   },
   "4933": {
@@ -8994,11 +9225,11 @@
     "main_industry": "其他",
     "sub_industry": "光收發主動元件",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "矽光子(CPO)與光通訊"
     ],
     "micro_themes": [
       "CPO光收發晶片",
-      "800G光模組"
+      "800G/1.6T光模組"
     ]
   },
   "4991": {
@@ -9015,9 +9246,14 @@
   },
   "5009": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "特殊合金鋼",
+    "macro_themes": [
+      "軍工無人機與國防標案"
+    ],
+    "micro_themes": [
+      "防彈鋼板",
+      "裝甲車輛結構鋼"
+    ]
   },
   "5011": {
     "main_industry": "其他",
@@ -9321,9 +9557,14 @@
   },
   "5371": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "強固顯示系統",
+    "macro_themes": [
+      "軍工無人機與國防標案"
+    ],
+    "micro_themes": [
+      "無人機地面控制站",
+      "軍用強固顯示器"
+    ]
   },
   "5381": {
     "main_industry": "其他",
@@ -9983,11 +10224,11 @@
     "main_industry": "其他",
     "sub_industry": "半導體封裝設備",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
       "點膠機/貼片機",
-      "CoWoS封裝設備"
+      "先進封裝設備"
     ]
   },
   "6188": {
@@ -9998,7 +10239,7 @@
     ],
     "micro_themes": [
       "達明協作機器人(TM Robot)",
-      "AI視覺辨識手臂"
+      "AI視覺手臂整合"
     ]
   },
   "6190": {
@@ -10105,9 +10346,14 @@
   },
   "6223": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "半導體測試探針卡",
+    "macro_themes": [
+      "CoWoS先進封裝與設備"
+    ],
+    "micro_themes": [
+      "探針卡組裝",
+      "先進測試設備"
+    ]
   },
   "6227": {
     "main_industry": "其他",
@@ -10603,9 +10849,14 @@
   },
   "6584": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "精密滑軌製造",
+    "macro_themes": [
+      "伺服器滑軌與導軌機構"
+    ],
+    "micro_themes": [
+      "伺服器機構導軌",
+      "雲端機櫃滑軌"
+    ]
   },
   "6588": {
     "main_industry": "其他",
@@ -10707,7 +10958,7 @@
     "main_industry": "其他",
     "sub_industry": "半導體後段設備",
     "macro_themes": [
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
       "高精度挑晶機",
@@ -10724,11 +10975,11 @@
     "main_industry": "其他",
     "sub_industry": "高速傳輸IP",
     "macro_themes": [
-      "ASIC與矽智財(IP)"
+      "ASIC客製化晶片與矽智財"
     ],
     "micro_themes": [
       "高速傳輸介面IP",
-      "基礎元件IP"
+      "PCIe Gen5/6 IP"
     ]
   },
   "6649": {
@@ -10999,8 +11250,8 @@
     "main_industry": "其他",
     "sub_industry": "國防與半導體腔體加工",
     "macro_themes": [
-      "航太國防與無人機",
-      "先進封裝與光通訊(CoWoS/CPO)"
+      "軍工無人機與國防標案",
+      "CoWoS先進封裝與設備"
     ],
     "micro_themes": [
       "國防飛彈腔體",
@@ -11239,7 +11490,7 @@
     "main_industry": "其他",
     "sub_industry": "軍工航電系統",
     "macro_themes": [
-      "航太國防與無人機"
+      "軍工無人機與國防標案"
     ],
     "micro_themes": [
       "無人機航電系統",
@@ -11584,9 +11835,14 @@
   },
   "8064": {
     "main_industry": "其他",
-    "sub_industry": "其他應用",
-    "macro_themes": [],
-    "micro_themes": []
+    "sub_industry": "電鍍與清洗設備",
+    "macro_themes": [
+      "FOPLP面板級封裝"
+    ],
+    "micro_themes": [
+      "面板級封裝電鍍設備",
+      "半導體濕製程"
+    ]
   },
   "8066": {
     "main_industry": "其他",
