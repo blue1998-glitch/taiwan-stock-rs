@@ -7,25 +7,58 @@ import numpy as np
 import yfinance as yf
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# 官方產業代碼對照中文表
 TWSE_INDUSTRY_MAP = {
-    "01": "水泥工業", "1": "水泥工業", "02": "食品工業", "2": "食品工業",
-    "03": "塑膠工業", "3": "塑膠工業", "04": "紡織纖維", "4": "紡織纖維",
-    "05": "電機機械", "5": "電機機械", "06": "電器電纜", "6": "電器電纜",
-    "07": "化學工業", "7": "化學工業", "08": "玻璃陶瓷", "8": "玻璃陶瓷",
-    "09": "造紙工業", "9": "造紙工業", "10": "鋼鐵工業", "11": "橡膠工業",
-    "12": "汽車工業", "13": "電子工業", "14": "建材營造", "15": "航運業",
-    "16": "觀光餐旅", "17": "金融保險", "18": "貿易百貨", "19": "綜合",
-    "20": "其他", "21": "化學工業", "22": "生技醫療業", "23": "油電燃氣業",
-    "24": "半導體業", "25": "電腦及週邊設備業", "26": "光電業", "27": "通信網路業",
-    "28": "電子零組件業", "29": "電子通路業", "30": "資訊服務業", "31": "其他電子業",
-    "32": "文化創意業", "33": "農業科技業", "34": "電子商務業", "35": "綠能環保",
-    "36": "數位雲端", "37": "運動休閒", "38": "居家生活"
+    "01": "水泥工業", "1": "水泥工業",
+    "02": "食品工業", "2": "食品工業",
+    "03": "塑膠工業", "3": "塑膠工業",
+    "04": "紡織纖維", "4": "紡織纖維",
+    "05": "電機機械", "5": "電機機械",
+    "06": "電器電纜", "6": "電器電纜",
+    "07": "化學工業", "7": "化學工業",
+    "08": "玻璃陶瓷", "8": "玻璃陶瓷",
+    "09": "造紙工業", "9": "造紙工業",
+    "10": "鋼鐵工業",
+    "11": "橡膠工業",
+    "12": "汽車工業",
+    "13": "電子工業",
+    "14": "建材營造",
+    "15": "航運業",
+    "16": "觀光餐旅",
+    "17": "金融保險",
+    "18": "貿易百貨",
+    "19": "綜合",
+    "20": "其他",
+    "21": "化學工業",
+    "22": "生技醫療業",
+    "23": "油電燃氣業",
+    "24": "半導體業",
+    "25": "電腦及週邊設備業",
+    "26": "光電業",
+    "27": "通信網路業",
+    "28": "電子零組件業",
+    "29": "電子通路業",
+    "30": "資訊服務業",
+    "31": "其他電子業",
+    "32": "文化創意業",
+    "33": "農業科技業",
+    "34": "電子商務業",
+    "35": "綠能環保",
+    "36": "數位雲端",
+    "37": "運動休閒",
+    "38": "居家生活",
+    "80": "管理股票",
+    "91": "存託憑證(TDR)"
 }
 
-def clean_industry_name(raw_ind):
+def clean_industry_name(raw_ind, sym="", name=""):
     raw_str = str(raw_ind).strip()
-    return TWSE_INDUSTRY_MAP.get(raw_str, raw_str if raw_str else "綜合產業")
+    if sym.startswith("91") or "-DR" in name or "DR" in name or raw_str == "91":
+        return "存託憑證(TDR)"
+    if raw_str in TWSE_INDUSTRY_MAP:
+        return TWSE_INDUSTRY_MAP[raw_str]
+    if raw_str.isdigit():
+        return "綜合產業"
+    return raw_str if raw_str else "綜合產業"
 
 def get_stock_list():
     stocks = []
@@ -33,36 +66,37 @@ def get_stock_list():
         r_twse = requests.get("https://openapi.twse.com.tw/v1/opendata/t187ap03_L", timeout=10).json()
         for item in r_twse:
             sym = str(item.get("公司代號", "")).strip()
+            name = str(item.get("公司名稱", "")).strip()
             if len(sym) == 4 and sym.isdigit():
                 stocks.append({
                     "symbol": sym,
-                    "name": str(item.get("公司名稱", "")).strip(),
+                    "name": name,
                     "market": "上市",
                     "ticker": f"{sym}.TW",
-                    "industry": clean_industry_name(item.get("產業別", ""))
+                    "industry": clean_industry_name(item.get("產業別", ""), sym, name)
                 })
     except Exception as e:
-        print(f"TWSE API: {e}")
+        print(f"TWSE API 讀取: {e}")
 
     try:
         r_tpex = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=10).json()
         for item in r_tpex:
             sym = str(item.get("SecuritiesCompanyCode", "")).strip()
+            name = str(item.get("CompanyName", "")).strip()
             if len(sym) == 4 and sym.isdigit():
                 stocks.append({
                     "symbol": sym,
-                    "name": str(item.get("CompanyName", "")).strip(),
+                    "name": name,
                     "market": "上櫃",
                     "ticker": f"{sym}.TWO",
-                    "industry": clean_industry_name(item.get("Industry", ""))
+                    "industry": clean_industry_name(item.get("Industry", ""), sym, name)
                 })
     except Exception as e:
-        print(f"TPEx API: {e}")
+        print(f"TPEx API 讀取: {e}")
 
     return pd.DataFrame(stocks)
 
 def download_batch_prices(chunk):
-    """單批下載函數 (限制 3 個月日 K，快速返回)"""
     try:
         data = yf.download(
             chunk,
@@ -85,7 +119,7 @@ def download_batch_prices(chunk):
         return pd.DataFrame()
 
 def calculate_real_market_rs():
-    print("⚡ 啟動全市場高速平行下載計算引擎...")
+    print("⚡ 啟動全市場高速計算引擎...")
 
     if not os.path.exists("data/theme_mapping.json"):
         import sys
@@ -104,12 +138,11 @@ def calculate_real_market_rs():
     print(f"📋 共取得全市場 {len(stock_df)} 檔上市櫃個股，啟動多線程下載...")
 
     tickers = stock_df["ticker"].tolist()
-    chunk_size = 60  # 縮小每批檔數，防止 Yahoo 伺服器超時
+    chunk_size = 60
     chunks = [tickers[i:i + chunk_size] for i in range(0, len(tickers), chunk_size)]
 
     all_close_data = pd.DataFrame()
 
-    # 採用 6 個工作線程平行抓取
     with ThreadPoolExecutor(max_workers=6) as executor:
         future_to_chunk = {executor.submit(download_batch_prices, chunk): i for i, chunk in enumerate(chunks)}
         for future in as_completed(future_to_chunk):
@@ -122,7 +155,7 @@ def calculate_real_market_rs():
             except Exception as exc:
                 print(f"  ⚠ 批次 {idx+1} 略過: {exc}")
 
-    print("📊 股價數據彙整完畢，計算近 5 日、1 個月、1 季動能...")
+    print("📊 股價數據彙整完畢，計算動能評分...")
 
     valid_results = []
     for _, row in stock_df.iterrows():
@@ -176,7 +209,6 @@ def calculate_real_market_rs():
         print("❌ 計算結果為空")
         return
 
-    # 全市場精確百分位 PR 排名 (1~99)
     df_rank["rs_rating"] = pd.qcut(
         df_rank["score"].rank(method="first"),
         q=99,
