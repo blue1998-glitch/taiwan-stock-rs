@@ -4,46 +4,19 @@ import requests
 import pandas as pd
 
 TWSE_INDUSTRY_MAP = {
-    "01": "水泥工業", "1": "水泥工業",
-    "02": "食品工業", "2": "食品工業",
-    "03": "塑膠工業", "3": "塑膠工業",
-    "04": "紡織纖維", "4": "紡織纖維",
-    "05": "電機機械", "5": "電機機械",
-    "06": "電器電纜", "6": "電器電纜",
-    "07": "化學工業", "7": "化學工業",
-    "08": "玻璃陶瓷", "8": "玻璃陶瓷",
-    "09": "造紙工業", "9": "造紙工業",
-    "10": "鋼鐵工業",
-    "11": "橡膠工業",
-    "12": "汽車工業",
-    "13": "電子工業",
-    "14": "建材營造",
-    "15": "航運業",
-    "16": "觀光餐旅",
-    "17": "金融保險",
-    "18": "貿易百貨",
-    "19": "綜合",
-    "20": "其他",
-    "21": "化學工業",
-    "22": "生技醫療業",
-    "23": "油電燃氣業",
-    "24": "半導體業",
-    "25": "電腦及週邊設備業",
-    "26": "光電業",
-    "27": "通信網路業",
-    "28": "電子零組件業",
-    "29": "電子通路業",
-    "30": "資訊服務業",
-    "31": "其他電子業",
-    "32": "文化創意業",
-    "33": "農業科技業",
-    "34": "電子商務業",
-    "35": "綠能環保",
-    "36": "數位雲端",
-    "37": "運動休閒",
-    "38": "居家生活",
-    "80": "管理股票",
-    "91": "存託憑證(TDR)"
+    "01": "水泥工業", "1": "水泥工業", "02": "食品工業", "2": "食品工業",
+    "03": "塑膠工業", "3": "塑膠工業", "04": "紡織纖維", "4": "紡織纖維",
+    "05": "電機機械", "5": "電機機械", "06": "電器電纜", "6": "電器電纜",
+    "07": "化學工業", "7": "化學工業", "08": "玻璃陶瓷", "8": "玻璃陶瓷",
+    "09": "造紙工業", "9": "造紙工業", "10": "鋼鐵工業", "11": "橡膠工業",
+    "12": "汽車工業", "13": "電子工業", "14": "建材營造", "15": "航運業",
+    "16": "觀光餐旅", "17": "金融保險", "18": "貿易百貨", "19": "綜合",
+    "20": "其他", "21": "化學工業", "22": "生技醫療業", "23": "油電燃氣業",
+    "24": "半導體業", "25": "電腦及週邊設備業", "26": "光電業", "27": "通信網路業",
+    "28": "電子零組件業", "29": "電子通路業", "30": "資訊服務業", "31": "其他電子業",
+    "32": "文化創意業", "33": "農業科技業", "34": "電子商務業", "35": "綠能環保",
+    "36": "數位雲端", "37": "運動休閒", "38": "居家生活",
+    "80": "管理股票", "91": "存託憑證(TDR)"
 }
 
 def clean_industry_name(raw_ind, sym="", name=""):
@@ -59,107 +32,47 @@ def clean_industry_name(raw_ind, sym="", name=""):
 def generate_theme_database():
     os.makedirs("data", exist_ok=True)
     mapping_file = "data/theme_mapping.json"
-    
-    # 深度市場專家題材庫 (精確對應台股主流族群與概念成分股)
-    expert_db = {
-        # === 1. 航太、國防與無人機族群 ===
-        "2645": {"main_industry": "航太與國防", "sub_industry": "飛機維修/發動機零件製造", "themes": ["GE航空供應鏈", "無人機概念", "波音供應鏈", "軍工國防", "長榮集團"]},
-        "2634": {"main_industry": "航太與國防", "sub_industry": "機體製造/發動機零件", "themes": ["GE航空供應鏈", "無人機概念", "國機國造", "軍工國防", "波音供應鏈"]},
-        "8033": {"main_industry": "航太與國防", "sub_industry": "無人載具製造", "themes": ["無人機概念", "軍工國防"]},
-        "4572": {"main_industry": "航太與國防", "sub_industry": "航太結構機加件", "themes": ["波音供應鏈", "航太零組件", "軍工國防"]},
-        "3004": {"main_industry": "航太與國防", "sub_industry": "發動機緊固件/扣件", "themes": ["GE航空供應鏈", "波音供應鏈", "航太零組件"]},
-        "8222": {"main_industry": "航太與國防", "sub_industry": "發動機燃燒室零件", "themes": ["GE航空供應鏈", "航太零組件", "軍工國防"]},
-        "6829": {"main_industry": "航太與國防", "sub_industry": "國防飛彈與半導體設備", "themes": ["軍工國防", "半導體設備", "航太零組件"]},
-        "2630": {"main_industry": "航太與國防", "sub_industry": "軍機/民航機維修", "themes": ["軍工國防", "航太零組件"]},
-        "5284": {"main_industry": "航太與國防", "sub_industry": "航太機電機構件", "themes": ["波音供應鏈", "軍工國防", "航太零組件"]},
-        "4541": {"main_industry": "航太與國防", "sub_industry": "航太發動機零件", "themes": ["GE航空供應鏈", "航太零組件", "軍工國防"]},
 
-        # === 2. 矽光子 (CPO) 與光通訊 ===
-        "2330": {"main_industry": "半導體業", "sub_industry": "先進製程晶圓代工", "themes": ["AI伺服器", "CoWoS先進封裝", "先進製程", "矽光子(CPO)"]},
-        "3363": {"main_industry": "通信網路業", "sub_industry": "光收發模組/CPO", "themes": ["矽光子(CPO)", "AI伺服器", "光通訊模組"]},
-        "6451": {"main_industry": "通信網路業", "sub_industry": "光通訊模組封裝", "themes": ["矽光子(CPO)", "光通訊模組", "先進封裝"]},
-        "4977": {"main_industry": "通信網路業", "sub_industry": "光通訊元件", "themes": ["矽光子(CPO)", "光通訊模組"]},
-        "3450": {"main_industry": "通信網路業", "sub_industry": "光通訊雷射封測", "themes": ["矽光子(CPO)", "光通訊模組", "AI伺服器"]},
-        "3163": {"main_industry": "通信網路業", "sub_industry": "光纖主被動元件", "themes": ["矽光子(CPO)", "光通訊模組"]},
-        "4979": {"main_industry": "通信網路業", "sub_industry": "光通訊主動元件", "themes": ["矽光子(CPO)", "光通訊模組"]},
-        "6442": {"main_industry": "通信網路業", "sub_industry": "高階光纖跳線/光模組", "themes": ["矽光子(CPO)", "光通訊模組", "AI伺服器"]},
-        "3081": {"main_industry": "半導體業", "sub_industry": "磊晶片製造", "themes": ["矽光子(CPO)", "光通訊模組", "化合物半導體"]},
-        "2455": {"main_industry": "半導體業", "sub_industry": "砷化鎵磊晶片", "themes": ["矽光子(CPO)", "光通訊模組", "低軌衛星"]},
+    # 真實公認核心題材庫（按真實業務定義，不硬湊數量）
+    REAL_THEMES = {
+        # 國防航太類
+        "無人機概念": ["2645", "2634", "8033", "7402", "5371", "2630", "6829"],
+        "GE航空供應鏈": ["2645", "2634", "8222", "4572", "3004", "6829", "4541"],
+        "波音供應鏈": ["2645", "2634", "4572", "3004", "4536", "5284"],
+        "國防軍工": ["2634", "2645", "8033", "6829", "8222", "2630", "4572"],
 
-        # === 3. CoWoS 先進封裝與半導體設備 ===
-        "3131": {"main_industry": "半導體業", "sub_industry": "濕製程先進封裝設備", "themes": ["CoWoS先進封裝", "台積電供應鏈", "半導體設備"]},
-        "6187": {"main_industry": "半導體業", "sub_industry": "點膠與封裝設備", "themes": ["CoWoS先進封裝", "半導體設備"]},
-        "3583": {"main_industry": "半導體業", "sub_industry": "自動光學檢測(AOI)/再生晶圓", "themes": ["CoWoS先進封裝", "半導體設備"]},
-        "6640": {"main_industry": "半導體業", "sub_industry": "挑晶機/晶粒黏著機", "themes": ["CoWoS先進封裝", "半導體設備"]},
-        "3680": {"main_industry": "半導體業", "sub_industry": "極紫外光光罩盒(EUV Pod)", "themes": ["CoWoS先進封裝", "台積電供應鏈", "先進製程"]},
-        "5443": {"main_industry": "半導體業", "sub_industry": "顯示器/半導體設備", "themes": ["CoWoS先進封裝", "半導體設備"]},
-        "2467": {"main_industry": "半導體業", "sub_industry": "PCB/半導體壓膜設備", "themes": ["CoWoS先進封裝", "半導體設備"]},
-        "6139": {"main_industry": "其他電子業", "sub_industry": "無塵室工程/廠務系統", "themes": ["CoWoS先進封裝", "台積電供應鏈", "半導體設備"]},
-        "6515": {"main_industry": "半導體業", "sub_industry": "垂直探針卡/測試座", "themes": ["CoWoS先進封裝", "AI伺服器", "半導體測試"]},
-        "6223": {"main_industry": "半導體業", "sub_industry": "探針卡與測試設備", "themes": ["CoWoS先進封裝", "AI伺服器", "半導體測試"]},
+        # 半導體先進製程與封裝
+        "CoWoS先進封裝": ["2330", "3131", "6187", "3583", "6640", "3680", "2467", "6139", "6515", "6223"],
+        "矽光子(CPO)": ["2330", "3450", "6442", "4979", "6451", "3363", "3081", "4977", "3163", "4908"],
+        "ASIC/IP矽智財": ["3661", "3443", "3035", "3529", "6643", "6531", "2454", "6533", "8227"],
+        "先進製程設備材料": ["2330", "3680", "3131", "6187", "3583", "3551", "1560"],
 
-        # === 4. 水冷散熱與散熱模組 ===
-        "3017": {"main_industry": "電子零組件業", "sub_industry": "水冷散熱模組/水冷板", "themes": ["水冷散熱", "AI伺服器", "GB200概念", "散熱模組"]},
-        "3324": {"main_industry": "電子零組件業", "sub_industry": "散熱導管/水冷板", "themes": ["水冷散熱", "AI伺服器", "GB200概念", "散熱模組"]},
-        "8996": {"main_industry": "電機機械", "sub_industry": "散熱沖壓件/熱交換冷卻", "themes": ["水冷散熱", "AI伺服器"]},
-        "3653": {"main_industry": "電子零組件業", "sub_industry": "均熱片/散熱底座", "themes": ["水冷散熱", "AI伺服器", "GB200概念", "散熱模組"]},
-        "2421": {"main_industry": "電子零組件業", "sub_industry": "高階散熱風扇", "themes": ["水冷散熱", "AI伺服器", "散熱模組"]},
-        "3483": {"main_industry": "電子零組件業", "sub_industry": "散熱風扇與模組", "themes": ["水冷散熱", "AI伺服器", "散熱模組"]},
-        "3013": {"main_industry": "電子零組件業", "sub_industry": "CPU Socket/伺服器連接器", "themes": ["AI伺服器", "GB200概念", "水冷散熱"]},
-        "2486": {"main_industry": "光電業", "sub_industry": "散熱導線架/均熱片", "themes": ["水冷散熱", "CoWoS先進封裝"]},
+        # AI 硬體與伺服器周邊
+        "水冷散熱模組": ["3017", "3324", "8996", "3653", "2421", "3483", "3013"],
+        "BBU備援電池": ["3211", "3323", "4931", "6781", "6558", "2308"],
+        "AI伺服器ODM": ["2382", "2317", "6669", "3231", "2356", "2376"],
+        "伺服器滑軌": ["3653", "8210", "2059"],
 
-        # === 5. BBU 備援電池與鋰電模組 ===
-        "3211": {"main_industry": "電子零組件業", "sub_industry": "伺服器BBU電池模組", "themes": ["BBU備援電池", "AI伺服器", "鋰電池模組"]},
-        "3323": {"main_industry": "電子零組件業", "sub_industry": "伺服器BBU電池模組", "themes": ["BBU備援電池", "AI伺服器", "鋰電池模組"]},
-        "6558": {"main_industry": "電子零組件業", "sub_industry": "微型鋰電池/BBU封裝", "themes": ["BBU備援電池", "綠能儲能"]},
-        "4931": {"main_industry": "電子零組件業", "sub_industry": "高功率鋰電池模組/BBU", "themes": ["BBU備援電池", "AI伺服器"]},
-        "6781": {"main_industry": "電子零組件業", "sub_industry": "高階伺服器BBU電池", "themes": ["BBU備援電池", "AI伺服器", "電動車電池"]},
-        "2308": {"main_industry": "電子零組件業", "sub_industry": "伺服器電源/儲能系統", "themes": ["AI伺服器", "伺服器電源", "綠能儲能", "BBU備援電池"]},
+        # 電力與自動化
+        "重電設備": ["1519", "1503", "1513", "1514", "1504", "1609", "1618"],
+        "機器人與AI視覺": ["2359", "2365", "8374", "4562", "2049", "4576", "4573", "1597"],
+        "低軌衛星": ["3491", "2313", "6285", "5388", "2314", "2485"],
 
-        # === 6. AI 伺服器 ODM / GB200 代工 ===
-        "2382": {"main_industry": "電腦及週邊設備業", "sub_industry": "AI伺服器ODM代工", "themes": ["AI伺服器", "GB200概念", "車用電子", "廣達集團"]},
-        "2317": {"main_industry": "其他電子業", "sub_industry": "EMS電子代工龍頭", "themes": ["AI伺服器", "GB200概念", "電動車", "鴻海集團"]},
-        "6669": {"main_industry": "電腦及週邊設備業", "sub_industry": "AI伺服器白牌主機", "themes": ["AI伺服器", "GB200概念", "雲端運算"]},
-        "3231": {"main_industry": "電腦及週邊設備業", "sub_industry": "AI伺服器代工/系統整合", "themes": ["AI伺服器", "GB200概念"]},
-        "2356": {"main_industry": "電腦及週邊設備業", "sub_industry": "伺服器代工/筆電", "themes": ["AI伺服器", "GB200概念"]},
-        "2376": {"main_industry": "電腦及週邊設備業", "sub_industry": "主機板/AI伺服器", "themes": ["AI伺服器", "顯卡族群"]},
-        "3706": {"main_industry": "電腦及週邊設備業", "sub_industry": "雲端伺服器/車載系統", "themes": ["AI伺服器", "車用電子"]},
-
-        # === 7. 重電設備與台電強韌電網 ===
-        "1519": {"main_industry": "電機機械", "sub_industry": "超特高壓變壓器", "themes": ["重電設備", "台電強韌電網", "北美電網外銷", "綠能儲能"]},
-        "1504": {"main_industry": "電機機械", "sub_industry": "重電設備/馬達", "themes": ["重電設備", "台電強韌電網", "電動車馬達"]},
-        "1513": {"main_industry": "電機機械", "sub_industry": "氣體絕緣開關(GIS)", "themes": ["重電設備", "台電強韌電網"]},
-        "1514": {"main_industry": "電機機械", "sub_industry": "變壓器/配電盤", "themes": ["重電設備", "台電強韌電網"]},
-        "1503": {"main_industry": "電機機械", "sub_industry": "重電開關/變壓器", "themes": ["重電設備", "台電強韌電網"]},
-        "1609": {"main_industry": "電器電纜", "sub_industry": "特高壓電纜/儲能", "themes": ["重電設備", "台電強韌電網", "綠能儲能"]},
-        "1618": {"main_industry": "電器電纜", "sub_industry": "高壓電力電纜", "themes": ["重電設備", "台電強韌電網"]},
-        "6806": {"main_industry": "其他業", "sub_industry": "離岸風電/儲能工程", "themes": ["綠能儲能", "台電強韌電網"]},
-
-        # === 8. ASIC 客製化晶片與矽智財 (IP) ===
-        "2454": {"main_industry": "半導體業", "sub_industry": "手機晶片/ASIC設計", "themes": ["AI手機", "ASIC客製化晶片", "WiFi 7", "聯發科集團"]},
-        "3443": {"main_industry": "半導體業", "sub_industry": "ASIC/IP矽智財", "themes": ["AI伺服器", "ASIC客製化晶片", "矽智財"]},
-        "3661": {"main_industry": "半導體業", "sub_industry": "ASIC/IP矽智財", "themes": ["AI伺服器", "ASIC客製化晶片", "先進製程"]},
-        "3035": {"main_industry": "半導體業", "sub_industry": "ASIC設計服務", "themes": ["ASIC客製化晶片", "矽智財"]},
-        "3529": {"main_industry": "半導體業", "sub_industry": "嵌入式記憶體IP", "themes": ["矽智財", "ASIC客製化晶片"]},
-        "6643": {"main_industry": "半導體業", "sub_industry": "高速傳輸介面IP", "themes": ["矽智財", "ASIC客製化晶片"]},
-
-        # === 9. 機器人與自動化 (AI Vision) ===
-        "2359": {"main_industry": "光電業", "sub_industry": "AI 3D視覺與機器人應用", "themes": ["機器人概念", "AI視覺感測", "智慧製造"]},
-        "2049": {"main_industry": "電機機械", "sub_industry": "滾珠螺桿/線性滑軌", "themes": ["機器人概念", "工具機族群", "自動化設備"]},
-        "4576": {"main_industry": "電機機械", "sub_industry": "直驅馬達/定位平台", "themes": ["機器人概念", "半導體設備"]},
-        "8234": {"main_industry": "電腦及週邊設備業", "sub_industry": "工業電腦/機器人控制", "themes": ["機器人概念", "工業電腦"]},
-        "6188": {"main_industry": "電腦及週邊設備業", "sub_industry": "協作型機器人(達明)", "themes": ["機器人概念", "廣達集團"]},
-        "4562": {"main_industry": "電機機械", "sub_industry": "彎管機/機器人臂", "themes": ["機器人概念", "智慧製造"]},
-
-        # === 10. 低軌衛星與太空通訊 ===
-        "3491": {"main_industry": "通信網路業", "sub_industry": "高頻微波/衛星通訊元件", "themes": ["低軌衛星", "光通訊模組"]},
-        "2313": {"main_industry": "電子零組件業", "sub_industry": "高階HDI衛星主板", "themes": ["低軌衛星", "PCB族群", "AI伺服器"]},
-        "2314": {"main_industry": "通信網路業", "sub_industry": "衛星收發機天線", "themes": ["低軌衛星", "網通設備"]},
-        "6285": {"main_industry": "通信網路業", "sub_industry": "低軌衛星地面接收器", "themes": ["低軌衛星", "網通設備", "車用電子"]},
-        "5388": {"main_industry": "通信網路業", "sub_industry": "寬頻網通/衛星接收", "themes": ["低軌衛星", "網通設備"]}
+        # 核心基礎產業族群
+        "IC設計龍頭": ["2454", "2379", "3034", "3227", "6415", "4966", "4961"],
+        "航運貨櫃散裝": ["2603", "2609", "2615", "2605", "2606", "2618", "2610"],
+        "金控股權存股": ["2881", "2882", "2891", "2886", "2884", "2892", "5880", "2880"]
     }
 
-    print("📡 正在抓取全市場股票並完整轉譯產業別...")
+    # 建立 反向對照表
+    stock_to_themes = {}
+    for theme_name, stocks in REAL_THEMES.items():
+        for s in stocks:
+            if s not in stock_to_themes:
+                stock_to_themes[s] = []
+            stock_to_themes[s].append(theme_name)
+
+    print("📡 正在同步 TWSE / TPEx 上市櫃股票基本檔...")
     all_stocks = {}
 
     try:
@@ -167,84 +80,59 @@ def generate_theme_database():
         for row in twse_res:
             sym = str(row.get("公司代號", "")).strip()
             name = str(row.get("公司名稱", "")).strip()
-            raw_ind = row.get("產業別", "")
-            ind_name = clean_industry_name(raw_ind, sym, name)
-            if sym and len(sym) == 4:
+            ind_name = clean_industry_name(row.get("產業別", ""), sym, name)
+            if sym and len(sym) == 4 and sym.isdigit():
                 all_stocks[sym] = {"name": name, "main_industry": ind_name, "market": "上市"}
     except Exception as e:
-        print(f"TWSE API 讀取: {e}")
+        print(f"TWSE API: {e}")
 
     try:
         tpex_res = requests.get("https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O", timeout=12).json()
         for row in tpex_res:
             sym = str(row.get("SecuritiesCompanyCode", "")).strip()
             name = str(row.get("CompanyName", "")).strip()
-            raw_ind = row.get("Industry", "")
-            ind_name = clean_industry_name(raw_ind, sym, name)
-            if sym and len(sym) == 4:
+            ind_name = clean_industry_name(row.get("Industry", ""), sym, name)
+            if sym and len(sym) == 4 and sym.isdigit():
                 all_stocks[sym] = {"name": name, "main_industry": ind_name, "market": "上櫃"}
     except Exception as e:
-        print(f"TPEx API 讀取: {e}")
+        print(f"TPEx API: {e}")
 
     final_mapping = {}
     for sym, base in all_stocks.items():
-        if sym in expert_db:
-            final_mapping[sym] = expert_db[sym]
-        else:
-            main_ind = base["main_industry"]
-            name = base["name"]
-            
-            sub_ind = f"{main_ind}-一般應用"
-            derived_themes = []
+        main_ind = base["main_industry"]
+        name = base["name"]
+        
+        # 精準抓取對應題材
+        matched_themes = stock_to_themes.get(sym, [])
+        if not matched_themes:
+            matched_themes = [f"{main_ind}族群"]
 
-            if "存託憑證" in main_ind or sym.startswith("91") or "-DR" in name:
-                main_ind = "存託憑證(TDR)"
-                sub_ind = "海外第二上市/存託憑證"
-                derived_themes = ["TDR存託憑證", "海外企業概念"]
-            elif "半導體" in main_ind:
-                sub_ind = "IC設計與半導體製造"
-                derived_themes = ["半導體供應鏈", "晶片概念"]
-            elif "電子零組件" in main_ind:
-                sub_ind = "電子元件與模組機構"
-                derived_themes = ["電子零組件族群", "硬體供應鏈"]
-            elif "電腦" in main_ind:
-                sub_ind = "電腦系統與周邊設備"
-                derived_themes = ["PC/伺服器周邊", "資訊硬體"]
-            elif "通信" in main_ind:
-                sub_ind = "通訊設備與光通訊"
-                derived_themes = ["網通設備", "5G/通訊概念"]
-            elif "生技" in main_ind:
-                sub_ind = "製藥醫材與生物科技"
-                derived_themes = ["生技醫療族群", "大健康概念"]
-            elif "航運" in main_ind:
-                sub_ind = "海運航空與物流運輸"
-                derived_themes = ["航運物流概念", "全球貿易概念"]
-            elif "金融" in main_ind:
-                sub_ind = "銀行金控與證券保險"
-                derived_themes = ["金融族群", "高股息存股"]
-            elif "電機" in main_ind:
-                sub_ind = "重電電機與自動化機台"
-                derived_themes = ["電機設備族群", "智慧製造概念"]
-            elif "鋼鐵" in main_ind:
-                sub_ind = "鋼鐵冶煉與金屬加工"
-                derived_themes = ["鋼鐵金屬族群", "基礎建設概念"]
-            elif "建材" in main_ind or "營造" in main_ind:
-                sub_ind = "營建營造與建材工程"
-                derived_themes = ["營建資產概念", "房產建設"]
-            else:
-                sub_ind = f"{main_ind}製造與應用"
-                derived_themes = [f"{main_ind}供應鏈", f"{main_ind}族群"]
+        # 細產業分類
+        sub_ind = f"{main_ind}應用"
+        if "半導體" in main_ind:
+            sub_ind = "晶圓製造與IC封測"
+        elif "電子零組件" in main_ind:
+            sub_ind = "電子零組件與模組"
+        elif "電腦" in main_ind:
+            sub_ind = "電腦周邊與系統代工"
+        elif "通信" in main_ind:
+            sub_ind = "網通設備與通訊模組"
+        elif "航太" in main_ind or any("航空" in t or "無人機" in t for t in matched_themes):
+            main_ind = "航太與國防"
+            sub_ind = "飛機維修與航太製造"
+        elif "存託憑證" in main_ind:
+            sub_ind = "海外第二上市/TDR"
 
-            final_mapping[sym] = {
-                "main_industry": main_ind,
-                "sub_industry": sub_ind,
-                "themes": list(set(derived_themes))
-            }
+        final_mapping[sym] = {
+            "main_industry": main_ind,
+            "sub_industry": sub_ind,
+            "themes": list(set(matched_themes))
+        }
 
     with open(mapping_file, "w", encoding="utf-8") as f:
         json.dump(final_mapping, f, ensure_ascii=False, indent=2)
         
-    print(f"✅ 精準題材庫生成完畢！共處理 {len(final_mapping)} 檔個股。")
+    print(f"✅ 真實精準題材庫生成完成！共收錄 {len(final_mapping)} 檔個股。")
 
 if __name__ == "__main__":
     generate_theme_database()
