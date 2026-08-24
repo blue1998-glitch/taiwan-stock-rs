@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import math
 import requests
 import numpy as np
 import pandas as pd
@@ -144,7 +145,6 @@ def main():
     all_symbols = list(stock_dict.keys())
     print(f"  ✔ 抓取到 {len(all_symbols)} 檔個股母體")
 
-    # 分批下載 120 日歷史 K 線
     batch_size = 80
     calculated_results = []
     
@@ -166,7 +166,6 @@ def main():
                             themes = theme_info.get("themes", [])
                             micro_themes = theme_info.get("micro_themes", [])
                             
-                            # 整合業務特徵與 VCP 型態
                             pattern_tag = calc_res["pattern_badge"]
                             merged_micro = [pattern_tag] + [t for t in micro_themes if t != pattern_tag]
 
@@ -194,7 +193,6 @@ def main():
         print("❌ 計算結果為空，中止寫入")
         return
 
-    # 全市場由強至弱排序並指派 1~99 PR 值
     df_calc = pd.DataFrame(calculated_results)
     df_calc = df_calc.sort_values(by="score", ascending=False).reset_index(drop=True)
     total_valid = len(df_calc)
